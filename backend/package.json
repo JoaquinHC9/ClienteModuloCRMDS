@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend modulo cliente",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage --coverageReporters=lcov"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoaquinHC9/ClienteModuloCRMDS.git"
+  },
+  "keywords": [
+    "CRM"
+  ],
+  "author": "Modulo de Clientes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoaquinHC9/ClienteModuloCRMDS/issues"
+  },
+  "homepage": "https://github.com/JoaquinHC9/ClienteModuloCRMDS#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "pg": "^8.11.3"
+  }
+}
