@@ -28,6 +28,43 @@
   color: #61dafb;
 }
 
+/* Estilos CSS actualizados para el Header */
+.bg-info {
+  background-color: #17a2b8; /* Cambia el color de fondo según tu diseño */
+  color: #fff; /* Cambia el color del texto según tu diseño */
+  padding: 10px; /* Añade relleno según tus necesidades */
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Alinea los elementos a los extremos */
+}
+
+.welcome-text {
+  text-align: left; /* Alinea el texto a la izquierda */
+  flex: 1; /* Hace que ocupe todo el espacio disponible en el contenedor */
+}
+
+.welcome-text h1 {
+  margin: 0; /* Elimina el margen superior e inferior del título */
+}
+
+.navbar-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+.navbar-list li {
+  margin-right: 20px; /* Ajusta el espaciado entre los elementos según tus necesidades */
+}
+
+.navbar-container-link {
+  color: #fff; /* Cambia el color del enlace según tu diseño */
+  text-decoration: none;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
