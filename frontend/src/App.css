@@ -73,3 +73,8 @@
     transform: rotate(360deg);
   }
 }
+
+.date-picker-container {
+  display: flex;
+  flex-direction: column;
+}

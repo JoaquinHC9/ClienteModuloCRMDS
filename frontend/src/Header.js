@@ -11,8 +11,7 @@ export default function Header() {
                 <nav className="navbar-container">
                     <div className="navbar-section">
                         <ul className="navbar-list">
-                            <li><Link to="/Registro" className="navbar-container-link">Registro</Link></li>
-                            <li><Link to="/RegistroCompleto" className="navbar-container-link">Registro Completo</Link></li>
+                            <li><Link to="/Registro" className="navbar-container-link">Registro</Link></li>                            
                             <li><Link to="/Busqueda" className="navbar-container-link">Búsqueda</Link></li>
                             <li><Link to="/GestionLinea" className="navbar-container-link">Gestión de Línea</Link></li>
                             <li><Link to="/TransferenciaLinea" className="navbar-container-link">Transferencia de Línea</Link></li>
