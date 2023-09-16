@@ -7,16 +7,14 @@ import axios from "axios";
 
 export default function Registro() {
   const [data, setData] = useState({
+    dni: '',
     nombre: '',
     apellido: '',
-    email: '',
-    contrasenia: '',
-    dni: '',
     fechaNacimiento: null,
-    departamento: '',
     distrito: '',
-    sexo: '', 
+    departamento: '',
     fechaAfiliacion: new Date().toISOString().substr(0, 10), // Fecha actual en formato "YYYY-MM-DD"
+    email: '',
   });
 
   const [error, setError] = useState("");
@@ -50,10 +48,10 @@ export default function Registro() {
         <form onSubmit={enviarDatos}>
           <h2 className='text-black mb-4'>Registro</h2>
           <div className='mb-2'>
-            <label htmlFor='email'>
-              <strong>Email</strong>
+          <label htmlFor='dni'>
+              <strong>DNI</strong>
             </label>
-            <input type='email' placeholder='Digite correo' onChange={onChange} required value={data.email} name='email' className='form-control rounded-0'></input>
+            <input type='text' placeholder='Digite DNI' onChange={onChange} required value={data.dni} name='dni' className='form-control rounded-0'></input>
             <br></br>
           </div>
           <div className='mb-3'>
@@ -71,13 +69,6 @@ export default function Registro() {
             <br></br>
           </div>
           <div className='mb-3'>
-            <label htmlFor='dni'>
-              <strong>DNI</strong>
-            </label>
-            <input type='text' placeholder='Digite DNI' onChange={onChange} required value={data.dni} name='dni' className='form-control rounded-0'></input>
-            <br></br>
-          </div>
-          <div className='mb-3'>
             <label htmlFor='fechaNacimiento'>
               <strong>Fecha Nacimiento</strong>
             </label>
@@ -91,13 +82,6 @@ export default function Registro() {
               />
               <br></br>
             </div>
-            <label htmlFor='Departamento'>
-              <strong>Departamento</strong>
-            </label>
-            <div>
-              <input type="text" placeholder='Digite Departamento' onChange={onChange} required value={data.departamento} name='departamento' className='form-control rounded-0'></input>
-              <br></br>
-            </div>
             <label htmlFor='Distrito'>
               <strong>Distrito</strong>
             </label>
@@ -105,17 +89,20 @@ export default function Registro() {
               <input type="text" placeholder='Digite Distrito' onChange={onChange} required value={data.distrito} name='distrito' className='form-control rounded-0'></input>
               <br></br>
             </div>
-            <div className='mb-3'>
-            <label htmlFor='sexo'>
-              <strong>Sexo</strong>
+            <label htmlFor='Departamento'>
+              <strong>Departamento</strong>
             </label>
-            <select name='sexo' onChange={onChange} value={data.sexo} className='form-control rounded-0'>
-              <option value='M'>Masculino</option>
-              <option value='F'>Femenino</option>
-              <option value='N'>No especificado</option>
-            </select>
+            <div>
+              <input type="text" placeholder='Digite Departamento' onChange={onChange} required value={data.departamento} name='departamento' className='form-control rounded-0'></input>
+              <br></br>
+            </div>
+            <div className='mb-3'>
+            <label htmlFor='email'>
+              <strong>Email</strong>
+            </label>
+            <input type='email' placeholder='Digite correo' onChange={onChange} required value={data.email} name='email' className='form-control rounded-0'></input>
             <br></br>
-          </div>
+            </div>
           </div>
           <button type='submit' className='btn btn-success'>Registrar</button>
         </form>
@@ -123,4 +110,3 @@ export default function Registro() {
     </div>
   );
 }
-
