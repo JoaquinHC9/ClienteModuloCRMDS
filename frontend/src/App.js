@@ -1,9 +1,10 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import './App.css';
 import React from 'react';
-import Registro from './Registro';
-import Header from './Header';
-import Main from './Main.js';
+import Header from './components/Header';
+import Main from './pages/Main';
+import Registro from './pages/Registro'
+import RegistroCompleto from './pages/RegistroCompleto'
 function App() {
   return (
     <div>      
@@ -12,6 +13,7 @@ function App() {
       <Routes> 
         <Route path="/" element={<Main/>}/>
         <Route path="/Registro" element={<Registro/>}/>
+        <Route path="/RegistroCompleto" element={<RegistroCompleto/>}/>
       </Routes>
       </BrowserRouter>
     </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { API_URL } from "./config";
+import { API_URL } from "../config";
 import axios from "axios";
 
 export default function Registro() {
