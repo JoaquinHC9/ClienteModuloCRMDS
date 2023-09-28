@@ -15,6 +15,7 @@ export default function Registro() {
     departamento: '',
     fechaAfiliacion: new Date().toISOString().substr(0, 10), // Fecha actual en formato "YYYY-MM-DD"
     email: '',
+    sexo:''
   });
 
   const [error, setError] = useState("");
@@ -103,6 +104,13 @@ export default function Registro() {
             <input type='email' placeholder='Digite correo' onChange={onChange} required value={data.email} name='email' className='form-control rounded-0'></input>
             <br></br>
             </div>
+          </div>
+          <div className='mb-3'>
+            <label htmlFor='sexo'>
+              <strong>Sexo</strong>
+            </label>
+            <input type='text' placeholder='Digite sexo' onChange={onChange} required value={data.sexo} name='sexo' className='form-control rounded-0'></input>
+            <br></br>
           </div>
           <button type='submit' className='btn btn-success'>Registrar</button>
         </form>
