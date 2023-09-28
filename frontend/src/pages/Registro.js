@@ -13,7 +13,7 @@ export default function Registro() {
     fechaNacimiento: null,
     distrito: '',
     departamento: '',
-    fechaAfiliacion: new Date().toISOString().substr(0, 10), 
+    fechaAfiliacion: new Date().toISOString().substr(0, 10), // Fecha actual en formato "YYYY-MM-DD"
     email: '',
     sexo:''
   });
