@@ -41,7 +41,7 @@ export default function Registro() {
   };
 
   return (
-    <div className='d-flex justify-content-center align-items-center bg-light vh-100'>
+    <div className='d-flex justify-content-center align-items-center bg-light'>
       <Helmet>
         <title>Registro</title>
       </Helmet>
