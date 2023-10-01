@@ -40,7 +40,7 @@ export default function Registro() {
   return (
     <div className='d-flex justify-content-center align-items-center bg-light vh-100'>
       <Helmet>
-        <title>Registro</title>
+        <title>Registro Completo</title>
       </Helmet>
       <div className='bg-white p-3 rounded w-25'>
         <form onSubmit={enviarDatos}>

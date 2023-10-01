@@ -2,12 +2,12 @@
 
 -- DROP DATABASE IF EXISTS telecomunicaciones;
 DROP DATABASE IF EXISTS telecomunicaciones;
-CREATE DATABASE telecomunicaciones
+CREATE DATABASE telecomunicaciones;
 
 	
 CREATE TABLE cliente
 (
-    dni INT PRIMARY KEY,
+    dni int PRIMARY KEY,
     nombre VARCHAR(50),
     apellido VARCHAR(50),
     fechaNac DATE,
@@ -29,7 +29,7 @@ CREATE TABLE clienteDetallado
     FOREIGN KEY (dni) REFERENCES cliente (dni)
 );
 
-CREATE TABLE Equipo
+CREATE TABLE equipo
 (
     idEquipo INT PRIMARY KEY,
     dni INT,
@@ -41,7 +41,7 @@ CREATE TABLE Equipo
     FOREIGN KEY (dni) REFERENCES cliente (dni)
 );
 
-CREATE TABLE lINEA
+CREATE TABLE linea
 (	
     idLinea INT PRIMARY KEY,
     dni INT,
@@ -79,7 +79,7 @@ VALUES
   (888888888, 15010, 'Psicólogo', 'Ajedrez', 'C', '1', '988888888');
 
 
-INSERT INTO Equipo (idEquipo, dni, modelo, marca, color, fechaCompra, garantia)
+INSERT INTO equipo (idEquipo, dni, modelo, marca, color, fechaCompra, garantia)
 VALUES
   (1, 123456789, 'iPhone 12', 'Apple', 'Negro', '2021-01-15', '2023-01-15'),
   (2, 987654321, 'Samsung Galaxy S21', 'Samsung', 'Azul', '2021-02-10', '2023-02-10'),
@@ -93,7 +93,7 @@ VALUES
   (10, 888888888, 'Motorola Moto G Power', 'Motorola', 'Turquesa', '2021-10-15', '2023-10-15');
 
 
-INSERT INTO lINEA (idLinea, dni, idEquipo, plan)
+INSERT INTO linea (idLinea, dni, idEquipo, plan)
 VALUES
   (1, 123456789, 1, 'Plan Básico'),
   (2, 987654321, 2, 'Plan Premium'),
@@ -105,7 +105,7 @@ VALUES
   (8, 444444444, 8, 'Plan Premium'),
   (9, 666666666, 9, 'Plan Básico'),
   (10, 888888888, 10, 'Plan Familiar');
-select * from cliente
-select * from clienteDetallado
-select * from Equipo
-select * from lINEA
+select * from cliente;
+select * from clienteDetallado;
+select * from equipo;
+select * from linea;
