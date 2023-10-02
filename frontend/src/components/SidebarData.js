@@ -6,6 +6,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import PhoneIcon from '@mui/icons-material/Phone';
 import PhoneForwardedIcon from '@mui/icons-material/PhoneForwarded';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 export const SidebarData= [
     {
         title: "Main",
@@ -36,5 +37,10 @@ export const SidebarData= [
         title: "Transferencia de Linea",
         icon: <PhoneForwardedIcon/>,
         link: "/TransferenciaLinea"
+    },
+    {
+        title: "Pago de Linea/Plan",
+        icon: <AttachMoneyIcon/>,
+        link: "/PagoEstadoCuenta"
     }
 ]

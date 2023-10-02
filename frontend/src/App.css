@@ -70,6 +70,67 @@ body{
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.formbusqueda{
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  text-align: center;
+}
+.caja-busqueda{
+  width: 200px;
+  margin: 20px;
+  height: 40px;
+  border: solid 1px black;
+}
+
+.boton-busqueda {
+  background-color: green;
+  color: white; 
+  border: none; 
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer; 
+}
+
+.resultado-busqueda th {
+  border: 1px solid #ccc; 
+  padding: 10px;
+  background-color: #f2f2f2;
+}
+
+.resultado-busqueda td {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.formbusqueda {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  height: 100vh;
+}
+.boton-perfil {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: black;
+  padding: 5px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 5px;
+}
+
+.boton-perfil:hover {
+  background-color: rgb(233, 227, 227);
+}
+
+.resultado-busqueda {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;  
+  max-width: 800px; /* Ancho máximo de la tabla */
+  margin-top: 20px; /* Espacio superior */
+}
 
 .bg-info {
   background-color: #2e5ed2; 
@@ -87,8 +148,8 @@ body{
 }
 
 .welcome-text {
-  text-align: left; /* Alinea el texto a la izquierda */
-  flex: 1; /* Hace que ocupe todo el espacio disponible en el contenedor */
+  text-align: left; 
+  flex: 1;
 }
 
 .welcome-text h1 {
@@ -102,11 +163,11 @@ body{
 }
 
 .navbar-list li {
-  margin-right: 20px; /* Ajusta el espaciado entre los elementos según tus necesidades */
+  margin-right: 20px; 
 }
 
 .navbar-container-link {
-  color: #fff; /* Cambia el color del enlace según tu diseño */
+  color: #fff; 
   text-decoration: none;
 }
 

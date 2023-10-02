@@ -3,13 +3,19 @@ import './App.css';
 import React from 'react';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
-import Main from './pages/Main';
 import Registro from './pages/Registro';
-import RegistroCompleto from './pages/RegistroCompleto';
+import Main from './pages/Main';
+import CompletoRegistro from './pages/CompletoRegistro';
+import { Helmet } from 'react-helmet';
+import Busqueda from "./pages/Busqueda";
+import Perfil from "./pages/perfil";
 
 function App() {
   return (
     <div className="App">
+      <Helmet>
+        <title>Modulo Clientes</title>
+      </Helmet>
       <BrowserRouter>
         <Header />
         <Sidebar />
@@ -18,7 +24,9 @@ function App() {
             <Routes>
               <Route path="/" element={<Main />} />
               <Route path="/Registro" element={<Registro />} />
-              <Route path="/RegistroCompleto" element={<RegistroCompleto />} />
+              <Route path="/RegistroCompleto" element={<CompletoRegistro />} />
+              <Route path="/Busqueda" element={<Busqueda />} />
+              <Route path="/perfil/:dni" element={<Perfil/>} />
             </Routes>
           </div>
         </div>
