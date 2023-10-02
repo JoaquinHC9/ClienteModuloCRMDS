@@ -8,6 +8,7 @@ import Main from './pages/Main';
 import CompletoRegistro from './pages/CompletoRegistro';
 import { Helmet } from 'react-helmet';
 import Busqueda from "./pages/Busqueda";
+import Perfil from "./pages/perfil";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path="/Registro" element={<Registro />} />
               <Route path="/RegistroCompleto" element={<CompletoRegistro />} />
               <Route path="/Busqueda" element={<Busqueda />} />
+              <Route path="/perfil/:dni" element={<Perfil/>} />
             </Routes>
           </div>
         </div>

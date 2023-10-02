@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { TextField, Button, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
+import { Menu, MenuItem, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
 import axios from 'axios';
 import { API_URL } from '../config';
-import '../App.css'; // Asegúrate de importar el archivo CSS
+import {useNavigate } from 'react-router-dom';
+import '../App.css';
+
 
 export default function Busqueda() {
   const [searchDNI, setSearchDNI] = useState('');
   const [searchNombre, setSearchNombre] = useState('');
   const [searchApellido, setSearchApellido] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedClient, setSelectedClient] = useState(null);
 
-  const columns = ['DNI', 'Nombre', 'Apellido', 'Correo'];
+  const columns = ['DNI', 'Nombre', 'Apellido', 'Correo', 'Acciones'];
 
   const searchHandle = async () => {
     try {
@@ -39,9 +44,25 @@ export default function Busqueda() {
       console.error('Error al realizar la búsqueda:', error);
     }
   };
+  
+  const openProfile = (clientDNI, event) => {
+    const selectedClient = searchResults.find((result) => result.dni === clientDNI);
+    setSelectedClient(selectedClient);
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const redirectToProfile = (dni) => {
+    // Redirige a la página del perfil del cliente utilizando el DNI como parte de la URL
+    navigate(`/perfil/${dni}`);
+  };
+  const redirectAccountStatus = (dni) => {
+    // Redirige a la página del perfil del cliente utilizando el DNI como parte de la URL    
+  };
 
   return (
-    <div> 
+    <div>
       <div className='formbusqueda'>
         <Helmet>
           <title>Busqueda</title>
@@ -75,7 +96,6 @@ export default function Busqueda() {
             Buscar
           </button>
         </div>
-    
         {/* Renderiza la tabla */}
         <TableContainer component={Paper} className='resultado-busqueda'>
           <Table>
@@ -92,7 +112,24 @@ export default function Busqueda() {
                   <TableCell>{result.dni}</TableCell>
                   <TableCell>{result.nombre}</TableCell>
                   <TableCell>{result.apellido}</TableCell>
-                  <TableCell>{result.correo}</TableCell>                
+                  <TableCell>{result.correo}</TableCell>
+                  <TableCell>
+                    <button
+                      className='boton-perfil'
+                      onClick={(event) => openProfile(result.dni, event)}
+                    >
+                      ...
+                    </button>
+                    <Menu
+                      anchorEl={anchorEl}
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
+                    >
+                      <MenuItem onClick={() => redirectToProfile(result.dni)}>Visualizar Perfil</MenuItem>
+                      <MenuItem onClick={() => redirectAccountStatus(result.dni)}>Estado de Cuenta</MenuItem>
+                      {/* Agrega la opción "Estado de Cuenta" aquí */}
+                    </Menu>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

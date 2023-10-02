@@ -106,7 +106,26 @@ app.get('/buscarPorApellido/:apellido', (req, res) => {
             res.status(500).json({ error: 'Error en la consulta a la base de datos' });
         });
 });
+// Ruta para recuperar datos de la tabla clienteDetallado por DNI
+app.get('/buscarClienteDetalladoPorDNI/:dni', (req, res) => {
+    const dniABuscar = req.params.dni;
+    const query = 'SELECT * FROM clienteDetallado WHERE dni = $1';
 
+    client.query(query, [dniABuscar])
+    .then(response => {
+        if (response.rows.length === 0) {
+        console.log('No se encontraron resultados en clienteDetallado para el DNI: ' + dniABuscar);
+        } else {
+        console.log('Resultados de la búsqueda en clienteDetallado por DNI ' + dniABuscar + ':');
+        console.log(response.rows);
+        }
+        res.json(response.rows);
+    })
+    .catch(err => {
+        console.error(err);
+        res.status(500).json({ error: 'Error en la consulta a la base de datos en clienteDetallado' });
+    });
+});
 app.listen(8081, () => {
     console.log("listening en el puerto 8081");
 })

@@ -88,25 +88,39 @@ body{
   color: white; 
   border: none; 
   padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer; 
 }
 
 .resultado-busqueda th {
   border: 1px solid #ccc; 
-  padding: 10px; /* Espaciado interno */
-  background-color: #f2f2f2; /* Color de fondo de las celdas de encabezado */
+  padding: 10px;
+  background-color: #f2f2f2;
 }
 
 .resultado-busqueda td {
-  border: 1px solid #ccc; /* Borde para las celdas de datos */
-  padding: 10px; /* Espaciado interno */
+  border: 1px solid #ccc;
+  padding: 10px;
 }
 
 .formbusqueda {
   display: flex;
   flex-direction: column;
   align-items: center;  
-  height: 100vh; /* Establece la altura al 100% de la ventana */
+  height: 100vh;
+}
+.boton-perfil {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: black;
+  padding: 5px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 5px;
+}
+
+.boton-perfil:hover {
+  background-color: rgb(233, 227, 227);
 }
 
 .resultado-busqueda {
