@@ -7,19 +7,20 @@ CREATE DATABASE telecomunicaciones;
 	
 CREATE TABLE cliente
 (
-    dni int PRIMARY KEY,
+    dni VARCHAR(20) PRIMARY KEY,
     nombre VARCHAR(50),
     apellido VARCHAR(50),
     fechaNac DATE,
     distrito VARCHAR(50),
     departamento VARCHAR(50),
     correo VARCHAR(50),
-    sexo CHAR(1)
-);
+    sexo CHAR(1),
+    fechaafili DATE
+    );
 
 CREATE TABLE clienteDetallado
 (
-    dni INT PRIMARY KEY,
+    dni VARCHAR(20) PRIMARY KEY,
     codigoPostal INT,
     trabajo VARCHAR(25),
     hobie VARCHAR(25),
@@ -32,7 +33,7 @@ CREATE TABLE clienteDetallado
 CREATE TABLE equipo
 (
     idEquipo INT PRIMARY KEY,
-    dni INT,
+    dni VARCHAR(20),
     modelo VARCHAR(25),
     marca VARCHAR(25),
     color VARCHAR(25),
@@ -44,25 +45,25 @@ CREATE TABLE equipo
 CREATE TABLE linea
 (	
     idLinea INT PRIMARY KEY,
-    dni INT,
+    dni VARCHAR(20),
     idEquipo INT,
     plan VARCHAR(25),
     FOREIGN KEY (dni) REFERENCES cliente (dni),
     FOREIGN KEY (idEquipo) REFERENCES Equipo (idEquipo)
 );
 
-INSERT INTO cliente (dni, nombre, apellido, fechaNac, distrito, departamento, correo, sexo)
+INSERT INTO cliente (dni, nombre, apellido, fechaNac, distrito, departamento, correo, sexo, fechaafili)
 VALUES
-  (123456789, 'Juan', 'Pérez', '1990-01-15', 'Lima', 'Lima', 'juan@example.com', 'M'),
-  (987654321, 'María', 'Gómez', '1985-08-25', 'Arequipa', 'Arequipa', 'maria@example.com', 'F'),
-  (555555555, 'Pedro', 'Sánchez', '1995-03-10', 'Cusco', 'Cusco', 'pedro@example.com', 'M'),
-  (999999999, 'Laura', 'Martínez', '1988-12-05', 'Trujillo', 'La Libertad', 'laura@example.com', 'F'),
-  (111111111, 'Carlos', 'López', '1992-06-20', 'Arequipa', 'Arequipa', 'carlos@example.com', 'M'),
-  (222222222, 'Ana', 'Rodríguez', '1987-04-18', 'Lima', 'Lima', 'ana@example.com', 'F'),
-  (333333333, 'Diego', 'García', '1998-09-28', 'Cusco', 'Cusco', 'diego@example.com', 'M'),
-  (444444444, 'Sofía', 'Hernández', '1984-03-30', 'Trujillo', 'La Libertad', 'sofia@example.com', 'F'),
-  (666666666, 'Luis', 'Torres', '1993-07-14', 'Arequipa', 'Arequipa', 'luis@example.com', 'M'),
-  (888888888, 'Elena', 'López', '1990-02-02', 'Lima', 'Lima', 'elena@example.com', 'F');
+  (123456789, 'Juan', 'Pérez', '1990-01-15', 'Lima', 'Lima', 'juan@example.com', 'M', '2023-10-03'),
+  (987654321, 'María', 'Gómez', '1985-08-25', 'Arequipa', 'Arequipa', 'maria@example.com', 'F', '2023-10-03'),
+  (555555555, 'Pedro', 'Sánchez', '1995-03-10', 'Cusco', 'Cusco', 'pedro@example.com', 'M', '2023-10-03'),
+  (999999999, 'Laura', 'Martínez', '1988-12-05', 'Trujillo', 'La Libertad', 'laura@example.com', 'F', '2023-10-03'),
+  (111111111, 'Carlos', 'López', '1992-06-20', 'Arequipa', 'Arequipa', 'carlos@example.com', 'M', '2023-10-03'),
+  (222222222, 'Ana', 'Rodríguez', '1987-04-18', 'Lima', 'Lima', 'ana@example.com', 'F', '2023-10-03'),
+  (333333333, 'Diego', 'García', '1998-09-28', 'Cusco', 'Cusco', 'diego@example.com', 'M', '2023-10-03'),
+  (444444444, 'Sofía', 'Hernández', '1984-03-30', 'Trujillo', 'La Libertad', 'sofia@example.com', 'F', '2023-10-03'),
+  (666666666, 'Luis', 'Torres', '1993-07-14', 'Arequipa', 'Arequipa', 'luis@example.com', 'M', '2023-10-03'),
+  (888888888, 'Elena', 'López', '1990-02-02', 'Lima', 'Lima', 'elena@example.com', 'F', '2023-10-03');
 
 -- Insertar usuarios en la tabla clienteDetallado
 INSERT INTO clienteDetallado (dni, codigoPostal, trabajo, hobie, estadoCivil, numHijos, contacExterno)
