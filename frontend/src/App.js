@@ -1,18 +1,35 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import './App.css';
 import React from 'react';
-import Registro from './Registro';
-import Header from './Header';
-import Main from './Main.js';
+import Header from './components/Header';
+import Sidebar from './components/Sidebar';
+import Registro from './pages/Registro';
+import Main from './pages/Main';
+import ModificarCliente from './pages/ModificarCliente';
+import { Helmet } from 'react-helmet';
+import Busqueda from "./pages/Busqueda";
+import Perfil from "./pages/perfil";
+
 function App() {
   return (
-    <div>      
+    <div className="App">
+      <Helmet>
+        <title>Modulo Clientes</title>
+      </Helmet>
       <BrowserRouter>
-      <Header></Header>
-      <Routes> 
-        <Route path="/" element={<Main/>}/>
-        <Route path="/Registro" element={<Registro/>}/>
-      </Routes>
+        <Header />
+        <Sidebar />
+        <div className="App-container">          
+          <div className="App-content">
+            <Routes>
+              <Route path="/" element={<Main />} />
+              <Route path="/Registro" element={<Registro />} />
+              <Route path="/ModificarCliente" element={<ModificarCliente/>} />
+              <Route path="/Busqueda" element={<Busqueda />} />
+              <Route path="/perfil/:dni" element={<Perfil/>} />
+            </Routes>
+          </div>
+        </div>
       </BrowserRouter>
     </div>
   );

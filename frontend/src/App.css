@@ -1,7 +1,51 @@
 .App {
-  text-align: center;
+  width: 100vw;
+  height: 50vw;
+  
 }
-
+body{
+  margin: 0;
+  padding: 0;
+}
+.Sidebar {
+  float: left;
+  height: 100%; /* La altura ocupa el 100% del contenedor padre */
+  width: 250px; /* Ancho fijo de 250px */
+  background-color: #2E5ED2;
+  
+}
+.SidebarList{
+  height: auto;
+  padding: 0;
+  width: 100%;
+}
+.Sidebar .row{
+  width: 100%;
+  height: 50px;
+  background-color: #0c329b;  
+  list-style-type: none;
+  margin: 0%;
+  display: flex;
+  color: white;
+  justify-content: center;
+  align-content: center;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.Sidebar .row:hover{
+  cursor:pointer;
+  background-color: #002388;
+}
+.Sidebar #active{
+  background-color: #002388;
+}
+.row #icon{
+  flex: 30%;
+  display: grid;
+  place-items:center;
+}
+.row #title{
+  flex: 70%;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -12,9 +56,12 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.header .icono {
+  font-size: 24px !important;
+}
 
 .App-header {
-  background-color: #282c34;
+  background-color: #2e5ed2;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -23,27 +70,86 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.formbusqueda{
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  text-align: center;
+}
+.caja-busqueda{
+  width: 200px;
+  margin: 20px;
+  height: 40px;
+  border: solid 1px black;
 }
 
-/* Estilos CSS actualizados para el Header */
+.boton-busqueda {
+  background-color: green;
+  color: white; 
+  border: none; 
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer; 
+}
+
+.resultado-busqueda th {
+  border: 1px solid #ccc; 
+  padding: 10px;
+  background-color: #f2f2f2;
+}
+
+.resultado-busqueda td {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.formbusqueda {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  height: 100vh;
+}
+.boton-perfil {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: black;
+  padding: 5px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 5px;
+}
+
+.boton-perfil:hover {
+  background-color: rgb(233, 227, 227);
+}
+
+.resultado-busqueda {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;  
+  max-width: 800px; /* Ancho máximo de la tabla */
+  margin-top: 20px; /* Espacio superior */
+}
+
 .bg-info {
-  background-color: #17a2b8; /* Cambia el color de fondo según tu diseño */
-  color: #fff; /* Cambia el color del texto según tu diseño */
-  padding: 10px; /* Añade relleno según tus necesidades */
+  background-color: #2e5ed2; 
+  color: #fff;
+  padding: 10px;
+  float: top;
 }
 
 .header-container {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Alinea los elementos a los extremos */
+  justify-content: space-between; 
+  background-color: #2e5ed2; 
+  height: 6.5%;
 }
 
 .welcome-text {
-  text-align: left; /* Alinea el texto a la izquierda */
-  flex: 1; /* Hace que ocupe todo el espacio disponible en el contenedor */
+  text-align: left; 
+  flex: 1;
 }
 
 .welcome-text h1 {
@@ -57,11 +163,11 @@
 }
 
 .navbar-list li {
-  margin-right: 20px; /* Ajusta el espaciado entre los elementos según tus necesidades */
+  margin-right: 20px; 
 }
 
 .navbar-container-link {
-  color: #fff; /* Cambia el color del enlace según tu diseño */
+  color: #fff; 
   text-decoration: none;
 }
 
@@ -72,4 +178,12 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.date-picker-container {
+  display: flex;
+  flex-direction: column;
+}
+.forms-campo {
+  margin-bottom: 20px; /* Ajusta el valor según la cantidad de separación deseada */
 }
