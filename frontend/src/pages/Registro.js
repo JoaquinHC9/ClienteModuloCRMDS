@@ -60,6 +60,7 @@ export default function Registro() {
       setError(error.response.data.message);
       console.log(error);
     }
+    vaciarCampos();
   };
   const enviarDatos2 = async (e) => {
     e.preventDefault();
@@ -71,12 +72,16 @@ export default function Registro() {
       setError(error.response.data.message);
       console.log(error);
     }
+    vaciarCampos();
   };
   const handleConfirm = () => {
     setShowModal(false);
     setShowSecondForm(true);
-  };
-
+  };  
+  const cancelarForm = ()=>{
+    setShowSecondForm(false);
+    setShowModal(false); 
+  }
   const vaciarCampos = () => {
     setData({
       dni: '',
@@ -98,8 +103,6 @@ export default function Registro() {
       numHijos: 'null',
       contactoEmergencia: '',
     });
-    setShowSecondForm(false); // También asegúrate de ocultar el segundo formulario
-    setShowModal(false); // Cierra el modal
   };
 
   return (
@@ -107,131 +110,194 @@ export default function Registro() {
       <Helmet>
         <title>Registro</title>
       </Helmet>
-      <div className="bg-white p-3 rounded w-25">
+      <div className="bg-white p-3 rounded w-50">
         {!showSecondForm ? (
           <form onSubmit={enviarDatos}>
           <h2 className='text-black mb-4'>Registro</h2>
-          <div className='mb-2'>
-          <label htmlFor='dni'>
-              <strong>DNI</strong>
-            </label>
-            <input type='text' placeholder='Digite DNI' onChange={onChange} required value={data.dni} name='dni' className='form-control rounded-0'></input>
-            <br></br>
-          </div>
-          <div className='mb-3'>
-            <label htmlFor='nombre'>
-              <strong>Nombre</strong>
-            </label>
-            <input type='text' placeholder='Digite Nombre' onChange={onChange} required value={data.nombre} name='nombre' className='form-control rounded-0'></input>
-            <br></br>
-          </div>
-          <div className='mb-3'>
-            <label htmlFor='apellido'>
-              <strong>Apellido</strong>
-            </label>
-            <input type='text' placeholder='Digite Apellido' onChange={onChange} required value={data.apellido} name='apellido' className='form-control rounded-0'></input>
-            <br></br>
-          </div>
-          <div className='mb-3'>
-            <label htmlFor='fechaNacimiento'>
-              <strong>Fecha Nacimiento</strong>
-            </label>
-            <div className='date-picker-container'>
-              <DatePicker
-                selected={data.fechaNacimiento}
-                onChange={(date) => setData({ ...data, fechaNacimiento: date })}
-                placeholderText='Digite o seleccione su cumpleaños'
-                className='form-control rounded-0'
-                dateFormat='dd/MM/yy'
-              />
-              <br></br>
-            </div>
-            <label htmlFor='Distrito'>
-              <strong>Distrito</strong>
-            </label>
+          <h3 className='text-black mb-4' style={{ fontStyle: 'italic' }}>Informacion personal del Cliente</h3>
+          <div className='mb-2 d-flex justify-content-between'>
             <div>
-              <input type="text" placeholder='Digite Distrito' onChange={onChange} required value={data.distrito} name='distrito' className='form-control rounded-0'></input>
-              <br></br>
+              <label htmlFor='email'>
+                <strong>Email</strong>
+              </label>
+              <input type='email' placeholder='Digite correo' onChange={onChange} required value={data.email} name='email' className='form-control rounded-0 'style={{ width: '300px' }}></input>
             </div>
-            <label htmlFor='Departamento'>
-              <strong>Departamento</strong>
-            </label>
             <div>
-              <input type="text" placeholder='Digite Departamento' onChange={onChange} required value={data.departamento} name='departamento' className='form-control rounded-0'></input>
-              <br></br>
-            </div>
-            <div className='mb-3'>
-            <label htmlFor='email'>
-              <strong>Email</strong>
-            </label>
-            <input type='email' placeholder='Digite correo' onChange={onChange} required value={data.email} name='email' className='form-control rounded-0'></input>
-            <br></br>
+              <label htmlFor='dni'>
+                <strong>DNI</strong>
+              </label>
+              <input type='text' placeholder='Digite DNI' onChange={onChange} required value={data.dni} name='dni' className='form-control rounded-0' style={{ width: '300px' }}></input>
             </div>
           </div>
-          <div className='mb-3'>
-            <label htmlFor='sexo'>
-              <strong>Sexo</strong>
-            </label>
-            <input type='text' placeholder='Digite sexo' onChange={onChange} required value={data.sexo} name='sexo' className='form-control rounded-0'></input>
-            <br></br>
+          <div className='mb-2 d-flex justify-content-between'>
+            <div>
+              <label htmlFor='nombre'>
+                <strong>Nombre</strong>
+              </label>
+              <input type='text' placeholder='Digite Nombre' onChange={onChange} required value={data.nombre} name='nombre' className='form-control rounded-0' style={{ width: '300px' }}></input>
+            </div>
+            <div>
+              <label htmlFor='apellido'>
+                <strong>Apellido</strong>
+              </label>
+              <input type='text' placeholder='Digite Apellido' onChange={onChange} required value={data.apellido} name='apellido' className='form-control rounded-0'style={{ width: '300px' }}></input>
+            </div>
+          </div>
+          <div className='mb-2 d-flex justify-content-between'>
+            <div>
+              <label htmlFor='fechaNacimiento'>
+                <strong>Fecha Nacimiento</strong>
+              </label>
+              <div className='date-picker-container' style={{ width: '300px' }}>
+                <DatePicker
+                  selected={data.fechaNacimiento}
+                  onChange={(date) => setData({ ...data, fechaNacimiento: date })}
+                  placeholderText='Digite o seleccione su cumpleaños'
+                  className='form-control rounded-0'                  
+                  dateFormat='dd/MM/yy'                  
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor='sexo'>
+                <strong>Sexo</strong>
+              </label>
+              <input type='text' placeholder='Digite sexo' onChange={onChange} required value={data.sexo} name='sexo' className='form-control rounded-0' style={{ width: '300px' }}></input>
+            </div>
+          </div>
+          <div className='mb-2 d-flex justify-content-between'>
+            <div>
+              <label htmlFor='departamento'>
+                <strong>Departamento</strong>
+              </label>
+              <input type='text' placeholder='Digite Departamento' onChange={onChange} required value={data.departamento} name='departamento' className='form-control rounded-0' style={{ width: '300px' }}></input>
+            </div>
+            <div>
+              <label htmlFor='distrito'>
+                <strong>Distrito</strong>
+              </label>
+              <input type='text' placeholder='Digite Distrito' onChange={onChange} required value={data.distrito} name='distrito' className='form-control rounded-0' style={{ width: '300px' }}></input>
+            </div>
           </div>
           <button type='submit' className='btn btn-success'>Registrar</button>
           </form>
         ) : (
           <form onSubmit={enviarDatos2}>
             <h2 className='text-black mb-4'>Registro Completo</h2>
-            <div className='mb-2'>
-              <label htmlFor='direccion'>
-                <strong>Dirección</strong>
-              </label>
-              <input type='text' placeholder='Digite Dirección' onChange={onChange2} required value={data.direccion} name='direccion' className='form-control rounded-0' />
-              <br></br>
-            </div>
-            <div className='mb-3'>
-              <label htmlFor='codigoPostal'>
-                <strong>Código Postal</strong>
-              </label>
-              <input type='text' placeholder='Digite Código Postal' onChange={onChange2} required value={data.codigoPostal} name='codigoPostal' className='form-control rounded-0' />
-              <br></br>
-            </div>
-            <div className='mb-3'>
-              <label htmlFor='trabajo'>
-                <strong>Trabajo</strong>
-              </label>
-              <input type='text' placeholder='Digite Trabajo' onChange={onChange2} required value={data.trabajo} name='trabajo' className='form-control rounded-0' />
-              <br></br>
-            </div>
-            <div className='mb-3'>
-              <label htmlFor='hobbie'>
-                <strong>Hobbie</strong>
-              </label>
+            <h3 className='text-black mb-4' style={{ fontStyle: 'italic' }}>Informacion complementaria del Cliente</h3>
+            <div className='mb-2 d-flex justify-content-between'>
               <div>
-                <input type="text" placeholder='Digite Hobbie' onChange={onChange2} required value={data.hobbie} name='hobbie' className='form-control rounded-0' />
-                <br></br>
-              </div>
-              <label htmlFor='estadoCivil'>
-                <strong>Estado Civil</strong>
-              </label>
-              <div>
-                <input type="text" placeholder='Digite Estado Civil' onChange={onChange2} required value={data.estadoCivil} name='estadoCivil' className='form-control rounded-0' />
-                <br></br>
-              </div>
-              <label htmlFor='numHijos'>
-                <strong>Número de Hijos</strong>
-              </label>
-              <div>
-                <input type="number" placeholder='Digite Número de Hijos' onChange={onChange2} required value={data.numHijos} name='numHijos' className='form-control rounded-0' />
-                <br></br>
-              </div>
-              <div className='mb-3'>
-                <label htmlFor='contactoEmergencia'>
-                  <strong>Contacto de Emergencia</strong>
+                <label htmlFor='direccion'>
+                  <strong>Dirección</strong>
                 </label>
-                <input type='text' placeholder='Digite contacto de emergencia' onChange={onChange2} required value={data.contactoEmergencia} name='contactoEmergencia' className='form-control rounded-0' />
-                <br></br>
+                <input
+                  type='text'
+                  placeholder='Digite Dirección'
+                  onChange={onChange2}
+                  required
+                  value={data.direccion}
+                  name='direccion'
+                  className='form-control rounded-0'  
+                  style={{ width: '300px' }}                
+                />
+              </div>
+              <div>
+                <label htmlFor='codigoPostal'>
+                  <strong>Código Postal</strong>
+                </label>
+                <input
+                  type='text'
+                  placeholder='Digite Código Postal'
+                  onChange={onChange2}
+                  required
+                  value={data.codigoPostal}
+                  name='codigoPostal'
+                  className='form-control rounded-0'
+                  style={{ width: '300px' }}
+                />
               </div>
             </div>
-            <button type='submit' className='btn btn-success'>Registrar</button>
+            <div className='mb-2 d-flex justify-content-between'>
+              <div>
+                <label htmlFor='trabajo'>
+                  <strong>Trabajo</strong>
+                </label>
+                <input
+                  type='text'
+                  placeholder='Digite Trabajo'
+                  onChange={onChange2}
+                  required
+                  value={data.trabajo}
+                  name='trabajo'
+                  className='form-control rounded-0'
+                  style={{ width: '300px' }}
+                />
+              </div>
+              <div>
+                <label htmlFor='hobbie'>
+                  <strong>Hobbie</strong>
+                </label>
+                <input
+                  type='text'
+                  placeholder='Digite Hobbie'
+                  onChange={onChange2}
+                  required
+                  value={data.hobbie}
+                  name='hobbie'
+                  className='form-control rounded-0'
+                  style={{ width: '300px' }}
+                />
+              </div>
+            </div>
+            <div className='mb-2 d-flex justify-content-between'>
+              <div>
+                <label htmlFor='estadoCivil'>
+                  <strong>Estado Civil</strong>
+                </label>
+                <input
+                  type='text'
+                  placeholder='Digite Estado Civil'
+                  onChange={onChange2}
+                  required
+                  value={data.estadoCivil}
+                  name='estadoCivil'
+                  className='form-control rounded-0'
+                  style={{ width: '300px' }}
+                />
+              </div>
+              <div>
+                <label htmlFor='numHijos'>
+                  <strong>Número de Hijos</strong>
+                </label>
+                <input
+                  type='number'
+                  placeholder='Digite Número de Hijos'
+                  onChange={onChange2}
+                  required
+                  value={data.numHijos}
+                  name='numHijos'
+                  className='form-control rounded-0'
+                  style={{ width: '300px' }}
+                />
+              </div>
+            </div>
+            <div className='mb-2'>
+              <label htmlFor='contactoEmergencia'>
+                <strong>Contacto de Emergencia</strong>
+              </label>
+              <input
+                type='text'
+                placeholder='Digite contacto de emergencia'
+                onChange={onChange2}
+                required
+                value={data.contactoEmergencia}
+                name='contactoEmergencia'
+                className='form-control rounded-0'
+              />
+            </div>
+            <button type='submit' className='btn btn-success'>
+              Registrar
+            </button>
           </form>
         )}
       </div>
@@ -243,7 +309,7 @@ export default function Registro() {
           ¿Desea completar el formulario completo?
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="secondary" onClick={() => vaciarCampos()}>
+        <Button variant="secondary" onClick={() => cancelarForm()}>
             Cancelar
           </Button>
           <Button variant="primary" onClick={handleConfirm}>

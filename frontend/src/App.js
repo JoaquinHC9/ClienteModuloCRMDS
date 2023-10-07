@@ -5,7 +5,7 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Registro from './pages/Registro';
 import Main from './pages/Main';
-import CompletoRegistro from './pages/CompletoRegistro';
+import ModificarCliente from './pages/ModificarCliente';
 import { Helmet } from 'react-helmet';
 import Busqueda from "./pages/Busqueda";
 import Perfil from "./pages/perfil";
@@ -24,7 +24,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Main />} />
               <Route path="/Registro" element={<Registro />} />
-              <Route path="/RegistroCompleto" element={<CompletoRegistro />} />
+              <Route path="/ModificarCliente" element={<ModificarCliente/>} />
               <Route path="/Busqueda" element={<Busqueda />} />
               <Route path="/perfil/:dni" element={<Perfil/>} />
             </Routes>

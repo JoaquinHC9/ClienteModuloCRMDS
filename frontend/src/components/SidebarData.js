@@ -19,9 +19,9 @@ export const SidebarData= [
         link: "/Registro"
     },
     {
-        title: "Registro Completo",
+        title: "Modificar Cliente",
         icon: <HowToRegIcon/>,
-        link: "/RegistroCompleto"
+        link: "/ModificarCliente"
     },
     {
         title: "Busqueda Cliente",

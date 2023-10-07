@@ -67,74 +67,82 @@ export default function Busqueda() {
         <Helmet>
           <title>Busqueda</title>
         </Helmet>
-        <div className='search-container'>
-          <span className='input-label'>DNI:</span>
-          <input
-            type='text'
-            placeholder='DNI'
-            className='caja-busqueda'
-            value={searchDNI}
-            onChange={(event) => setSearchDNI(event.target.value)}
-          />
-          <span className='input-label'>Nombre:</span>
-          <input
-            type='text'
-            placeholder='Nombre'
-            className='caja-busqueda'
-            value={searchNombre}
-            onChange={(event) => setSearchNombre(event.target.value)}
-          />
-          <span className='input-label'>Apellido:</span>
-          <input
-            type='text'
-            placeholder='Apellido'
-            className='caja-busqueda'
-            value={searchApellido}
-            onChange={(event) => setSearchApellido(event.target.value)}
-          />
-          <button className='boton-busqueda' onClick={searchHandle}>
-            Buscar
-          </button>
-        </div>
-        {/* Renderiza la tabla */}
-        <TableContainer component={Paper} className='resultado-busqueda'>
-          <Table>
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell key={column}>{column}</TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {searchResults.map((result, index) => (
-                <TableRow key={index}>
-                  <TableCell>{result.dni}</TableCell>
-                  <TableCell>{result.nombre}</TableCell>
-                  <TableCell>{result.apellido}</TableCell>
-                  <TableCell>{result.correo}</TableCell>
-                  <TableCell>
-                    <button
-                      className='boton-perfil'
-                      onClick={(event) => openProfile(result.dni, event)}
-                    >
-                      ...
-                    </button>
-                    <Menu
-                      anchorEl={anchorEl}
-                      open={Boolean(anchorEl)}
-                      onClose={handleClose}
-                    >
-                      <MenuItem onClick={() => redirectToProfile(result.dni)}>Visualizar Perfil</MenuItem>
-                      <MenuItem onClick={() => redirectAccountStatus(result.dni)}>Estado de Cuenta</MenuItem>
-                      {/* Agrega la opción "Estado de Cuenta" aquí */}
-                    </Menu>
-                  </TableCell>
+        <div className='cotenedor'>
+          <h2 className='text-black mb-4'>Busqueda de Clientes</h2>
+          <h3 className='text-black mb-4' style={{ fontStyle: 'italic' }}>Digitar informacion relacionada a un cliente</h3>
+          <div className='search-container'>
+            <span className='input-label'>DNI:</span>
+            <input
+              type='text'
+              placeholder='DNI'
+              className='caja-busqueda'
+              value={searchDNI}
+              onChange={(event) => setSearchDNI(event.target.value)}
+            />
+            <span className='input-label'>Nombre:</span>
+            <input
+              type='text'
+              placeholder='Nombre'
+              className='caja-busqueda'
+              value={searchNombre}
+              onChange={(event) => setSearchNombre(event.target.value)}
+            />
+            <span className='input-label'>Apellido:</span>
+            <input
+              type='text'
+              placeholder='Apellido'
+              className='caja-busqueda'
+              value={searchApellido}
+              onChange={(event) => setSearchApellido(event.target.value)}
+            />
+            <button className='boton-busqueda' onClick={searchHandle}>
+              Buscar
+            </button>
+          </div>
+          {/* Renderiza la tabla */}
+          <div classname='tabla'>
+          <TableContainer component={Paper} className='resultado-busqueda'>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell key={column}>{column}</TableCell>
+                  ))}
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {searchResults.map((result, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{result.dni}</TableCell>
+                    <TableCell>{result.nombre}</TableCell>
+                    <TableCell>{result.apellido}</TableCell>
+                    <TableCell>{result.correo}</TableCell>
+                    <TableCell>
+                      <button
+                        className='boton-perfil'
+                        onClick={(event) => openProfile(result.dni, event)}
+                      >
+                        ...
+                      </button>
+                      <div className='menu'>
+                      <Menu
+                        anchorEl={anchorEl}
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                      >
+                        <MenuItem onClick={() => redirectToProfile(result.dni)}>Visualizar Perfil</MenuItem>
+                        <MenuItem onClick={() => redirectAccountStatus(result.dni)}>Estado de Cuenta</MenuItem>
+                        {/* Agrega la opción "Estado de Cuenta" aquí */}
+                      </Menu>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          </div>
+        </div>
       </div>
     </div>
   );
