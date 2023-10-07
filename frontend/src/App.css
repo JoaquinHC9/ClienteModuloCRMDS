@@ -184,3 +184,6 @@ body{
   display: flex;
   flex-direction: column;
 }
+.forms-campo {
+  margin-bottom: 20px; /* Ajusta el valor según la cantidad de separación deseada */
+}
