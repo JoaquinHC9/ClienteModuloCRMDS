@@ -6,7 +6,6 @@ import { API_URL } from '../config';
 import {useNavigate } from 'react-router-dom';
 import '../App.css';
 
-
 export default function Busqueda() {
   const [searchDNI, setSearchDNI] = useState('');
   const [searchNombre, setSearchNombre] = useState('');
@@ -34,9 +33,7 @@ export default function Busqueda() {
       }
       const url = `${API_URL}/buscarPor${searchField}/${searchValue}`;
       const response = await axios.get(url);
-      setSearchResults(response.data);
-
-      // Restablecer los valores de las cajas de búsqueda
+      setSearchResults(response.data);      
       setSearchDNI('');
       setSearchNombre('');
       setSearchApellido('');
@@ -53,10 +50,23 @@ export default function Busqueda() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const redirectToProfile = (dni) => {
     // Redirige a la página del perfil del cliente utilizando el DNI como parte de la URL
     navigate(`/perfil/${dni}`);
   };
+
+  const redirectToGestionLineas = async (dni) => {
+    // Redirige a la página que maneja líneas
+    try {
+        const response = await axios.get(`${API_URL}/buscarLineasPorDNI/${dni}`);
+        navigate(`/Lineas/${dni}`, { state: { client: selectedClient } });
+    } catch (error) {
+        console.error('Error al obtener las líneas del cliente:', error);
+    }
+};
+
+
   const redirectAccountStatus = (dni) => {
     // Redirige a la página del perfil del cliente utilizando el DNI como parte de la URL    
   };
@@ -100,7 +110,7 @@ export default function Busqueda() {
             </button>
           </div>
           {/* Renderiza la tabla */}
-          <div classname='tabla'>
+          <div className='tabla'>
           <TableContainer component={Paper} className='resultado-busqueda'>
             <Table>
               <TableHead>
@@ -131,8 +141,8 @@ export default function Busqueda() {
                         onClose={handleClose}
                       >
                         <MenuItem onClick={() => redirectToProfile(result.dni)}>Visualizar Perfil</MenuItem>
+                        <MenuItem onClick={() => redirectToGestionLineas(result.dni)}>Gestion de Lineas</MenuItem>
                         <MenuItem onClick={() => redirectAccountStatus(result.dni)}>Estado de Cuenta</MenuItem>
-                        {/* Agrega la opción "Estado de Cuenta" aquí */}
                       </Menu>
                       </div>
                     </TableCell>
