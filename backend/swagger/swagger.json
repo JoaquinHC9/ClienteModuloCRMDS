@@ -1,0 +1,709 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "CRMCliente Backend",
+      "version": "1.0.0",
+      "description": "Descripción de tu API"
+    },
+    "paths": {
+        "/registerAPI": {
+          "get": {
+            "summary": "Obtener todos los clientes",
+            "responses": {
+              "200": {
+                "description": "Respuesta exitosa"
+              }
+            }
+          },
+          "post": {
+            "summary": "Registrar un nuevo cliente",
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Cliente"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "201": {
+                "description": "Registro exitoso"
+              },
+              "500": {
+                "description": "Error en el registro"
+              }
+            }
+          }
+        },
+        "/buscarPorDNI/{dni}": {
+          "get": {
+            "summary": "Buscar cliente por DNI",
+            "parameters": [
+              {
+                "in": "path",
+                "name": "dni",
+                "required": true,
+                "description": "DNI del cliente a buscar",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "tags": ["Cliente"],
+            "responses": {
+              "200": {
+                "description": "Respuesta exitosa",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Cliente"
+                      }
+                    }
+                  }
+                }
+              },
+              "500": {
+                "description": "Error en la consulta a la base de datos"
+              }
+            }
+          }
+        },
+        "/api/clientesDetalladosPorDNI/{dni}": {
+            "get": {
+              "summary": "Buscar cliente detallado por DNI",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "dni",
+                  "required": true,
+                  "description": "DNI del cliente detallado a buscar",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "tags": ["ClienteDetallado"],
+              "responses": {
+                "200": {
+                  "description": "Respuesta exitosa",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ClienteDetallado"
+                        }
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "No se encontraron resultados para el DNI"
+                },
+                "500": {
+                  "description": "Error en la consulta a la base de datos"
+                }
+              }
+            }
+          },
+          "/api/clientesPorNombre/{nombre}": {
+            "get": {
+              "summary": "Buscar cliente por nombre",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "nombre",
+                  "required": true,
+                  "description": "Nombre del cliente a buscar",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "tags": ["Cliente"],
+              "responses": {
+                "200": {
+                  "description": "Respuesta exitosa",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Cliente"
+                        }
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Error en la consulta a la base de datos"
+                }
+              }
+            }
+          },
+          "/api/clientesPorApellido/{apellido}": {
+            "get": {
+              "summary": "Buscar cliente por apellido",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "apellido",
+                  "required": true,
+                  "description": "Apellido del cliente a buscar",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "tags": ["Cliente"],
+              "responses": {
+                "200": {
+                  "description": "Respuesta exitosa",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Cliente"
+                        }
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Error en la consulta a la base de datos"
+                }
+              }
+            }
+          },
+          "/buscarLineasPorDNI/{dni}": {
+            "get": {
+              "summary": "Buscar líneas telefónicas por DNI del cliente",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "dni",
+                  "required": true,
+                  "description": "Número de DNI del cliente",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "tags": ["Líneas Telefónicas"],
+              "responses": {
+                "200": {
+                  "description": "Respuesta exitosa. Devuelve una lista de líneas telefónicas o detalles relevantes de las líneas.",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Linea"
+                        }
+                      },
+                      "example": [
+                        {
+                          "idLinea": 1,
+                          "numero": "123456789",
+                          "tipo": "Móvil"                         
+                        }
+                      ]
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Error en la consulta a la base de datos."
+                }
+              }
+            }
+          },
+        "/facturacionPorDNI/{dni}": {
+          "get": {
+            "summary": "Buscar facturación por DNI del cliente",
+            "parameters": [
+              {
+                "in": "path",
+                "name": "dni",
+                "required": true,
+                "description": "Número de DNI del cliente",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "tags": ["Facturación"],
+            "responses": {
+              "200": {
+                "description": "Respuesta exitosa. Devuelve información de facturación relacionada con el cliente."
+              },
+              "500": {
+                "description": "Error en la consulta a la base de datos."
+              }
+            }
+          }
+        },
+        "/garantiaPorIDEquipo/{idEquipo}": {
+          "get": {
+            "summary": "Buscar información de garantía por ID de equipo",
+            "parameters": [
+              {
+                "in": "path",
+                "name": "idEquipo",
+                "required": true,
+                "description": "ID del equipo",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            ],
+            "tags": ["Garantía"],
+            "responses": {
+              "200": {
+                "description": "Respuesta exitosa. Devuelve información de garantía relacionada con el equipo."
+              },
+              "500": {
+                "description": "Error en la consulta a la base de datos."
+              }
+            }
+          }
+        },
+        "/facturacionPorIDLinea/{idLinea}": {
+          "get": {
+            "summary": "Buscar información de facturación por ID de línea",
+            "parameters": [
+              {
+                "in": "path",
+                "name": "idLinea",
+                "required": true,
+                "description": "ID de la línea",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            ],
+            "tags": ["Facturación"],
+            "responses": {
+              "200": {
+                "description": "Respuesta exitosa. Devuelve detalles relacionados con la facturación de la línea."
+              },
+              "500": {
+                "description": "Error en la consulta a la base de datos."
+              }
+            }
+          }
+        },
+        "/transferenciaLinea/{idLinea}": {
+          "post": {
+            "summary": "Realizar la transferencia de una línea a un nuevo cliente",
+            "parameters": [
+              {
+                "in": "path",
+                "name": "idLinea",
+                "required": true,
+                "description": "ID de la línea a transferir",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Datos para la transferencia de línea",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "dniAntiguo": {
+                        "type": "string",
+                        "description": "DNI del cliente antiguo"
+                      },
+                      "dniNuevo": {
+                        "type": "string",
+                        "description": "DNI del nuevo cliente"
+                      }
+                    },
+                    "required": ["dniAntiguo", "dniNuevo"]
+                  }
+                }
+              }
+            },
+            "tags": ["Transferencia de Línea"],
+            "responses": {
+              "200": {
+                "description": "Transferencia exitosa."
+              },
+              "400": {
+                "description": "Datos de transferencia incorrectos o inválidos."
+              },
+              "500": {
+                "description": "Error en la operación de transferencia."
+              }
+            }
+          }
+        },
+        "/eliminarLinea/{idLinea}": {
+          "post": {
+            "summary": "Eliminar una línea",
+            "parameters": [
+              {
+                "in": "path",
+                "name": "idLinea",
+                "required": true,
+                "description": "ID de la línea a eliminar",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Datos para la eliminación de línea",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "dniAntiguo": {
+                        "type": "string",
+                        "description": "DNI del cliente antiguo"
+                      }
+                    },
+                    "required": ["dniAntiguo"]
+                  }
+                }
+              }
+            },
+            "tags": ["Eliminar Línea"],
+            "responses": {
+              "200": {
+                "description": "Eliminación exitosa."
+              },
+              "400": {
+                "description": "Datos de eliminación incorrectos o inválidos."
+              },
+              "500": {
+                "description": "Error en la operación de eliminación."
+              }
+            }
+          }
+        },
+        "/dardebaja/{idLinea}": {
+          "post": {
+            "summary": "Dar de baja una línea",
+            "parameters": [
+              {
+                "in": "path",
+                "name": "idLinea",
+                "required": true,
+                "description": "ID de la línea a dar de baja",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Datos para dar de baja la línea",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "dni": {
+                        "type": "string",
+                        "description": "DNI del cliente"
+                      }
+                    },
+                    "required": ["dni"]
+                  }
+                }
+              }
+            },
+            "tags": ["Dar de Baja Línea"],
+            "responses": {
+              "200": {
+                "description": "Baja exitosa de la línea."
+              },
+              "400": {
+                "description": "Datos de baja incorrectos o inválidos."
+              },
+              "500": {
+                "description": "Error en la operación de baja."
+              }
+            }
+          }
+        },
+        "/api/clientes/{dni}": {
+            "put": {
+              "summary": "Actualizar datos de un cliente por DNI",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "dni",
+                  "required": true,
+                  "description": "DNI del cliente a actualizar",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Cliente"
+                    }
+                  }
+                }
+              },
+              "tags": ["Cliente"],
+              "responses": {
+                "200": {
+                  "description": "Actualización exitosa"
+                },
+                "404": {
+                  "description": "Cliente no encontrado"
+                },
+                "500": {
+                  "description": "Error en la consulta a la base de datos"
+                }
+              }
+            }
+          },
+          "/api/clientesDetallados/{dni}": {
+            "put": {
+              "summary": "Actualizar datos de un cliente detallado por DNI",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "dni",
+                  "required": true,
+                  "description": "DNI del cliente detallado a actualizar",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ClienteDetallado"
+                    }
+                  }
+                }
+              },
+              "tags": ["ClienteDetallado"],
+              "responses": {
+                "200": {
+                  "description": "Actualización exitosa"
+                },
+                "404": {
+                  "description": "Cliente detallado no encontrado"
+                },
+                "500": {
+                  "description": "Error en la consulta a la base de datos"
+                }
+              }
+            }
+          },
+          "/equipo/{idEquipo}": {
+            "get": {
+                "summary": "Buscar información de un equipo por ID",
+                "parameters": [
+                  {
+                    "in": "path",
+                    "name": "idEquipo",
+                    "required": true,
+                    "description": "ID del equipo",
+                    "schema": {
+                      "type": "integer"
+                    }
+                  }
+                ],
+                "tags": ["Equipos"],
+                "responses": {
+                  "200": {
+                    "description": "Respuesta exitosa. Devuelve información relacionada con el equipo.",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "$ref": "#/components/schemas/Equipo"
+                        },
+                        "example": {
+                          "idEquipo": 1,
+                          "dni": "123456789",
+                          "modelo": "iPhone 12",
+                          "marca": "Apple",
+                          "color": "Negro",
+                          "fechaCompra": "2021-01-15",
+                          "garantia": "2023-01-15"
+                        }
+                      }
+                    }
+                  },
+                  "500": {
+                    "description": "Error en la consulta a la base de datos."
+                  }
+                }
+              }
+          }
+      },
+    "components": {
+        "schemas": {
+          "Cliente": {
+            "type": "object",
+            "properties": {
+              "dni": {
+                "type": "string",
+                "example": "123456789"
+              },
+              "nombre": {
+                "type": "string",
+                "example": "Juan"
+              },
+              "apellido": {
+                "type": "string",
+                "example": "Pérez"
+              },
+              "fechaNac": {
+                "type": "string",
+                "format": "date",
+                "example": "1990-01-15"
+              },
+              "distrito": {
+                "type": "string",
+                "example": "Lima"
+              },
+              "departamento": {
+                "type": "string",
+                "example": "Lima"
+              },
+              "correo": {
+                "type": "string",
+                "example": "juan@example.com"
+              },
+              "sexo": {
+                "type": "string",
+                "example": "M"
+              },
+              "fechaafili": {
+                "type": "string",
+                "format": "date",
+                "example": "2023-10-03"
+              }
+            }
+          },
+          "ClienteDetallado": {
+            "type": "object",
+            "properties": {
+              "dni": {
+                "type": "string",
+                "example": "123456789"
+              },
+              "codigoPostal": {
+                "type": "integer",
+                "example": 15001
+              },
+              "trabajo": {
+                "type": "string",
+                "example": "Ingeniero"
+              },
+              "hobie": {
+                "type": "string",
+                "example": "Pintura"
+              },
+              "estadoCivil": {
+                "type": "string",
+                "example": "S"
+              },
+              "numHijos": {
+                "type": "string",
+                "example": "0"
+              },
+              "contacExterno": {
+                "type": "string",
+                "example": "923456789"
+              }
+            }
+          },
+          "Equipo": {
+            "type": "object",
+            "properties": {
+              "idEquipo": {
+                "type": "integer",
+                "example": 1
+              },
+              "dni": {
+                "type": "string",
+                "example": "123456789"
+              },
+              "modelo": {
+                "type": "string",
+                "example": "iPhone 12"
+              },
+              "marca": {
+                "type": "string",
+                "example": "Apple"
+              },
+              "color": {
+                "type": "string",
+                "example": "Negro"
+              },
+              "fechaCompra": {
+                "type": "string",
+                "format": "date",
+                "example": "2021-01-15"
+              },
+              "garantia": {
+                "type": "string",
+                "format": "date",
+                "example": "2023-01-15"
+              }
+            }
+          },
+          "Linea": {
+            "type": "object",
+            "properties": {
+              "idLinea": {
+                "type": "integer",
+                "example": 1
+              },
+              "dni": {
+                "type": "string",
+                "example": "123456789"
+              },
+              "idEquipo": {
+                "type": "integer",
+                "example": 1
+              },
+              "plan": {
+                "type": "string",
+                "example": "Plan Básico"
+              }
+            }
+          },
+          "Garantia": {
+            "type": "object",
+            "properties": {
+              "tipo": {
+                "type": "string"
+              },
+              "precio": {
+                "type": "integer"
+              },
+              "tiempo": {
+                "type": "string",
+                "format": "date"
+              },
+              "id": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      }
+  }
+  

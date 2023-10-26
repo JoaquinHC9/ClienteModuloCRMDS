@@ -42,12 +42,16 @@ CREATE TABLE equipo
     FOREIGN KEY (dni) REFERENCES cliente (dni)
 );
 
-CREATE TABLE linea
+CREATE TABLE linea_telefono
 (	
-    idLinea INT PRIMARY KEY,
+    numeroTelefono VARCHAR(20) PRIMARY KEY, -- Cambiado a VARCHAR para almacenar el número de teléfono
     dni VARCHAR(20),
     idEquipo INT,
     plan VARCHAR(25),
+    fechaCompra DATE, -- Fecha de compra (puedes ajustar el tipo de dato según tu necesidad)
+    fechaPago DATE, -- Fecha de pago (puedes ajustar el tipo de dato según tu necesidad)
+    montoPagoMensual DECIMAL(10, 2), -- Cambiado a DECIMAL para el monto
+    estado INT -- Cambiado a INT para el estado (0 para no activo, 1 para activo)
     FOREIGN KEY (dni) REFERENCES cliente (dni),
     FOREIGN KEY (idEquipo) REFERENCES Equipo (idEquipo)
 );
@@ -94,19 +98,19 @@ VALUES
   (10, 888888888, 'Motorola Moto G Power', 'Motorola', 'Turquesa', '2021-10-15', '2023-10-15');
 
 
-INSERT INTO linea (idLinea, dni, idEquipo, plan)
+INSERT INTO linea_telefono (numeroTelefono, dni, idEquipo, plan, fechaCompra, fechaPago, montoPagoMensual, estado)
 VALUES
-  (1, 123456789, 1, 'Plan Básico'),
-  (2, 987654321, 2, 'Plan Premium'),
-  (3, 555555555, 3, 'Plan Estándar'),
-  (4, 999999999, 4, 'Plan Familiar'),
-  (5, 111111111, 5, 'Plan Premium'),
-  (6, 222222222, 6, 'Plan Básico'),
-  (7, 333333333, 7, 'Plan Estándar'),
-  (8, 444444444, 8, 'Plan Premium'),
-  (9, 666666666, 9, 'Plan Básico'),
-  (10, 888888888, 10, 'Plan Familiar');
+  ('123456789', '123456789', 1, 'Plan Básico', '2023-10-26', '2023-11-26', 29.99, 1),
+  ('987654321', '987654321', 2, 'Plan Premium', '2023-10-26', '2023-11-26', 49.99, 1),
+  ('555555555', '555555555', 3, 'Plan Estándar', '2023-10-26', '2023-11-26', 39.99, 1),
+  ('999999999', '999999999', 4, 'Plan Familiar', '2023-10-26', '2023-11-26', 59.99, 1),
+  ('111111111', '111111111', 5, 'Plan Premium', '2023-10-26', '2023-11-26', 49.99, 1),
+  ('222222222', '222222222', 6, 'Plan Básico', '2023-10-26', '2023-11-26', 29.99, 1),
+  ('333333333', '333333333', 7, 'Plan Estándar', '2023-10-26', '2023-11-26', 39.99, 1),
+  ('444444444', '444444444', 8, 'Plan Premium', '2023-10-26', '2023-11-26', 49.99, 1),
+  ('666666666', '666666666', 9, 'Plan Básico', '2023-10-26', '2023-11-26', 29.99, 1),
+  ('888888888', '888888888', 10, 'Plan Familiar', '2023-10-26', '2023-11-26', 59.99, 1);
 select * from cliente;
 select * from clienteDetallado;
 select * from equipo;
-select * from linea;
+select * from linea_telefono;

@@ -9,6 +9,8 @@ import ModificarCliente from './pages/ModificarCliente';
 import { Helmet } from 'react-helmet';
 import Busqueda from "./pages/Busqueda";
 import Perfil from "./pages/perfil";
+import GestionLinea from "./pages/GestionLinea";
+import PerfilLinea from "./pages/PerfilLinea";
 
 function App() {
   return (
@@ -16,8 +18,7 @@ function App() {
       <Helmet>
         <title>Modulo Clientes</title>
       </Helmet>
-      <BrowserRouter>
-        <Header />
+      <BrowserRouter>        
         <Sidebar />
         <div className="App-container">          
           <div className="App-content">
@@ -27,6 +28,8 @@ function App() {
               <Route path="/ModificarCliente" element={<ModificarCliente/>} />
               <Route path="/Busqueda" element={<Busqueda />} />
               <Route path="/perfil/:dni" element={<Perfil/>} />
+              <Route path="/Lineas/:dni" element={<GestionLinea/>} />
+              <Route path="/PerfilLinea/:numTelefono" element={<PerfilLinea />} />
             </Routes>
           </div>
         </div>
