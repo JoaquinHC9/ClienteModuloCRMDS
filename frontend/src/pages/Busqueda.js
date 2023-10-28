@@ -15,6 +15,8 @@ export default function Busqueda() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedClient, setSelectedClient] = useState(null);
 
+  const [menuAnchorEl, setMenuAnchorEl] = useState({});
+
   const columns = ['DNI', 'Nombre', 'Apellido', 'Correo', 'Acciones'];
 
   const searchHandle = async () => {
@@ -45,10 +47,10 @@ export default function Busqueda() {
   const openProfile = (clientDNI, event) => {
     const selectedClient = searchResults.find((result) => result.dni === clientDNI);
     setSelectedClient(selectedClient);
-    setAnchorEl(event.currentTarget);
+    setMenuAnchorEl({ ...menuAnchorEl, [clientDNI]: event.currentTarget }); // Usar una variable por fila
   };
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleClose = (clientDNI) => {
+    setMenuAnchorEl({ ...menuAnchorEl, [clientDNI]: null }); // Usar una variable por fila
   };
 
   const redirectToProfile = (dni) => {
@@ -135,15 +137,15 @@ export default function Busqueda() {
                         ...
                       </button>
                       <div className='menu'>
-                      <Menu
-                        anchorEl={anchorEl}
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                      >
-                        <MenuItem onClick={() => redirectToProfile(result.dni)}>Visualizar Perfil</MenuItem>
-                        <MenuItem onClick={() => redirectToGestionLineas(result.dni)}>Gestion de Lineas</MenuItem>
-                        <MenuItem onClick={() => redirectAccountStatus(result.dni)}>Estado de Cuenta</MenuItem>
-                      </Menu>
+                        <Menu
+                          anchorEl={menuAnchorEl[result.dni]}
+                          open={Boolean(menuAnchorEl[result.dni])}
+                          onClose={() => handleClose(result.dni)}
+                        >
+                          <MenuItem onClick={() => redirectToProfile(result.dni)}>Visualizar Perfil</MenuItem>
+                          <MenuItem onClick={() => redirectToGestionLineas(result.dni)}>Gestion de Lineas</MenuItem>
+                          <MenuItem onClick={() => redirectAccountStatus(result.dni)}>Estado de Cuenta</MenuItem>
+                        </Menu>
                       </div>
                     </TableCell>
                   </TableRow>
@@ -151,7 +153,7 @@ export default function Busqueda() {
               </TableBody>
             </Table>
           </TableContainer>
-          </div>
+        </div>
         </div>
       </div>
     </div>

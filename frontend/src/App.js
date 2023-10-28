@@ -1,14 +1,13 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import './App.css';
 import React from 'react';
-import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Registro from './pages/Registro';
 import Main from './pages/Main';
 import ModificarCliente from './pages/ModificarCliente';
 import { Helmet } from 'react-helmet';
 import Busqueda from "./pages/Busqueda";
-import Perfil from "./pages/perfil";
+import Perfil from "./pages/Perfil";
 import GestionLinea from "./pages/GestionLinea";
 import PerfilLinea from "./pages/PerfilLinea";
 

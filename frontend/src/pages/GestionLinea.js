@@ -16,15 +16,17 @@ export default function GestionLineas() {
   const [clienteNombre, setClienteNombre] = useState('');
   const [clienteApellido, setClienteApellido] = useState('');
 
-  const columns = ['Numero de Telefono', 'Plan', 'Fecha de Compra','Fecha de Pago','Monto Mensual', 'Estado','Acciones'];
+  const columnasDatosLinea = ['Numero de Telefono', 'Plan', 'Fecha de Compra','Fecha de Pago','Monto Mensual', 'Estado','Acciones'];
   const { dni } = useParams();
   
-  const openOptions = (lineId, event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const [menuAnchorEl, setMenuAnchorEl] = useState({});
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const openOptions = (lineId, event) => {
+    setMenuAnchorEl({ ...menuAnchorEl, [lineId]: event.currentTarget });
+  };
+  
+  const handleClose = (lineId) => {
+    setMenuAnchorEl({ ...menuAnchorEl, [lineId]: null });
   };
 
   const perfilLinea = (numTelefono) => {
@@ -76,7 +78,7 @@ export default function GestionLineas() {
               <Table>
                 <TableHead>
                   <TableRow>
-                    {columns.map((column) => (
+                    {columnasDatosLinea.map((column) => (
                       <TableCell key={column}>{column}</TableCell>
                     ))}
                   </TableRow>
@@ -99,9 +101,9 @@ export default function GestionLineas() {
                         </button>
                         <div className='menu'>
                           <Menu
-                            anchorEl={anchorEl}
-                            open={Boolean(anchorEl)}
-                            onClose={handleClose}
+                            anchorEl={menuAnchorEl[result.numerotelefono]}
+                            open={Boolean(menuAnchorEl[result.numerotelefono])}
+                            onClose={() => handleClose(result.numerotelefono)}
                           >
                             <MenuItem onClick={() => perfilLinea(result.numerotelefono)}>Ver detalles de Línea</MenuItem>
                             <MenuItem onClick={() => darDeBaja(result.numerotelefono)}>Dar de baja</MenuItem>
@@ -119,4 +121,5 @@ export default function GestionLineas() {
       </div>
     </div>
   );
+  
 }
