@@ -19,11 +19,6 @@ export const SidebarData= [
         link: "/Registro"
     },
     {
-        title: "Modificar Cliente",
-        icon: <HowToRegIcon/>,
-        link: "/ModificarCliente"
-    },
-    {
         title: "Busqueda Cliente",
         icon: <SearchIcon/>,
         link: "/Busqueda"
@@ -38,9 +33,4 @@ export const SidebarData= [
         icon: <PhoneForwardedIcon/>,
         link: "/TransferenciaLinea"
     },
-    {
-        title: "Pago de Linea/Plan",
-        icon: <AttachMoneyIcon/>,
-        link: "/PagoEstadoCuenta"
-    }
 ]

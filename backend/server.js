@@ -44,6 +44,25 @@ app.post('/registerAPI', (req, res) => {
             res.status(500).json({ error: 'Error en el registro' });
         })
 });
+
+app.use(express.json());
+// Ruta para agregar detalles del cliente
+app.post('/agregarDetallesCliente', (req, res) => {
+    const {
+    dni, direccion, codigoPostal, trabajo, hobie, estadoCivil, numHijos, contacExterno} = req.body;
+    const query = 'INSERT INTO clienteDetallado (dni, direccion, codigoPostal, trabajo, hobie, estadoCivil, numHijos, contacExterno) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
+    const values = [dni, direccion, codigoPostal, trabajo, hobie, estadoCivil, numHijos, contacExterno];
+
+    client.query(query, values)
+        .then(() => {
+            res.status(201).json({ message: 'Detalles del cliente registrados con éxito' });
+        })
+        .catch(err => {
+            console.error(err); // Imprimir el error en la consola
+            res.status(500).json({ error: 'Error en el registro de detalles del cliente' });
+        });
+})
+  
 //busqueda clientes
 app.get('/buscarPorDNI/:dni', (req, res) => {
     const dniABuscar = req.params.dni;
@@ -85,54 +104,44 @@ app.get('/buscarPorNombre/:nombre', (req, res) => {
 });
 //busqueda datos del cliente detalle
 app.get('/buscarClienteDetalladoPorDNI/:dni', (req, res) => {
-    const dniABuscar = req.params.dni;
-    const query = 'SELECT * FROM clienteDetallado WHERE dni = $1';
-
-    client.query(query, [dniABuscar])
+  const dniABuscar = req.params.dni;
+  const query = 'SELECT * FROM clienteDetallado WHERE dni = $1';    
+  
+  client.query(query, [dniABuscar])
     .then(response => {
-        if (response.rows.length === 0) {
+      if (response.rows.length === 0) {
         console.log('No se encontraron resultados en clienteDetallado para el DNI: ' + dniABuscar);
-        } else {
+        res.json({}); // Devolvemos un objeto vacío si no se encontraron resultados
+      } else {
         console.log('Resultados de la búsqueda en clienteDetallado por DNI ' + dniABuscar + ':');
         console.log(response.rows);
-        }
-        res.json(response.rows);
+        res.json(response.rows[0]); // Devolvemos el primer registro que coincide con el DNI
+      }
     })
     .catch(err => {
-        console.error(err);
-        res.status(500).json({ error: 'Error en la consulta a la base de datos en clienteDetallado' });
+      console.error(err);
+      res.status(500).json({ error: 'Error en la consulta a la base de datos en clienteDetallado' });
+    });    
+});
+
+app.put('/actualizarDetallesCliente/:dni', (req, res) => {
+  const dniActualizar = req.params.dni; // Obtén el DNI de los parámetros de la URL
+  const { direccion, codigoPostal, trabajo, hobie, estadoCivil, numHijos, contacExterno } = req.body;
+
+  const queryUpdate = 'UPDATE clienteDetallado SET direccion = $2, codigoPostal = $3, trabajo = $4, hobie = $5, estadoCivil = $6, numHijos = $7, contacExterno = $8 WHERE dni = $1';
+  const values = [dniActualizar, direccion, codigoPostal, trabajo, hobie, estadoCivil, numHijos, contacExterno];
+
+  client.query(queryUpdate, values)
+    .then(() => {
+      res.status(200).json({ message: 'Detalles del cliente actualizados exitosamente' });
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ error: 'Error al actualizar los detalles del cliente' });
     });
 });
-//modificar perfil datos del cliente detalle, falta modificar datos del cliente
-app.put('/api/clientesDetallados/:dni', (req, res) => {
-    const dniActualizar = req.params.dni;
-    const { codigoPostal, trabajo, hobie, estadoCivil, numHijos, contacExterno } = req.body;
 
-    // Verifica si el cliente detallado existe antes de actualizar
-    const queryExistencia = 'SELECT * FROM clienteDetallado WHERE dni = $1';
-    client.query(queryExistencia, [dniActualizar])
-        .then(response => {
-            if (response.rows.length === 0) {
-                res.status(404).json({ error: 'Cliente detallado no encontrado' });
-            } else {
-                const query = 'UPDATE clienteDetallado SET codigoPostal = $1, trabajo = $2, hobie = $3, estadoCivil = $4, numHijos = $5, contacExterno = $6 WHERE dni = $7';
-                const values = [codigoPostal, trabajo, hobie, estadoCivil, numHijos, contacExterno, dniActualizar];
 
-                client.query(query, values)
-                    .then(() => {
-                        res.status(200).json({ message: 'Actualización exitosa' });
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        res.status(500).json({ error: 'Error en la actualización' });
-                    });
-            }
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(500).json({ error: 'Error en la consulta a la base de datos' });
-        });
-});
 //obtener lineas por dni
 app.get('/buscarLineasPorDNI/:dni', (req, res) => {
     const dniABuscar = req.params.dni;

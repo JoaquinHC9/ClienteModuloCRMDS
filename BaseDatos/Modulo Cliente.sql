@@ -21,12 +21,13 @@ CREATE TABLE cliente
 CREATE TABLE clienteDetallado
 (
     dni VARCHAR(20) PRIMARY KEY,
+    direccion VARCHAR(100), -- Cambiar a VARCHAR(100) para permitir direcciones más largas
     codigoPostal INT,
-    trabajo VARCHAR(25),
-    hobie VARCHAR(25),
-    estadoCivil CHAR(1),
-    numHijos VARCHAR(1),
-    contacExterno VARCHAR(9),
+    trabajo VARCHAR(25), -- Cambiar a VARCHAR(25) para permitir trabajos más largos
+    hobie VARCHAR(25), -- Cambiar a VARCHAR(25) para permitir hobbies más largos
+    estadoCivil VARCHAR(1), -- Cambiar a VARCHAR(1) para permitir 'S' o 'C'
+    numHijos VARCHAR(1), -- Cambiar a VARCHAR(1) para permitir 1 carácter
+    contacexterno VARCHAR(9),
     FOREIGN KEY (dni) REFERENCES cliente (dni)
 );
 
@@ -70,18 +71,18 @@ VALUES
   (888888888, 'Elena', 'López', '1990-02-02', 'Lima', 'Lima', 'elena@example.com', 'F', '2023-10-03');
 
 -- Insertar usuarios en la tabla clienteDetallado
-INSERT INTO clienteDetallado (dni, codigoPostal, trabajo, hobie, estadoCivil, numHijos, contacExterno)
+INSERT INTO clienteDetallado (dni, direccion, codigoPostal, trabajo, hobie, estadocivil, numhijos, contacexterno)
 VALUES
-  (123456789, 15001, 'Ingeniero', 'Pintura', 'S', '0', '923456789'),
-  (987654321, 15002, 'Médico', 'Música', 'C', '2', '987654321'),
-  (555555555, 15003, 'Abogado', 'Deportes', 'S', '1', '955555555'),
-  (999999999, 15004, 'Profesor', 'Lectura', 'C', '3', '999999999'),
-  (111111111, 15005, 'Arquitecto', 'Cocina', 'S', '0', '911111111'),
-  (222222222, 15006, 'Diseñador', 'Viajes', 'C', '2', '922222222'),
-  (333333333, 15007, 'Contador', 'Fotografía', 'S', '1', '933333333'),
-  (444444444, 15008, 'Economista', 'Jardinería', 'C', '2', '944444444'),
-  (666666666, 15009, 'Ingeniero Civil', 'Natación', 'S', '0', '966666666'),
-  (888888888, 15010, 'Psicólogo', 'Ajedrez', 'C', '1', '988888888');
+  (123456789, 'Calle 123', 15001, 'Ingeniero', 'Pintura', 'S', '0', '923456789'),
+  (987654321, 'Avenida Principal', 15002, 'Médico', 'Música', 'C', '2', '987654321'),
+  (555555555, 'Calle Secundaria', 15003, 'Abogado', 'Deportes', 'S', '1', '955555555'),
+  (999999999, 'Calle 789', 15004, 'Profesor', 'Lectura', 'C', '3', '999999999'),
+  (111111111, 'Avenida Secundaria', 15005, 'Arquitecto', 'Cocina', 'S', '0', '911111111'),
+  (222222222, 'Calle 456', 15006, 'Diseñador', 'Viajes', 'C', '2', '922222222'),
+  (333333333, 'Avenida 789', 15007, 'Contador', 'Fotografía', 'S', '1', '933333333'),
+  (444444444, 'Calle 789', 15008, 'Economista', 'Jardinería', 'C', '2', '944444444'),
+  (666666666, 'Avenida Final', 15009, 'Ingeniero Civil', 'Natación', 'S', '0', '966666666'),
+  (888888888, 'Calle 111', 15010, 'Psicólogo', 'Ajedrez', 'C', '1', '988888888');
 
 
 INSERT INTO equipo (idEquipo, dni, modelo, marca, color, fechaCompra, garantia)

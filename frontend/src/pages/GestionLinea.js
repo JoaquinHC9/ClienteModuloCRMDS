@@ -5,7 +5,7 @@ import axios from 'axios';
 import { API_URL } from '../config';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
-import { useParams } from 'react-router-dom'; // Importa el hook useParams
+import { useParams } from 'react-router-dom'; 
 
 export default function GestionLineas() {
   const navigate = useNavigate();
@@ -35,13 +35,11 @@ export default function GestionLineas() {
   };
 
   const darDeBaja = (numTelefono) => {
-    // Lógica para dar de baja la línea
-    // Puedes realizar una solicitud a tu servidor para realizar esta acción
+    // Lógica para dar de baja la línea    
   };
 
   const transferirLinea = (numTelefono) => {
-    // Lógica para transferir la línea
-    // Puedes realizar una solicitud a tu servidor para realizar esta acción
+    // Lógica para transferir la línea    
   };
 
   useEffect(() => {

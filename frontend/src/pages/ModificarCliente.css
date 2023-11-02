@@ -1,0 +1,51 @@
+.modalContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px; /* Aumenté el ancho para acomodar las dos secciones lado a lado */
+    background-color: white;
+    border: 2px solid #000;
+    box-shadow: 24px;
+    padding: 16px;
+    border-radius: 5px;
+  }
+  
+  .datosContainer {
+    display: flex; /* Configuración de un diseño de fila */
+    justify-content: space-between; /* Los elementos se separarán en la fila */
+  }
+  
+  .datosBasicos,
+  .datosCompletos {
+    flex: 0 0 calc(50% - 10px); /* Establece el ancho de ambos contenedores al 50% con espacio entre ellos */
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+  }
+  
+  .datosBasicos h3,
+  .datosCompletos h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .datosBasicos div,
+  .datosCompletos div {
+    margin-bottom: 10px;
+  }
+  
+  .datosBasicos label,
+  .datosCompletos label {
+    font-weight: bold;
+  }
+  
+  .datosBasicos input,
+  .datosCompletos input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
+  

@@ -5,10 +5,10 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAxios } from '../components/UseAxios.ts';
 import { API_URL } from '../config';
 
-function Perfil() {
+export default function Perfil() {
   const { dni } = useParams();
   const { data: clienteData, error: clienteError, isLoading: clienteIsLoading } = useAxios(`${API_URL}/buscarPorDNI/${dni}`);
-  const { data: clienteDetalladoData } = useAxios(`${API_URL}/buscarClienteDetalladoPorDNI/${dni}`);  
+  const { data: clienteDetalladoData } = useAxios(`${API_URL}/buscarClienteDetalladoPorDNI/${dni}`);
   const hasClienteData = clienteData && Object.keys(clienteData).length > 0;
   const hasClienteDetalladoData = clienteDetalladoData && Object.keys(clienteDetalladoData).length > 0;
   return (
@@ -39,20 +39,16 @@ function Perfil() {
           <p>Error al cargar datos del cliente: {clienteError}</p>
         )}
         {hasClienteDetalladoData ? (
-          <div>
-            {clienteDetalladoData.map((clienteDetallado, index) => (
-              <div key={index}>
-                <h2>Datos Detallados del Cliente</h2>
-                <p>Trabajo: {clienteDetallado.trabajo}</p>
-                <p>Hobbie: {clienteDetallado.hobie}</p>
-                <p>Estado Civil: {clienteDetallado.estadocivil}</p>
-                <p>Código Postal: {clienteDetallado.codigopostal}</p>
-                <p>Contacto de Emergencia: {clienteDetallado.contacexterno}</p>
-              </div>
-            ))}
-          </div>
-        ) : null}
+        <div>
+          <h2>Datos Detallados del Cliente</h2>
+          <p>Direccion: {clienteDetalladoData.direccion}</p>
+          <p>Trabajo: {clienteDetalladoData.trabajo}</p>
+          <p>Hobbie: {clienteDetalladoData.hobie}</p>
+          <p>Estado Civil: {clienteDetalladoData.estadocivil}</p>
+          <p>Código Postal: {clienteDetalladoData.codigopostal}</p>
+          <p>Contacto de Emergencia: {clienteDetalladoData.contacexterno}</p>
+        </div>
+      ) : null}
     </div>
   );
 }
-export default Perfil;

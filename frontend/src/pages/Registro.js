@@ -7,6 +7,7 @@ import axios from "axios";
 import { Modal, Button } from 'react-bootstrap';
 
 export default function Registro() {
+  
   const [clienteData, setData] = useState({
     dni: '',
     nombre: '',
@@ -19,13 +20,14 @@ export default function Registro() {
     sexo:''
   });
   const [clienteDetalleData, setData2] = useState({
+    dni: '',
     direccion: '',
     codigoPostal: '',
     trabajo: '',
-    hobbie: '',
+    hobie: '',
     estadoCivil: '',
-    numHijos: 'null',    
-    contactoEmergencia: '',
+    numHijos: 'null',
+    contacExterno: '', 
   });
 
   const [showModal, setShowModal] = useState(false);
@@ -51,59 +53,46 @@ export default function Registro() {
     e.preventDefault();
     try {
       const url = `${API_URL}/registerAPI`;
-      const response = await axios.post(url, clienteData);
-      console.log(response);
+      const response = await axios.post(url, clienteData);      
 
       // Mostrar el modal después de completar el primer registro
       setShowModal(true);
     } catch (error) {
-      setError(error.response.data.message);
-      console.log(error);
+      setError(error.response.data.message);      
     }
-    vaciarCampos();
+
+
   };
+  
   const enviarDatos2 = async (e) => {
     e.preventDefault();
     try {
-      const url = `${API_URL}/fullRegisterAPI`;
-      const response = await axios.post(url, clienteDetalleData);
-      console.log(response);
+      const url = `${API_URL}/agregarDetallesCliente`;      
+      clienteDetalleData.dni = clienteData.dni;
+      const response = await axios.post(url, clienteDetalleData);      
     } catch (error) {
-      setError(error.response.data.message);
-      console.log(error);
+      setError(error.response.data.message);      
     }
-    vaciarCampos();
+    
   };
+  
   const handleConfirm = () => {
     setShowModal(false);
+    if (showSecondForm) {
+      // Actualiza el DNI en clienteDetalleData antes de mostrar el segundo formulario
+      setData2((prevState) => ({
+        ...prevState,
+        dni: clienteData.dni,
+      }));
+    }
     setShowSecondForm(true);
-  };  
-  const cancelarForm = ()=>{
+  };
+
+  const cancelarForm = () => {
     setShowSecondForm(false);
     setShowModal(false); 
-  }
-  const vaciarCampos = () => {
-    setData({
-      dni: '',
-      nombre: '',
-      apellido: '',
-      fechaNacimiento: null,
-      distrito: '',
-      departamento: '',
-      email: '',
-      fechaAfiliacion: new Date().toISOString().substr(0, 10),
-      sexo: '',
-    });
-    setData2({
-      direccion: '',
-      codigoPostal: '',
-      trabajo: '',
-      hobbie: '',
-      estadoCivil: '',
-      numHijos: 'null',
-      contactoEmergencia: '',
-    });
   };
+
 
   return (
     <div className="d-flex justify-content-center align-items-center bg-light">
@@ -195,7 +184,7 @@ export default function Registro() {
                   placeholder='Digite Dirección'
                   onChange={onChange2}
                   required
-                  value={clienteData.direccion}
+                  value={clienteDetalleData.direccion}
                   name='direccion'
                   className='form-control rounded-0'  
                   style={{ width: '300px' }}                
@@ -210,7 +199,7 @@ export default function Registro() {
                   placeholder='Digite Código Postal'
                   onChange={onChange2}
                   required
-                  value={clienteData.codigoPostal}
+                  value={clienteDetalleData.codigoPostal}
                   name='codigoPostal'
                   className='form-control rounded-0'
                   style={{ width: '300px' }}
@@ -227,23 +216,23 @@ export default function Registro() {
                   placeholder='Digite Trabajo'
                   onChange={onChange2}
                   required
-                  value={clienteData.trabajo}
+                  value={clienteDetalleData.trabajo}
                   name='trabajo'
                   className='form-control rounded-0'
                   style={{ width: '300px' }}
                 />
               </div>
               <div>
-                <label htmlFor='hobbie'>
-                  <strong>Hobbie</strong>
+                <label htmlFor='hobie'>
+                  <strong>Hobie</strong>
                 </label>
                 <input
                   type='text'
                   placeholder='Digite Hobbie'
                   onChange={onChange2}
                   required
-                  value={clienteData.hobbie}
-                  name='hobbie'
+                  value={clienteDetalleData.hobie}
+                  name='hobie'
                   className='form-control rounded-0'
                   style={{ width: '300px' }}
                 />
@@ -259,7 +248,7 @@ export default function Registro() {
                   placeholder='Digite Estado Civil'
                   onChange={onChange2}
                   required
-                  value={clienteData.estadoCivil}
+                  value={clienteDetalleData.estadoCivil}
                   name='estadoCivil'
                   className='form-control rounded-0'
                   style={{ width: '300px' }}
@@ -274,7 +263,7 @@ export default function Registro() {
                   placeholder='Digite Número de Hijos'
                   onChange={onChange2}
                   required
-                  value={clienteData.numHijos}
+                  value={clienteDetalleData.numHijos}
                   name='numHijos'
                   className='form-control rounded-0'
                   style={{ width: '300px' }}
@@ -282,7 +271,7 @@ export default function Registro() {
               </div>
             </div>
             <div className='mb-2'>
-              <label htmlFor='contactoEmergencia'>
+              <label htmlFor='contacExterno'> 
                 <strong>Contacto de Emergencia</strong>
               </label>
               <input
@@ -290,8 +279,8 @@ export default function Registro() {
                 placeholder='Digite contacto de emergencia'
                 onChange={onChange2}
                 required
-                value={clienteData.contactoEmergencia}
-                name='contactoEmergencia'
+                value={clienteDetalleData.contacExterno} 
+                name='contacExterno' 
                 className='form-control rounded-0'
               />
             </div>
