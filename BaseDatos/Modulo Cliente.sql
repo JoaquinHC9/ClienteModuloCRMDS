@@ -45,16 +45,14 @@ CREATE TABLE equipo
 
 CREATE TABLE linea_telefono
 (	
-    numeroTelefono VARCHAR(20) PRIMARY KEY, -- Cambiado a VARCHAR para almacenar el número de teléfono
-    dni VARCHAR(20),
-    idEquipo INT,
+    numeroTelefono VARCHAR(20) PRIMARY KEY, 
+    dni VARCHAR(20),    
     plan VARCHAR(25),
-    fechaCompra DATE, -- Fecha de compra (puedes ajustar el tipo de dato según tu necesidad)
-    fechaPago DATE, -- Fecha de pago (puedes ajustar el tipo de dato según tu necesidad)
-    montoPagoMensual DECIMAL(10, 2), -- Cambiado a DECIMAL para el monto
-    estado INT -- Cambiado a INT para el estado (0 para no activo, 1 para activo)
-    FOREIGN KEY (dni) REFERENCES cliente (dni),
-    FOREIGN KEY (idEquipo) REFERENCES Equipo (idEquipo)
+    fechaCompra DATE, 
+    fechaPago DATE, 
+    montoPagoMensual DECIMAL(10, 2), 
+    estado INT,
+    FOREIGN KEY (dni) REFERENCES cliente (dni)
 );
 
 INSERT INTO cliente (dni, nombre, apellido, fechaNac, distrito, departamento, correo, sexo, fechaafili)
