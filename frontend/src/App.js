@@ -24,7 +24,7 @@ function App() {
               <Route path="/" element={<Main />} />
               <Route path="/Registro" element={<Registro />} />              
               <Route path="/Busqueda" element={<Busqueda />} />
-              <Route path="/perfil/:dni" element={<Perfil/>} />
+              <Route path="/Perfil/:dni" element={<Perfil/>} />
               <Route path="/Lineas/:dni" element={<GestionLinea/>} />
               <Route path="/PerfilLinea/:numTelefono" element={<PerfilLinea />} />
             </Routes>
