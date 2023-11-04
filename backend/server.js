@@ -6,21 +6,21 @@ const app = express();
 
 app.use(cors());
 
-const connectionData = {
+/*const connectionData = {
     user: 'postgres',
     host: 'localhost',
     database: 'telecomunicaciones',
     password: 'Jjba222716',
     port: 5432,
-}
+}*/
 
-/*const connectionData = {
+const connectionData = {
   user: 'crmclientebd_user',
   host: 'dpg-cl1sfi0310os73doltl0-a',
   database: 'crmclientebd',
   password: 'IXsV1HJPATuLaFO0cPtkDWMlqQmd03Ra',
   port: 5432,
-}*/
+}
 
 const client = new Client(connectionData)
 
