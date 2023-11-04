@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import './Perfil.css';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAxios } from '../components/UseAxios.ts';
-import { API_URL } from '../config';
+import { API_URL } from '../config.js';
 
-export default function Perfil() {
+export default function PerfilCliente() {
   const { dni } = useParams();
   const { data: clienteData, error: clienteError, isLoading: clienteIsLoading } = useAxios(`${API_URL}/buscarPorDNI/${dni}`);
   const { data: clienteDetalladoData } = useAxios(`${API_URL}/buscarClienteDetalladoPorDNI/${dni}`);
