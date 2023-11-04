@@ -7,7 +7,7 @@ interface Response<T> {
   isLoading: boolean;
 }
 
-export function useAxios<T>(url: string): Response<T> {
+export function useAxios<T> (url: string): Response<T> {
   const [data, setData] = useState<T | undefined>(undefined);
   const [error, setError] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);

@@ -6,6 +6,7 @@ import { API_URL } from '../config';
 import {useNavigate } from 'react-router-dom';
 import '../App.css';
 import ModificarCliente from './ModificarCliente'; // Asegúrate de que la ruta sea correcta
+import BusFachada from '../components/BusFachada.ts';
 export default function Busqueda() {
 
   //busquedas
@@ -31,32 +32,27 @@ export default function Busqueda() {
     setEditingClient(client);
     setIsEditModalOpen(true);
   };
-
-  //manejo busqueda
+  const busFachada = BusFachada();
+  //Manejo busqueda
   const searchHandle = async () => {
     try {
-      let searchField = '';
-      let searchValue = '';
       if (searchDNI) {
-        searchField = 'dni';
-        searchValue = searchDNI;
+        const clienteData = await busFachada.buscarClientePorDNI(searchDNI);
+        setSearchResults(clienteData);
       } else if (searchNombre) {
-        searchField = 'nombre';
-        searchValue = searchNombre;
+        const clientesPorNombre = await busFachada.buscarClientesPorNombre(searchNombre);
+        setSearchResults(clientesPorNombre);
       } else if (searchApellido) {
-        searchField = 'apellido';
-        searchValue = searchApellido;
+        const clientesPorApellido = await busFachada.buscarClientesPorApellido(searchApellido);
+        setSearchResults(clientesPorApellido);
       }
-      const url = `${API_URL}/buscarPor${searchField}/${searchValue}`;
-      const response = await axios.get(url);
-      setSearchResults(response.data);      
       setSearchDNI('');
       setSearchNombre('');
       setSearchApellido('');
     } catch (error) {
       console.error('Error al realizar la búsqueda:', error);
     }
-  };
+  }
 
   //abrir menu acciones
   const openProfile = (clientDNI, event) => {
