@@ -45,12 +45,12 @@ export default function GestionLineas() {
   useEffect(() => {
     const fetchLines = async () => {
       try {
-        const clienteResponse = await axios.get(`${API_URL}/buscarPorDNI/${dni}`);
-        const cliente = clienteResponse.data[0]; // Suponemos que obtiene un único cliente
-        setClienteNombre(cliente.nombre); // Actualiza el estado con el nombre del cliente        
-        setClienteApellido(cliente.apellido); // Actualiza el estado con el nombre del cliente
+        const clienteResponse = await axios.get(`${API_URL}/clientes/buscarPorDNI/${dni}`);
+        const cliente = clienteResponse.data;
+        setClienteNombre(cliente.nombre); 
+        setClienteApellido(cliente.apellido);
 
-        const lineaRespuesta = await axios.get(`${API_URL}/buscarLineasPorDNI/${dni}`);
+        const lineaRespuesta = await axios.get(`${API_URL}/lineas/buscarLineasPorDNI/${dni}`);
         setSearchResults(lineaRespuesta.data);
       } catch (error) {
         console.error('Error al obtener las líneas del cliente:', error);

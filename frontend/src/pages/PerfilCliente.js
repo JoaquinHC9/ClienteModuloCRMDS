@@ -7,8 +7,8 @@ import { API_URL } from '../config.js';
 
 export default function PerfilCliente() {
   const { dni } = useParams();
-  const { data: clienteData, error: clienteError, isLoading: clienteIsLoading } = useAxios(`${API_URL}/buscarPorDNI/${dni}`);
-  const { data: clienteDetalladoData } = useAxios(`${API_URL}/buscarClienteDetalladoPorDNI/${dni}`);
+  const { data: clienteData, error: clienteError, isLoading: clienteIsLoading } = useAxios(`${API_URL}/clientes/buscarPorDNI/${dni}`);
+  const { data: clienteDetalladoData } = useAxios(`${API_URL}/detallesCliente/buscarClienteDetalladoPorDNI/${dni}`);
   const hasClienteData = clienteData && Object.keys(clienteData).length > 0;
   const hasClienteDetalladoData = clienteDetalladoData && Object.keys(clienteDetalladoData).length > 0;
   return (
@@ -18,20 +18,16 @@ export default function PerfilCliente() {
       </div>
       <h1>Perfil del Cliente</h1>
       {hasClienteData ? (
-        <div>
-            {clienteData.map((cliente, index) => (
-              <div key={index}>
-                <h2>Datos del Cliente</h2>
-                <p>Nombre: {cliente.nombre}</p>
-                <p>Apellido: {cliente.apellido}</p>
-                <p>Correo: {cliente.correo}</p>
-                <p>DNI: {dni}</p>
-                <p>Fecha de Nacimiento: {cliente.fechanac && new Date(cliente.fechanac).toLocaleDateString()}</p>
-                <p>Distrito: {cliente.distrito}</p>
-                <p>Departamento: {cliente.departamento}</p>
-                <p>Sexo: {cliente.sexo}</p>
-              </div>
-            ))}
+          <div>
+            <h2>Datos del Cliente</h2>
+            <p>Nombre: {clienteData.nombre}</p>
+            <p>Apellido: {clienteData.apellido}</p>
+            <p>Correo: {clienteData.correo}</p>
+            <p>DNI: {dni}</p>
+            <p>Fecha de Nacimiento: {clienteData.fechanac && new Date(clienteData.fechanac).toLocaleDateString()}</p>
+            <p>Distrito: {clienteData.distrito}</p>
+            <p>Departamento: {clienteData.departamento}</p>
+            <p>Sexo: {clienteData.sexo}</p>
           </div>
         ) : clienteIsLoading ? (
           <p>Cargando...</p>

@@ -13,7 +13,7 @@ const BusFachada = (): BusquedaFachada => {
 
   const buscarClientePorDNI = async (dni: string) => {
     try {
-      const response = await instance.get(`/buscarPorDNI/${dni}`);
+      const response = await instance.get(`/clientes/buscarPorDNI/${dni}`);
       return response.data;
     } catch (error) {
       console.error('Error al buscar cliente por DNI:', error);
@@ -23,7 +23,7 @@ const BusFachada = (): BusquedaFachada => {
 
   const buscarLineasPorDNI = async (dni: string) => {
     try {
-      const response = await instance.get(`/buscarLineasPorDNI/${dni}`);
+      const response = await instance.get(`/lineas/buscarLineasPorDNI/${dni}`);
       return response.data;
     } catch (error) {
       console.error('Error al buscar líneas por DNI:', error);
@@ -33,7 +33,7 @@ const BusFachada = (): BusquedaFachada => {
 
   const buscarClientesPorNombre = async (nombre: string) => {
     try {
-      const response = await instance.get(`/buscarPorNombre/${nombre}`);
+      const response = await instance.get(`/clientes/buscarPorNombre/${nombre}`);
       return response.data;
     } catch (error) {
       console.error('Error al buscar clientes por nombre:', error);
@@ -43,7 +43,7 @@ const BusFachada = (): BusquedaFachada => {
 
   const buscarClientesPorApellido = async (apellido: string) => {
     try {
-      const response = await instance.get(`/buscarPorApellido/${apellido}`);
+      const response = await instance.get(`/clientes/buscarPorApellido/${apellido}`);
       return response.data;
     } catch (error) {
       console.error('Error al buscar clientes por apellido:', error);

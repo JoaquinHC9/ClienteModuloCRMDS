@@ -38,7 +38,7 @@ export default function Busqueda() {
     try {
       if (searchDNI) {
         const clienteData = await busFachada.buscarClientePorDNI(searchDNI);
-        setSearchResults(clienteData);
+        setSearchResults([clienteData]); // Convierte el objeto en un array solucion temporal
       } else if (searchNombre) {
         const clientesPorNombre = await busFachada.buscarClientesPorNombre(searchNombre);
         setSearchResults(clientesPorNombre);
@@ -52,7 +52,7 @@ export default function Busqueda() {
     } catch (error) {
       console.error('Error al realizar la búsqueda:', error);
     }
-  }
+  }  
 
   //abrir menu acciones
   const openProfile = (clientDNI, event) => {
@@ -73,7 +73,7 @@ export default function Busqueda() {
   const redirectToGestionLineas = async (dni) => {
     // Redirige a la página que maneja líneas
     try {
-        const response = await axios.get(`${API_URL}/buscarLineasPorDNI/${dni}`);
+        const response = await axios.get(`${API_URL}/lineas/buscarLineasPorDNI/${dni}`);
         navigate(`/Lineas/${dni}`, { state: { client: selectedClient } });
     } catch (error) {
         console.error('Error al obtener las líneas del cliente:', error);

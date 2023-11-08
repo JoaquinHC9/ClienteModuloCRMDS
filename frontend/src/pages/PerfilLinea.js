@@ -7,7 +7,7 @@ import { API_URL } from '../config';
 
 function PerfilLinea() {
   const { numTelefono } = useParams();
-  const { data: lineaData, error: lineaError, isLoading: lineaIsLoading } = useAxios(`${API_URL}/obtenerDetallesDeLinea/${numTelefono}`);
+  const { data: lineaData, error: lineaError, isLoading: lineaIsLoading } = useAxios(`${API_URL}/lineas/obtenerDetallesDeLinea/${numTelefono}`);
 
   // Verificar si `lineaData` es un array y tiene al menos un elemento
   const hasLineaData = Array.isArray(lineaData) && lineaData.length > 0;  

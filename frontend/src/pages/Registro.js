@@ -52,9 +52,8 @@ export default function Registro() {
   const enviarDatos = async (e) => {
     e.preventDefault();
     try {
-      const url = `${API_URL}/registerAPI`;
-      const response = await axios.post(url, clienteData);      
-
+      const url = `${API_URL}/clientes/registarCliente`;
+      const response = await axios.post(url, clienteData);
       // Mostrar el modal después de completar el primer registro
       setShowModal(true);
     } catch (error) {
@@ -67,7 +66,7 @@ export default function Registro() {
   const enviarDatos2 = async (e) => {
     e.preventDefault();
     try {
-      const url = `${API_URL}/agregarDetallesCliente`;      
+      const url = `${API_URL}/detallesCliente/agregarDetallesCliente`;      
       clienteDetalleData.dni = clienteData.dni;
       const response = await axios.post(url, clienteDetalleData);      
     } catch (error) {
