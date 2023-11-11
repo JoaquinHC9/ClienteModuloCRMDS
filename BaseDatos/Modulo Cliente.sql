@@ -22,12 +22,12 @@ CREATE TABLE clienteDetallado
 (
     dni VARCHAR(20) PRIMARY KEY,
     direccion VARCHAR(100), -- Cambiar a VARCHAR(100) para permitir direcciones más largas
-    codigoPostal INT,
+    codigo_postal INT,
     trabajo VARCHAR(25), -- Cambiar a VARCHAR(25) para permitir trabajos más largos
     hobie VARCHAR(25), -- Cambiar a VARCHAR(25) para permitir hobbies más largos
-    estadoCivil VARCHAR(1), -- Cambiar a VARCHAR(1) para permitir 'S' o 'C'
+    estado_civil VARCHAR(1), -- Cambiar a VARCHAR(1) para permitir 'S' o 'C'
     numHijos VARCHAR(1), -- Cambiar a VARCHAR(1) para permitir 1 carácter
-    contacexterno VARCHAR(9),
+    contac_externo VARCHAR(9),
     FOREIGN KEY (dni) REFERENCES cliente (dni)
 );
 
@@ -69,7 +69,7 @@ VALUES
   (888888888, 'Elena', 'López', '1990-02-02', 'Lima', 'Lima', 'elena@example.com', 'F', '2023-10-03');
 
 -- Insertar usuarios en la tabla clienteDetallado
-INSERT INTO clienteDetallado (dni, direccion, codigoPostal, trabajo, hobie, estadocivil, numhijos, contacexterno)
+INSERT INTO clienteDetallado (dni, direccion, codigo_postal, trabajo, hobie, estado_civil, num_hijos, contac_externo)
 VALUES
   (123456789, 'Calle 123', 15001, 'Ingeniero', 'Pintura', 'S', '0', '923456789'),
   (987654321, 'Avenida Principal', 15002, 'Médico', 'Música', 'C', '2', '987654321'),

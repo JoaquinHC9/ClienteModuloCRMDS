@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import './ModificarCliente.css'; 
 import axios from 'axios'; 
 import { API_URL } from '../config';
+import ModificarClienteCommand from '../components/ModificarClienteCommand.ts'; 
 
 export default function ModificarCliente({ isOpen, onClose, client: cliente }) {
   const [detallesCliente, setDetallesCliente] = useState(null);
@@ -13,12 +14,12 @@ export default function ModificarCliente({ isOpen, onClose, client: cliente }) {
   const [nuevosDetalles, setNuevosDetalles] = useState({
     dni: '',
     direccion: '',
-    codigoPostal: '',
+    codigo_postal: '',
     trabajo: '',
     hobie: '',
-    estadoCivil: '',
-    numhijos: '',
-    contacExterno: '',
+    estado_civil: '',
+    num_hijos: '',
+    contac_externo: '',
   });
 
   useEffect(() => {
@@ -43,62 +44,32 @@ export default function ModificarCliente({ isOpen, onClose, client: cliente }) {
   }
 
   const toggleEditMode = () => {
-      if (!isEditMode) {
-          // Copia los detalles existentes al estado de edición
+      if (!isEditMode) {          
           setNuevosDetalles({
             dni: detallesCliente.dni || '',
             direccion: detallesCliente.direccion || '',
-            codigoPostal: detallesCliente.codigoPostal || '',
+            codigo_postal: detallesCliente.codigo_postal || '',
             trabajo: detallesCliente.trabajo || '',
             hobie: detallesCliente.hobie || '',
-            estadoCivil: detallesCliente.estadocivil || '',
-            numhijos: detallesCliente.numHijos || '',
-            contacExterno: detallesCliente.contacexterno || '',
+            estado_civil: detallesCliente.estado_civil || '',
+            num_hijos: detallesCliente.num_hijos || '',
+            contac_externo: detallesCliente.contac_externo || '',
           });
       }
       setIsEditMode(!isEditMode);
   };
 
   const saveNuevosDetalles = async () => {
-    try {
-      console.log('Valores de nuevosDetalles:', nuevosDetalles);
-  
-      // Realiza una solicitud GET para verificar si existen detalles para el cliente
-      const response = await axios.get(`${API_URL}/buscarClienteDetalladoPorDNI/${cliente.dni}`);
-      console.log(response.data.dni);
-      
-      if (response.data.dni === undefined) {        
-        await axios.post(`${API_URL}/agregarDetallesCliente`, {
-          dni: cliente.dni,
-          direccion: nuevosDetalles.direccion,
-          codigoPostal: nuevosDetalles.codigopostal,
-          trabajo: nuevosDetalles.trabajo,
-          hobie: nuevosDetalles.hobie,
-          estadoCivil: nuevosDetalles.estadocivil,
-          numHijos: nuevosDetalles.numhijos,
-          contacExterno: nuevosDetalles.contacexterno,
-        });        
-      } else {        
-        await axios.put(`${API_URL}/actualizarDetallesCliente/${cliente.dni}`, {
-          dni: cliente.dni,
-          direccion: nuevosDetalles.direccion,
-          codigoPostal: nuevosDetalles.codigopostal,
-          trabajo: nuevosDetalles.trabajo,
-          hobie: nuevosDetalles.hobie,
-          estadoCivil: nuevosDetalles.estadocivil,
-          numHijos: nuevosDetalles.numhijos,
-          contacExterno: nuevosDetalles.contacexterno,
-        });        
-      }
-  
-      setDetallesCliente(response.data);
+    try {      
+      const modificarClienteCommand = new ModificarClienteCommand(cliente.dni, nuevosDetalles);
+      const response = await modificarClienteCommand.execute();
+      setDetallesCliente(response);
       toggleEditMode(); // Sal del modo de edición después de guardar los detalles
     } catch (error) {
       handleEditError();
       console.error('Error al guardar los nuevos detalles del cliente:', error);
     }
-  };
-  
+  };  
 
   if (!cliente) {
     handleEditError();
@@ -117,12 +88,12 @@ export default function ModificarCliente({ isOpen, onClose, client: cliente }) {
 
   const datosClienteCompleto = [
     { label: "Direccion", field: "direccion" },
-    { label: "Codigo Postal", field: "codigopostal" },
+    { label: "Codigo Postal", field: "codigo_postal" },
     { label: "Trabajo", field: "trabajo" },
     { label: "Hobbie", field: "hobie" },
-    { label: "Estado Civil", field: "estadocivil" },
-    { label: "Numero de Hijos", field: "numhijos" },
-    { label: "Contacto Externo", field: "contacexterno" },
+    { label: "Estado Civil", field: "estado_civil" },
+    { label: "Numero de Hijos", field: "num_hijos" },
+    { label: "Contacto Externo", field: "contac_externo" },
   ];
 
   return (

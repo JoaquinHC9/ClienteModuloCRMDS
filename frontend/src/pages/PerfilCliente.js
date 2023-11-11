@@ -40,9 +40,10 @@ export default function PerfilCliente() {
           <p>Direccion: {clienteDetalladoData.direccion}</p>
           <p>Trabajo: {clienteDetalladoData.trabajo}</p>
           <p>Hobbie: {clienteDetalladoData.hobie}</p>
-          <p>Estado Civil: {clienteDetalladoData.estadocivil}</p>
-          <p>Código Postal: {clienteDetalladoData.codigopostal}</p>
-          <p>Contacto de Emergencia: {clienteDetalladoData.contacexterno}</p>
+          <p>Estado Civil: {clienteDetalladoData.estado_civil}</p>
+          <p>Código Postal: {clienteDetalladoData.codigo_postal}</p>
+          <p>Contacto de Emergencia: {clienteDetalladoData.contac_externo}</p>
+          <p>Numero de hijos: {clienteDetalladoData.num_hijos}</p>
         </div>
       ) : null}
     </div>

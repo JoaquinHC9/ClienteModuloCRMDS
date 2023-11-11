@@ -2,9 +2,9 @@ const db = require('../db');
 
 module.exports = {
   agregarDetallesCliente: (req, res) => {
-    const { dni, direccion, codigoPostal, trabajo, hobie, estadoCivil, numHijos, contacExterno } = req.body;
-    const query = 'INSERT INTO clienteDetallado (dni, direccion, codigoPostal, trabajo, hobie, estadoCivil, numHijos, contacExterno) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
-    const values = [dni, direccion, codigoPostal, trabajo, hobie, estadoCivil, numHijos, contacExterno];
+    const { dni, direccion, codigo_postal, trabajo, hobie, estado_civil, num_hijos, contac_externo } = req.body;
+    const query = 'INSERT INTO clienteDetallado (dni, direccion, codigo_postal, trabajo, hobie, estado_civil, num_hijos, contac_externo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
+    const values = [dni, direccion, codigo_postal, trabajo, hobie, estado_civil, num_hijos, contac_externo];
 
     db.query(query, values)
       .then(() => {
@@ -37,10 +37,12 @@ module.exports = {
   },
   actualizarDetallesCliente: (req, res) => {
     const dniActualizar = req.params.dni;
-    const { direccion, codigoPostal, trabajo, hobie, estadoCivil, numHijos, contacExterno } = req.body;
-
-    const queryUpdate = 'UPDATE clienteDetallado SET direccion = $2, codigoPostal = $3, trabajo = $4, hobie = $5, estadoCivil = $6, numHijos = $7, contacExterno = $8 WHERE dni = $1';
-    const values = [dniActualizar, direccion, codigoPostal, trabajo, hobie, estadoCivil, numHijos, contacExterno];
+    const { direccion, codigo_postal, trabajo, hobie, estado_civil, num_hijos, contac_externo } = req.body;    
+    console.log('codigopost', codigo_postal);
+    console.log('num hijos',num_hijos);
+    console.log('estado civil',estado_civil);
+    const queryUpdate = 'UPDATE clienteDetallado SET direccion = $2, codigo_postal = $3, trabajo = $4, hobie = $5, estado_civil = $6, num_hijos = $7, contac_externo = $8 WHERE dni = $1';
+    const values = [dniActualizar, direccion, codigo_postal, trabajo, hobie, estado_civil, num_hijos, contac_externo];
 
     db.query(queryUpdate, values)
       .then(() => {
