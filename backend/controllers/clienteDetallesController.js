@@ -1,6 +1,14 @@
 const db = require('../db');
+const Observer = require('../observer');
+
+const clienteDetalladoObserver = new Observer();
 
 module.exports = {
+
+  addObserver: (observer) => {
+    clienteDetalladoObserver.addObserver(observer);
+  },
+
   agregarDetallesCliente: (req, res) => {
     const { dni, direccion, codigoPostal, trabajo, hobie, estadoCivil, numHijos, contacExterno } = req.body;
     const query = 'INSERT INTO clienteDetallado (dni, direccion, codigoPostal, trabajo, hobie, estadoCivil, numHijos, contacExterno) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
@@ -8,6 +16,7 @@ module.exports = {
 
     db.query(query, values)
       .then(() => {
+        clienteDetalladoObserver.notify('Detalles del cliente agregados con éxito');
         res.status(201).json({ message: 'Detalles del cliente registrados con éxito' });
       })
       .catch(err => {
