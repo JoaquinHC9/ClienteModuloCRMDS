@@ -5,50 +5,64 @@ import axios from 'axios';
 import { API_URL } from '../config';
 import {useNavigate } from 'react-router-dom';
 import '../App.css';
-
+import ModificarCliente from './ModificarCliente'; // Asegúrate de que la ruta sea correcta
+import BusFachada from '../components/BusFachada.ts';
 export default function Busqueda() {
+
+  //busquedas
   const [searchDNI, setSearchDNI] = useState('');
   const [searchNombre, setSearchNombre] = useState('');
   const [searchApellido, setSearchApellido] = useState('');
+  //resultados
   const [searchResults, setSearchResults] = useState([]);
-  const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = useState(null);
+  //redireccion
+  const navigate = useNavigate();  
+  //seleccion
   const [selectedClient, setSelectedClient] = useState(null);
-
+  //menu
+  const [menuAnchorEl, setMenuAnchorEl] = useState({});
+  //tablas
   const columns = ['DNI', 'Nombre', 'Apellido', 'Correo', 'Acciones'];
+    
+  // Manejo de edición del cliente
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingClient, setEditingClient] = useState(null);
 
+  const editCliente = (client) => {
+    setEditingClient(client);
+    setIsEditModalOpen(true);
+  };
+  const busFachada = BusFachada();
+  //Manejo busqueda
   const searchHandle = async () => {
     try {
-      let searchField = '';
-      let searchValue = '';
       if (searchDNI) {
-        searchField = 'dni';
-        searchValue = searchDNI;
+        const clienteData = await busFachada.buscarClientePorDNI(searchDNI);
+        setSearchResults([clienteData]); // Convierte el objeto en un array solucion temporal
       } else if (searchNombre) {
-        searchField = 'nombre';
-        searchValue = searchNombre;
+        const clientesPorNombre = await busFachada.buscarClientesPorNombre(searchNombre);
+        setSearchResults(clientesPorNombre);
       } else if (searchApellido) {
-        searchField = 'apellido';
-        searchValue = searchApellido;
+        const clientesPorApellido = await busFachada.buscarClientesPorApellido(searchApellido);
+        setSearchResults(clientesPorApellido);
       }
-      const url = `${API_URL}/buscarPor${searchField}/${searchValue}`;
-      const response = await axios.get(url);
-      setSearchResults(response.data);      
       setSearchDNI('');
       setSearchNombre('');
       setSearchApellido('');
     } catch (error) {
       console.error('Error al realizar la búsqueda:', error);
     }
-  };
-  
+  }  
+
+  //abrir menu acciones
   const openProfile = (clientDNI, event) => {
     const selectedClient = searchResults.find((result) => result.dni === clientDNI);
     setSelectedClient(selectedClient);
-    setAnchorEl(event.currentTarget);
+    setMenuAnchorEl({ ...menuAnchorEl, [clientDNI]: event.currentTarget }); // Usar una variable por fila
   };
-  const handleClose = () => {
-    setAnchorEl(null);
+  //cerrar menu acciones
+  const handleClose = (clientDNI) => {
+    setMenuAnchorEl({ ...menuAnchorEl, [clientDNI]: null }); // Usar una variable por fila
   };
 
   const redirectToProfile = (dni) => {
@@ -59,13 +73,12 @@ export default function Busqueda() {
   const redirectToGestionLineas = async (dni) => {
     // Redirige a la página que maneja líneas
     try {
-        const response = await axios.get(`${API_URL}/buscarLineasPorDNI/${dni}`);
+        const response = await axios.get(`${API_URL}/lineas/buscarLineasPorDNI/${dni}`);
         navigate(`/Lineas/${dni}`, { state: { client: selectedClient } });
     } catch (error) {
         console.error('Error al obtener las líneas del cliente:', error);
     }
 };
-
 
   const redirectAccountStatus = (dni) => {
     // Redirige a la página del perfil del cliente utilizando el DNI como parte de la URL    
@@ -121,29 +134,30 @@ export default function Busqueda() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {searchResults.map((result, index) => (
+                {searchResults.map((resultado, index) => (
                   <TableRow key={index}>
-                    <TableCell>{result.dni}</TableCell>
-                    <TableCell>{result.nombre}</TableCell>
-                    <TableCell>{result.apellido}</TableCell>
-                    <TableCell>{result.correo}</TableCell>
+                    <TableCell>{resultado.dni}</TableCell>
+                    <TableCell>{resultado.nombre}</TableCell>
+                    <TableCell>{resultado.apellido}</TableCell>
+                    <TableCell>{resultado.correo}</TableCell>
                     <TableCell>
                       <button
                         className='boton-perfil'
-                        onClick={(event) => openProfile(result.dni, event)}
+                        onClick={(event) => openProfile(resultado.dni, event)}
                       >
                         ...
                       </button>
                       <div className='menu'>
-                      <Menu
-                        anchorEl={anchorEl}
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                      >
-                        <MenuItem onClick={() => redirectToProfile(result.dni)}>Visualizar Perfil</MenuItem>
-                        <MenuItem onClick={() => redirectToGestionLineas(result.dni)}>Gestion de Lineas</MenuItem>
-                        <MenuItem onClick={() => redirectAccountStatus(result.dni)}>Estado de Cuenta</MenuItem>
-                      </Menu>
+                        <Menu
+                          anchorEl={menuAnchorEl[resultado.dni]}
+                          open={Boolean(menuAnchorEl[resultado.dni])}
+                          onClose={() => handleClose(resultado.dni)}
+                        >
+                          <MenuItem onClick={() => redirectToProfile(resultado.dni)}>Visualizar Perfil</MenuItem>
+                          <MenuItem onClick={() => editCliente(resultado)}>Editar detalles del cliente</MenuItem>
+                          <MenuItem onClick={() => redirectToGestionLineas(resultado.dni)}>Gestion de Lineas</MenuItem>
+                          <MenuItem onClick={() => redirectAccountStatus(resultado.dni)}>Estado de Cuenta</MenuItem>
+                        </Menu>
                       </div>
                     </TableCell>
                   </TableRow>
@@ -151,9 +165,16 @@ export default function Busqueda() {
               </TableBody>
             </Table>
           </TableContainer>
-          </div>
+        </div>
         </div>
       </div>
+      {isEditModalOpen && (
+        <ModificarCliente
+          isOpen={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+          client={editingClient}
+        />
+      )}
     </div>
   );
 }

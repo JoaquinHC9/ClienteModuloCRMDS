@@ -1,52 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import './Perfil.css';
-import axios from 'axios';
-import { API_URL } from '../config';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useAxios } from '../components/UseAxios.ts'; 
+import { API_URL } from '../config';
 
 function PerfilLinea() {
   const { numTelefono } = useParams();
-  const [lineaData, setLineaData] = useState(null);
+  const { data: lineaData, error: lineaError, isLoading: lineaIsLoading } = useAxios(`${API_URL}/lineas/obtenerDetallesDeLinea/${numTelefono}`);
 
-  useEffect(() => {
-    const fetchLineaData = async () => {
-      try {
-        const response = await axios.get(`${API_URL}/obtenerDetallesDeLinea/${numTelefono}`);
-        setLineaData(response.data[0]);
-      } catch (error) {
-        console.error('Error al obtener los detalles de la línea:', error);
-      }
-    };
-
-    fetchLineaData();
-  }, [numTelefono]);
-
-  const datosLinea = [
-    { label: 'Número de Teléfono', value: lineaData ? lineaData.numerotelefono : '' },
-    { label: 'Plan', value: lineaData ? lineaData.plan : '' },
-    { label: 'Fecha de Compra', value: lineaData ? new Date(lineaData.fechacompra).toLocaleDateString() : '' },
-    { label: 'Fecha de Pago', value: lineaData ? new Date(lineaData.fechapago).toLocaleDateString() : '' },
-    { label: 'Monto Mensual', value: lineaData ? lineaData.montopagomensual : '' },
-    { label: 'Estado', value: lineaData ? (lineaData.estado === 1 ? 'Activo' : 'No activo') : '' },
-  ];
-
+  // Verificar si `lineaData` es un array y tiene al menos un elemento
+  const hasLineaData = Array.isArray(lineaData) && lineaData.length > 0;  
   return (
     <div className="container">
       <div className="contenedor-icono">
         <AccountCircleIcon fontSize="100" className="icono-perfil" />
       </div>
-      <h1>Perfil de la Línea </h1>
+      <h1>Perfil de la Línea</h1>
 
-      {lineaData && (
+      {hasLineaData ? (
         <div>
-          {datosLinea.map((dato, index) => (
-            <div className="info-box" key={index}>
-              <span className="info-label">{dato.label}:</span>
-              <span className="info-value">{dato.value}</span>
+          {lineaData.map((linea, index) => (
+            <div key={index}>
+              <h2>Línea</h2>
+              <p>Número de Teléfono: {linea.numerotelefono}</p>
+              <p>Plan: {linea.plan}</p>
+              <p>Fecha de Compra: {new Date(linea.fechacompra).toLocaleDateString()}</p>
+              <p>Fecha de Pago: {new Date(linea.fechapago).toLocaleDateString()}</p>
+              <p>Monto Mensual: {linea.montopagomensual}</p>
+              <p>Estado: {linea.estado === 1 ? 'Activo' : 'No activo'}</p>
             </div>
           ))}
         </div>
+      ) : lineaIsLoading ? (
+        <p>Cargando...</p>
+      ) : (
+        <p>Error: {lineaError}</p>
       )}
     </div>
   );

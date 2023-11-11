@@ -1,14 +1,12 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import './App.css';
 import React from 'react';
-import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Registro from './pages/Registro';
 import Main from './pages/Main';
-import ModificarCliente from './pages/ModificarCliente';
 import { Helmet } from 'react-helmet';
 import Busqueda from "./pages/Busqueda";
-import Perfil from "./pages/perfil";
+import PerfilCliente from "./pages/PerfilCliente";
 import GestionLinea from "./pages/GestionLinea";
 import PerfilLinea from "./pages/PerfilLinea";
 
@@ -24,10 +22,9 @@ function App() {
           <div className="App-content">
             <Routes>
               <Route path="/" element={<Main />} />
-              <Route path="/Registro" element={<Registro />} />
-              <Route path="/ModificarCliente" element={<ModificarCliente/>} />
-              <Route path="/Busqueda" element={<Busqueda />} />
-              <Route path="/perfil/:dni" element={<Perfil/>} />
+              <Route path="/Registro" element={<Registro />} />              
+              <Route path="/Busqueda" element={<Busqueda />} />              
+              <Route path="/Perfil/:dni" element={<PerfilCliente/>} />
               <Route path="/Lineas/:dni" element={<GestionLinea/>} />
               <Route path="/PerfilLinea/:numTelefono" element={<PerfilLinea />} />
             </Routes>

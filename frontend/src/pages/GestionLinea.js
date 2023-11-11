@@ -5,7 +5,7 @@ import axios from 'axios';
 import { API_URL } from '../config';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
-import { useParams } from 'react-router-dom'; // Importa el hook useParams
+import { useParams } from 'react-router-dom'; 
 
 export default function GestionLineas() {
   const navigate = useNavigate();
@@ -16,15 +16,17 @@ export default function GestionLineas() {
   const [clienteNombre, setClienteNombre] = useState('');
   const [clienteApellido, setClienteApellido] = useState('');
 
-  const columns = ['Numero de Telefono', 'Plan', 'Fecha de Compra','Fecha de Pago','Monto Mensual', 'Estado','Acciones'];
+  const columnasDatosLinea = ['Numero de Telefono', 'Plan', 'Fecha de Compra','Fecha de Pago','Monto Mensual', 'Estado','Acciones'];
   const { dni } = useParams();
   
-  const openOptions = (lineId, event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const [menuAnchorEl, setMenuAnchorEl] = useState({});
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const openOptions = (lineId, event) => {
+    setMenuAnchorEl({ ...menuAnchorEl, [lineId]: event.currentTarget });
+  };
+  
+  const handleClose = (lineId) => {
+    setMenuAnchorEl({ ...menuAnchorEl, [lineId]: null });
   };
 
   const perfilLinea = (numTelefono) => {
@@ -33,24 +35,22 @@ export default function GestionLineas() {
   };
 
   const darDeBaja = (numTelefono) => {
-    // Lógica para dar de baja la línea
-    // Puedes realizar una solicitud a tu servidor para realizar esta acción
+    // Lógica para dar de baja la línea    
   };
 
   const transferirLinea = (numTelefono) => {
-    // Lógica para transferir la línea
-    // Puedes realizar una solicitud a tu servidor para realizar esta acción
+    // Lógica para transferir la línea    
   };
 
   useEffect(() => {
     const fetchLines = async () => {
       try {
-        const clienteResponse = await axios.get(`${API_URL}/buscarPorDNI/${dni}`);
-        const cliente = clienteResponse.data[0]; // Suponemos que obtiene un único cliente
-        setClienteNombre(cliente.nombre); // Actualiza el estado con el nombre del cliente        
-        setClienteApellido(cliente.apellido); // Actualiza el estado con el nombre del cliente
+        const clienteResponse = await axios.get(`${API_URL}/clientes/buscarPorDNI/${dni}`);
+        const cliente = clienteResponse.data;
+        setClienteNombre(cliente.nombre); 
+        setClienteApellido(cliente.apellido);
 
-        const lineaRespuesta = await axios.get(`${API_URL}/buscarLineasPorDNI/${dni}`);
+        const lineaRespuesta = await axios.get(`${API_URL}/lineas/buscarLineasPorDNI/${dni}`);
         setSearchResults(lineaRespuesta.data);
       } catch (error) {
         console.error('Error al obtener las líneas del cliente:', error);
@@ -76,7 +76,7 @@ export default function GestionLineas() {
               <Table>
                 <TableHead>
                   <TableRow>
-                    {columns.map((column) => (
+                    {columnasDatosLinea.map((column) => (
                       <TableCell key={column}>{column}</TableCell>
                     ))}
                   </TableRow>
@@ -99,9 +99,9 @@ export default function GestionLineas() {
                         </button>
                         <div className='menu'>
                           <Menu
-                            anchorEl={anchorEl}
-                            open={Boolean(anchorEl)}
-                            onClose={handleClose}
+                            anchorEl={menuAnchorEl[result.numerotelefono]}
+                            open={Boolean(menuAnchorEl[result.numerotelefono])}
+                            onClose={() => handleClose(result.numerotelefono)}
                           >
                             <MenuItem onClick={() => perfilLinea(result.numerotelefono)}>Ver detalles de Línea</MenuItem>
                             <MenuItem onClick={() => darDeBaja(result.numerotelefono)}>Dar de baja</MenuItem>
@@ -119,4 +119,5 @@ export default function GestionLineas() {
       </div>
     </div>
   );
+  
 }

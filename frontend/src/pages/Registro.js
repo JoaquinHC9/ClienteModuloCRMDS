@@ -7,7 +7,8 @@ import axios from "axios";
 import { Modal, Button } from 'react-bootstrap';
 
 export default function Registro() {
-  const [data, setData] = useState({
+  
+  const [clienteData, setData] = useState({
     dni: '',
     nombre: '',
     apellido: '',
@@ -18,14 +19,15 @@ export default function Registro() {
     fechaAfiliacion: new Date().toISOString().substr(0, 10),    
     sexo:''
   });
-  const [data2, setData2] = useState({
+  const [clienteDetalleData, setData2] = useState({
+    dni: '',
     direccion: '',
     codigoPostal: '',
     trabajo: '',
-    hobbie: '',
+    hobie: '',
     estadoCivil: '',
-    numHijos: 'null',    
-    contactoEmergencia: '',
+    numHijos: 'null',
+    contacExterno: '', 
   });
 
   const [showModal, setShowModal] = useState(false);
@@ -50,60 +52,46 @@ export default function Registro() {
   const enviarDatos = async (e) => {
     e.preventDefault();
     try {
-      const url = `${API_URL}/registerAPI`;
-      const response = await axios.post(url, data);
-      console.log(response);
-
+      const url = `${API_URL}/clientes/registarCliente`;
+      const response = await axios.post(url, clienteData);
       // Mostrar el modal después de completar el primer registro
       setShowModal(true);
     } catch (error) {
-      setError(error.response.data.message);
-      console.log(error);
+      setError(error.response.data.message);      
     }
-    vaciarCampos();
+
+
   };
+  
   const enviarDatos2 = async (e) => {
     e.preventDefault();
     try {
-      const url = `${API_URL}/fullRegisterAPI`;
-      const response = await axios.post(url, data2);
-      console.log(response);
+      const url = `${API_URL}/detallesCliente/agregarDetallesCliente`;      
+      clienteDetalleData.dni = clienteData.dni;
+      const response = await axios.post(url, clienteDetalleData);      
     } catch (error) {
-      setError(error.response.data.message);
-      console.log(error);
+      setError(error.response.data.message);      
     }
-    vaciarCampos();
+    
   };
+  
   const handleConfirm = () => {
     setShowModal(false);
+    if (showSecondForm) {
+      // Actualiza el DNI en clienteDetalleData antes de mostrar el segundo formulario
+      setData2((prevState) => ({
+        ...prevState,
+        dni: clienteData.dni,
+      }));
+    }
     setShowSecondForm(true);
-  };  
-  const cancelarForm = ()=>{
+  };
+
+  const cancelarForm = () => {
     setShowSecondForm(false);
     setShowModal(false); 
-  }
-  const vaciarCampos = () => {
-    setData({
-      dni: '',
-      nombre: '',
-      apellido: '',
-      fechaNacimiento: null,
-      distrito: '',
-      departamento: '',
-      email: '',
-      fechaAfiliacion: new Date().toISOString().substr(0, 10),
-      sexo: '',
-    });
-    setData2({
-      direccion: '',
-      codigoPostal: '',
-      trabajo: '',
-      hobbie: '',
-      estadoCivil: '',
-      numHijos: 'null',
-      contactoEmergencia: '',
-    });
   };
+
 
   return (
     <div className="d-flex justify-content-center align-items-center bg-light">
@@ -120,13 +108,13 @@ export default function Registro() {
               <label htmlFor='email'>
                 <strong>Email</strong>
               </label>
-              <input type='email' placeholder='Digite correo' onChange={onChange} required value={data.email} name='email' className='form-control rounded-0 'style={{ width: '300px' }}></input>
+              <input type='email' placeholder='Digite correo' onChange={onChange} required value={clienteData.email} name='email' className='form-control rounded-0 'style={{ width: '300px' }}></input>
             </div>
             <div>
               <label htmlFor='dni'>
                 <strong>DNI</strong>
               </label>
-              <input type='text' placeholder='Digite DNI' onChange={onChange} required value={data.dni} name='dni' className='form-control rounded-0' style={{ width: '300px' }}></input>
+              <input type='text' placeholder='Digite DNI' onChange={onChange} required value={clienteData.dni} name='dni' className='form-control rounded-0' style={{ width: '300px' }}></input>
             </div>
           </div>
           <div className='mb-2 d-flex justify-content-between'>
@@ -134,13 +122,13 @@ export default function Registro() {
               <label htmlFor='nombre'>
                 <strong>Nombre</strong>
               </label>
-              <input type='text' placeholder='Digite Nombre' onChange={onChange} required value={data.nombre} name='nombre' className='form-control rounded-0' style={{ width: '300px' }}></input>
+              <input type='text' placeholder='Digite Nombre' onChange={onChange} required value={clienteData.nombre} name='nombre' className='form-control rounded-0' style={{ width: '300px' }}></input>
             </div>
             <div>
               <label htmlFor='apellido'>
                 <strong>Apellido</strong>
               </label>
-              <input type='text' placeholder='Digite Apellido' onChange={onChange} required value={data.apellido} name='apellido' className='form-control rounded-0'style={{ width: '300px' }}></input>
+              <input type='text' placeholder='Digite Apellido' onChange={onChange} required value={clienteData.apellido} name='apellido' className='form-control rounded-0'style={{ width: '300px' }}></input>
             </div>
           </div>
           <div className='mb-2 d-flex justify-content-between'>
@@ -150,8 +138,8 @@ export default function Registro() {
               </label>
               <div className='date-picker-container' style={{ width: '300px' }}>
                 <DatePicker
-                  selected={data.fechaNacimiento}
-                  onChange={(date) => setData({ ...data, fechaNacimiento: date })}
+                  selected={clienteData.fechaNacimiento}
+                  onChange={(date) => setData({ ...clienteData, fechaNacimiento: date })}
                   placeholderText='Digite o seleccione su cumpleaños'
                   className='form-control rounded-0'                  
                   dateFormat='dd/MM/yy'                  
@@ -162,7 +150,7 @@ export default function Registro() {
               <label htmlFor='sexo'>
                 <strong>Sexo</strong>
               </label>
-              <input type='text' placeholder='Digite sexo' onChange={onChange} required value={data.sexo} name='sexo' className='form-control rounded-0' style={{ width: '300px' }}></input>
+              <input type='text' placeholder='Digite sexo' onChange={onChange} required value={clienteData.sexo} name='sexo' className='form-control rounded-0' style={{ width: '300px' }}></input>
             </div>
           </div>
           <div className='mb-2 d-flex justify-content-between'>
@@ -170,13 +158,13 @@ export default function Registro() {
               <label htmlFor='departamento'>
                 <strong>Departamento</strong>
               </label>
-              <input type='text' placeholder='Digite Departamento' onChange={onChange} required value={data.departamento} name='departamento' className='form-control rounded-0' style={{ width: '300px' }}></input>
+              <input type='text' placeholder='Digite Departamento' onChange={onChange} required value={clienteData.departamento} name='departamento' className='form-control rounded-0' style={{ width: '300px' }}></input>
             </div>
             <div>
               <label htmlFor='distrito'>
                 <strong>Distrito</strong>
               </label>
-              <input type='text' placeholder='Digite Distrito' onChange={onChange} required value={data.distrito} name='distrito' className='form-control rounded-0' style={{ width: '300px' }}></input>
+              <input type='text' placeholder='Digite Distrito' onChange={onChange} required value={clienteData.distrito} name='distrito' className='form-control rounded-0' style={{ width: '300px' }}></input>
             </div>
           </div>
           <button type='submit' className='btn btn-success'>Registrar</button>
@@ -195,7 +183,7 @@ export default function Registro() {
                   placeholder='Digite Dirección'
                   onChange={onChange2}
                   required
-                  value={data.direccion}
+                  value={clienteDetalleData.direccion}
                   name='direccion'
                   className='form-control rounded-0'  
                   style={{ width: '300px' }}                
@@ -210,7 +198,7 @@ export default function Registro() {
                   placeholder='Digite Código Postal'
                   onChange={onChange2}
                   required
-                  value={data.codigoPostal}
+                  value={clienteDetalleData.codigoPostal}
                   name='codigoPostal'
                   className='form-control rounded-0'
                   style={{ width: '300px' }}
@@ -227,23 +215,23 @@ export default function Registro() {
                   placeholder='Digite Trabajo'
                   onChange={onChange2}
                   required
-                  value={data.trabajo}
+                  value={clienteDetalleData.trabajo}
                   name='trabajo'
                   className='form-control rounded-0'
                   style={{ width: '300px' }}
                 />
               </div>
               <div>
-                <label htmlFor='hobbie'>
-                  <strong>Hobbie</strong>
+                <label htmlFor='hobie'>
+                  <strong>Hobie</strong>
                 </label>
                 <input
                   type='text'
                   placeholder='Digite Hobbie'
                   onChange={onChange2}
                   required
-                  value={data.hobbie}
-                  name='hobbie'
+                  value={clienteDetalleData.hobie}
+                  name='hobie'
                   className='form-control rounded-0'
                   style={{ width: '300px' }}
                 />
@@ -259,7 +247,7 @@ export default function Registro() {
                   placeholder='Digite Estado Civil'
                   onChange={onChange2}
                   required
-                  value={data.estadoCivil}
+                  value={clienteDetalleData.estadoCivil}
                   name='estadoCivil'
                   className='form-control rounded-0'
                   style={{ width: '300px' }}
@@ -274,7 +262,7 @@ export default function Registro() {
                   placeholder='Digite Número de Hijos'
                   onChange={onChange2}
                   required
-                  value={data.numHijos}
+                  value={clienteDetalleData.numHijos}
                   name='numHijos'
                   className='form-control rounded-0'
                   style={{ width: '300px' }}
@@ -282,7 +270,7 @@ export default function Registro() {
               </div>
             </div>
             <div className='mb-2'>
-              <label htmlFor='contactoEmergencia'>
+              <label htmlFor='contacExterno'> 
                 <strong>Contacto de Emergencia</strong>
               </label>
               <input
@@ -290,8 +278,8 @@ export default function Registro() {
                 placeholder='Digite contacto de emergencia'
                 onChange={onChange2}
                 required
-                value={data.contactoEmergencia}
-                name='contactoEmergencia'
+                value={clienteDetalleData.contacExterno} 
+                name='contacExterno' 
                 className='form-control rounded-0'
               />
             </div>
