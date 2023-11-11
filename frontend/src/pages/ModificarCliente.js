@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import './ModificarCliente.css'; // Importa los estilos
-import axios from 'axios'; // Asegúrate de importar axios
+import './ModificarCliente.css'; 
+import axios from 'axios'; 
 import { API_URL } from '../config';
 
 export default function ModificarCliente({ isOpen, onClose, client: cliente }) {
@@ -66,6 +66,7 @@ export default function ModificarCliente({ isOpen, onClose, client: cliente }) {
       // Realiza una solicitud GET para verificar si existen detalles para el cliente
       const response = await axios.get(`${API_URL}/buscarClienteDetalladoPorDNI/${cliente.dni}`);
       console.log(response.data.dni);
+      
       if (response.data.dni === undefined) {        
         await axios.post(`${API_URL}/agregarDetallesCliente`, {
           dni: cliente.dni,
@@ -76,8 +77,7 @@ export default function ModificarCliente({ isOpen, onClose, client: cliente }) {
           estadoCivil: nuevosDetalles.estadocivil,
           numHijos: nuevosDetalles.numhijos,
           contacExterno: nuevosDetalles.contacexterno,
-        });
-        console.log("post");
+        });        
       } else {        
         await axios.put(`${API_URL}/actualizarDetallesCliente/${cliente.dni}`, {
           dni: cliente.dni,
@@ -88,14 +88,7 @@ export default function ModificarCliente({ isOpen, onClose, client: cliente }) {
           estadoCivil: nuevosDetalles.estadocivil,
           numHijos: nuevosDetalles.numhijos,
           contacExterno: nuevosDetalles.contacexterno,
-        });
-        console.log(nuevosDetalles.dni);
-        console.log("direccion " + nuevosDetalles.direccion);
-        console.log("codigo p " + nuevosDetalles.codigopostal);
-        console.log("trabajo " + nuevosDetalles.trabajo);
-        console.log("hobie " + nuevosDetalles.hobie);
-        console.log("num hijos " + nuevosDetalles.numhijos);
-        console.log( "contact e. " +nuevosDetalles.contacexterno);
+        });        
       }
   
       setDetallesCliente(response.data);
