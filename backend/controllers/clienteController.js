@@ -1,37 +1,5 @@
 const db = require('../db');
 
-class ClienteObserver{
-  actualizar(cliente){
-    throw new Error('Actualizar debe ser implementado por las clases concretas');
-  }
-}
-
-class RegistroClienteObserver extends ClienteObserver {
-  actualizar(cliente) {
-    console.log('Nuevo cliente registrado: ', cliente);
-  }
-}
-
-class ClienteSubject {
-  constructor() {
-    this.observadores = [];
-  }
-
-  agregarObservador(observador) {
-    this.observadores.push(observador);
-  }
-
-  quitarObservador(observador){
-    this.observadores = this.observadores.filter(obs => obs!== observador);
-  }
-
-  notificarObservadores(cliente) {
-    this.observadores.forEach(observador => {
-      observador.actualizar(cliente);
-    })
-  }
-}
-
 module.exports = {
   getAllClientes: (req, res) => {
     db.query('SELECT * FROM cliente')
@@ -51,11 +19,6 @@ module.exports = {
 
     db.query(query, values)
       .then(() => {
-
-        const nuevoCliente = {dni, nombre, apellido, fechaNacimiento, distrito, departamento, fechaAfiliacion, email, sexo };
-
-        cliente.Subject.notificarObservadores(nuevoCliente);
-
         res.status(201).json({ message: 'Registro exitoso ' });
       })
       .catch(err => {
