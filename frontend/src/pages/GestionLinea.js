@@ -35,7 +35,7 @@ export default function GestionLineas() {
   };
 
   const darDeBaja = (numTelefono) => {
-    // Lógica para dar de baja la línea    
+    navigate(`/DarDebaja/${numTelefono}`);
   };
 
   const transferirLinea = (numTelefono) => {

@@ -1,50 +1,7 @@
 .App {
   width: 100vw;
-  height: 50vw;
-  
-}
-body{
-  margin: 0;
-  padding: 0;
-}
-.Sidebar {
-  float: left;
-  height: 100%; /* La altura ocupa el 100% del contenedor padre */
-  width: 250px; /* Ancho fijo de 250px */
-  background-color: #2E5ED2;
-  
-}
-.SidebarList{
-  height: auto;
-  padding: 0;
-  width: 100%;
-}
-.Sidebar .row{
-  width: 100%;
-  height: 50px;
-  background-color: #0c329b;  
-  list-style-type: none;
-  margin: 0%;
-  display: flex;
-  color: white;
-  justify-content: center;
-  align-content: center;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-.Sidebar .row:hover{
-  cursor:pointer;
-  background-color: #002388;
-}
-.Sidebar #active{
-  background-color: #002388;
-}
-.row #icon{
-  flex: 30%;
-  display: grid;
-  place-items:center;
-}
-.row #title{
-  flex: 70%;
+  min-height: 100%;  
+  position: absolute;
 }
 .App-logo {
   height: 40vmin;
@@ -55,21 +12,18 @@ body{
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+  .container {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    position: absolute;
+    /* ... otras propiedades ... */
+}
 }
 .header .icono {
   font-size: 24px !important;
 }
 
-.App-header {
-  background-color: #2e5ed2;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 .formbusqueda{
   display: flex;
   flex-direction: column;
@@ -132,34 +86,12 @@ body{
   margin-top: 20px; /* Espacio superior */
 }
 
-.bg-info {
-  background-color: #2e5ed2; 
-  color: #fff;
-  padding: 10px;
-  float: top;
-}
-
 .header-container {
   display: flex;
   align-items: center;
   justify-content: space-between; 
   background-color: #2e5ed2; 
   height: 6.5%;
-}
-
-.welcome-text {
-  text-align: left; 
-  flex: 1;
-}
-
-.welcome-text h1 {
-  margin: 0; /* Elimina el margen superior e inferior del título */
-}
-
-.navbar-list {
-  list-style: none;
-  padding: 0;
-  display: flex;
 }
 
 .navbar-list li {
@@ -169,15 +101,6 @@ body{
 .navbar-container-link {
   color: #fff; 
   text-decoration: none;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .date-picker-container {
