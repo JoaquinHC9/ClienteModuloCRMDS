@@ -90,7 +90,7 @@ export default function Busqueda() {
         <Helmet>
           <title>Busqueda</title>
         </Helmet>
-        <div className='cotenedor'>
+        <div>
           <h2 className='text-black mb-4'>Busqueda de Clientes</h2>
           <h3 className='text-black mb-4' style={{ fontStyle: 'italic' }}>Digitar informacion relacionada a un cliente</h3>
           <div className='search-container'>
