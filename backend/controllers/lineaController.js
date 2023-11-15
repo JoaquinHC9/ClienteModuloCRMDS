@@ -41,4 +41,24 @@ module.exports = {
         res.status(500).json({ error: 'Error en la consulta a la base de datos' });
       });
   },
+  dniPorNumeroTelefono: (req, res) => {
+    const numTelefono = req.params.numTelefono;
+    const query = 'SELECT dni FROM linea_telefono WHERE numerotelefono = $1';
+    db.query(query, [numTelefono])
+      .then(response => {
+        if (response.rows.length === 0) {
+          console.log('No se encontró DNI para el número de teléfono: ' + numTelefono);
+          res.status(404).json({ error: 'No se encontró DNI para el número de teléfono' });
+        } else {
+          const dni = response.rows[0].dni;
+          console.log('DNI asociado al número de teléfono ' + numTelefono + ': ' + dni);
+          res.json({ dni });
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).json({ error: 'Error en la consulta a la base de datos' });
+      });
+  },
+  
 };

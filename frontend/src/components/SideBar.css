@@ -1,11 +1,10 @@
 .Sidebar {
-    position: absolute;    
-    height: 100vh;
+    position: absolute;
+    height: 150vh;
     width: 250px;
     background-color: #2E5ED2;
     transition: width 0.3s ease;
-    z-index: 1000; /* O cualquier número mayor que el z-index del contenido */    
-    z-index: 1;
+    z-index: 1000; /* O cualquier número mayor que el z-index del contenido */        
   }
   .Sidebar.expanded {
     width: 250px;

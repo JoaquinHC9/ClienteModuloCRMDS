@@ -1,4 +1,4 @@
-.container {
+.contenedor {
     text-align: center;
     border: 1px solid #ccc;
     padding: 20px;
@@ -8,8 +8,7 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column; /* Cambia la dirección del flex a columna */
-    align-items: center; /* Centra los elementos horizontalmente */
-    
+    align-items: center; /* Centra los elementos horizontalmente */    
   }
   
   .contenedor-icono {

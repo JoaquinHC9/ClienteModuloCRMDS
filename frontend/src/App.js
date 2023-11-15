@@ -10,6 +10,7 @@ import PerfilCliente from "./pages/PerfilCliente";
 import GestionLinea from "./pages/GestionLinea";
 import PerfilLinea from "./pages/PerfilLinea.js";
 import DarDeBaja from "./pages/DarDeBaja.js";
+import Transferencia from "./pages/TransferenciaLinea.js";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route path="/Lineas/:dni" element={<GestionLinea/>} />
               <Route path="/PerfilLinea/:numTelefono" element={<PerfilLinea />} />
               <Route path="/DarDeBaja/:numTelefono" element={<DarDeBaja />} />
+              <Route path="/Transferencia/:numTelefono" element={<Transferencia />} /> 
             </Routes>
           </div>
         </div>

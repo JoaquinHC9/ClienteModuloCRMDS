@@ -39,7 +39,7 @@ export default function GestionLineas() {
   };
 
   const transferirLinea = (numTelefono) => {
-    // Lógica para transferir la línea    
+    navigate(`/Transferencia/${numTelefono}`);
   };
 
   useEffect(() => {
