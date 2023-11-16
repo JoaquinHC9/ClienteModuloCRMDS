@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Menu, MenuItem, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
 import axios from 'axios';
-import { API_URL } from '../config';
+import { API_URL,VENTAS_URL } from '../config';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import { useParams } from 'react-router-dom'; 
@@ -49,9 +49,9 @@ export default function GestionLineas() {
         const cliente = clienteResponse.data;
         setClienteNombre(cliente.nombre); 
         setClienteApellido(cliente.apellido);
-
-        const lineaRespuesta = await axios.get(`${API_URL}/lineas/buscarLineasPorDNI/${dni}`);
+        const lineaRespuesta = await axios.get(`${VENTAS_URL}/getlineas/${dni}`);        
         setSearchResults(lineaRespuesta.data);
+        console.log(lineaRespuesta.data)
       } catch (error) {
         console.error('Error al obtener las líneas del cliente:', error);
       }
@@ -82,35 +82,41 @@ export default function GestionLineas() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {searchResults.map((result, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{result.numerotelefono}</TableCell>
-                      <TableCell>{result.plan}</TableCell>
-                      <TableCell>{new Date(result.fechacompra).toLocaleDateString()}</TableCell>
-                      <TableCell>{new Date(result.fechapago).toLocaleDateString()}</TableCell>
-                      <TableCell>{result.montopagomensual}</TableCell>
-                      <TableCell>{result.estado === 1 ? 'Activo' : 'No activo'}</TableCell>
-                      <TableCell>
-                        <button
-                          className='boton-perfil'
-                          onClick={(event) => openOptions(result.numerotelefono, event)}
-                        >
-                          ...
-                        </button>
-                        <div className='menu'>
-                          <Menu
-                            anchorEl={menuAnchorEl[result.numerotelefono]}
-                            open={Boolean(menuAnchorEl[result.numerotelefono])}
-                            onClose={() => handleClose(result.numerotelefono)}
+                  {searchResults ? (
+                    searchResults.map((result, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{result.numero}</TableCell>
+                        <TableCell>{result.plan}</TableCell>
+                        <TableCell>{new Date(result.fecha_compra).toLocaleDateString()}</TableCell>
+                        <TableCell>{new Date(result.fecha_pago).toLocaleDateString()}</TableCell>
+                        <TableCell>{result.monto_pago}</TableCell>
+                        <TableCell>{result.estado === 0 ? 'Activo' : 'No activo'}</TableCell>
+                        <TableCell>
+                          <button
+                            className='boton-perfil'
+                            onClick={(event) => openOptions(result.numero, event)}
                           >
-                            <MenuItem onClick={() => perfilLinea(result.numerotelefono)}>Ver detalles de Línea</MenuItem>
-                            <MenuItem onClick={() => darDeBaja(result.numerotelefono)}>Dar de baja</MenuItem>
-                            <MenuItem onClick={() => transferirLinea(result.numerotelefono)}>Transferencia</MenuItem>
-                          </Menu>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                            ...
+                          </button>
+                          <div className='menu'>
+                            <Menu
+                              anchorEl={menuAnchorEl[result.numero]}
+                              open={Boolean(menuAnchorEl[result.numero])}
+                              onClose={() => handleClose(result.numero)}
+                            >
+                              <MenuItem onClick={() => perfilLinea(result.numero)}>Ver detalles de Línea</MenuItem>
+                              <MenuItem onClick={() => darDeBaja(result.numero)}>Dar de baja</MenuItem>
+                              <MenuItem onClick={() => transferirLinea(result.numero)}>Transferencia</MenuItem>
+                            </Menu>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                   ))
+                   ) : (
+                    <TableRow>
+                    <TableCell colSpan={columnasDatosLinea.length}>No se encontraron líneas asociadas.</TableCell>
+                  </TableRow>
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>

@@ -65,4 +65,23 @@ module.exports = {
         res.status(500).json({ error: 'Error en la consulta a la base de datos' });
       });
   },
+  buscarClientePorApellido: (req, res) => {
+    const apellidoABuscar = req.params.apellido;
+    const query = 'SELECT * FROM cliente WHERE apellido = $1';
+
+    db.query(query, [apellidoABuscar])
+      .then(response => {
+        if (response.rows.length === 0) {
+          console.log('No se encontraron resultados para el apellido: ' + apellidoABuscar);
+        } else {
+          console.log('Resultados de la búsqueda por apellido ' + apellidoABuscar + ':');
+          console.log(response.rows);
+        }
+        res.json(response.rows);
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).json({ error: 'Error en la consulta a la base de datos' });
+      });
+  },
 };

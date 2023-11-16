@@ -4,7 +4,7 @@ import { Menu, MenuItem, Table, TableContainer, TableHead, TableRow, TableCell, 
 import axios from 'axios';
 import { API_URL } from '../config';
 import {useNavigate } from 'react-router-dom';
-import '../App.css';
+import './Busqueda.css';
 import ModificarCliente from './ModificarCliente'; // Asegúrate de que la ruta sea correcta
 import BusFachada from '../components/BusFachada.ts';
 export default function Busqueda() {
@@ -53,7 +53,15 @@ export default function Busqueda() {
       console.error('Error al realizar la búsqueda:', error);
     }
   }  
-
+  const listHandle = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/clientes`);
+      setSearchResults(response.data);
+    } catch (error) {
+      console.error('Error al obtener todos los clientes:', error);
+    }
+  };
+  
   //abrir menu acciones
   const openProfile = (clientDNI, event) => {
     const selectedClient = searchResults.find((result) => result.dni === clientDNI);
@@ -86,14 +94,14 @@ export default function Busqueda() {
 
   return (
     <div>
-      <div className='formbusqueda'>
-        <Helmet>
+      <Helmet>
           <title>Busqueda</title>
-        </Helmet>
-        <div>
-          <h2 className='text-black mb-4'>Busqueda de Clientes</h2>
-          <h3 className='text-black mb-4' style={{ fontStyle: 'italic' }}>Digitar informacion relacionada a un cliente</h3>
-          <div className='search-container'>
+        </Helmet>        
+      <div className='contenedor-bus-principal'>
+        <h2 className='text-black mb-4'>Busqueda de Clientes</h2>
+        <h3 className='text-black mb-4' style={{ fontStyle: 'italic' }}>Digitar informacion relacionada a un cliente</h3>
+        <div>        
+          <div>
             <span className='input-label'>DNI:</span>
             <input
               type='text'
@@ -121,8 +129,10 @@ export default function Busqueda() {
             <button className='boton-busqueda' onClick={searchHandle}>
               Buscar
             </button>
-          </div>
-          {/* Renderiza la tabla */}
+            <button className='boton-listar' onClick={listHandle}>
+              Mostrar todos los clientes
+            </button>
+          </div>          
           <div className='tabla'>
           <TableContainer component={Paper} className='resultado-busqueda'>
             <Table>
