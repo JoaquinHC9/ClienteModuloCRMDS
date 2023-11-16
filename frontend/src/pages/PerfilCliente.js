@@ -12,7 +12,7 @@ export default function PerfilCliente() {
   const hasClienteData = clienteData && Object.keys(clienteData).length > 0;
   const hasClienteDetalladoData = clienteDetalladoData && Object.keys(clienteDetalladoData).length > 0;
   return (
-    <div className="container">
+    <div className="contenedor">
       <div className="contenedor-icono">
         <AccountCircleIcon fontSize="100" className="icono-perfil" />
       </div>

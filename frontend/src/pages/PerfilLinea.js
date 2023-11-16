@@ -3,11 +3,11 @@ import { useParams } from 'react-router-dom';
 import './Perfil.css';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAxios } from '../components/UseAxios.ts'; 
-import { API_URL } from '../config';
+import { API_URL,VENTAS_URL } from '../config';
 
 function PerfilLinea() {
   const { numTelefono } = useParams();
-  const { data: lineaData, error: lineaError, isLoading: lineaIsLoading } = useAxios(`${API_URL}/lineas/obtenerDetallesDeLinea/${numTelefono}`);
+  const { data: lineaData, error: lineaError, isLoading: lineaIsLoading } = useAxios(`${VENTAS_URL}/lineas/obtenerDetallesDeLinea/${numTelefono}`);
 
   // Verificar si `lineaData` es un array y tiene al menos un elemento
   const hasLineaData = Array.isArray(lineaData) && lineaData.length > 0;  
@@ -28,7 +28,7 @@ function PerfilLinea() {
               <p>Fecha de Compra: {new Date(linea.fechacompra).toLocaleDateString()}</p>
               <p>Fecha de Pago: {new Date(linea.fechapago).toLocaleDateString()}</p>
               <p>Monto Mensual: {linea.montopagomensual}</p>
-              <p>Estado: {linea.estado === 1 ? 'Activo' : 'No activo'}</p>
+              <p>Estado: {linea.estado === 0 ? 'Activo' : 'No activo'}</p>
             </div>
           ))}
         </div>
