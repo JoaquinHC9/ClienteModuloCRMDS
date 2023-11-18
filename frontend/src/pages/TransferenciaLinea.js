@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './Transferencia.css';
 import { useAxios } from '../components/UseAxios.ts'; 
-import { API_URL } from '../config';
+import { VENTAS_URL, API_URL } from '../config';
 import { Modal, Button as Boton, Form } from 'react-bootstrap';
 import { Button,Box, MenuItem, TextField, TextareaAutosize } from '@mui/material';
 import axios from 'axios';
@@ -15,13 +15,11 @@ function TransferenciaLinea() {
   const { numTelefono } = useParams();  
 
   //buscar dni por telefono
-  const { data: lineaData, error: lineaError, isLoading: lineaIsLoading } = useAxios(`${API_URL}/lineas/obtenerDetallesDeLinea/${numTelefono}`);
-
+  const { data: lineaData, error: lineaError, isLoading: lineaIsLoading } = useAxios(`${VENTAS_URL}/searchlinea/${numTelefono}`);
+  const dni = lineaData?.dni_cliente;  
   // Verificar si `lineaData` es un array y tiene al menos un elemento
-  const hasLineaData = Array.isArray(lineaData) && lineaData.length > 0;  
-
-  const { data: dniData, error: dniError, isLoading: dniLoading } = useAxios(`${API_URL}/lineas/dniPorNumeroTelefono/${numTelefono}`);
-  const dni = dniData?.dni;
+  const hasLineaData = lineaData && Object.keys(lineaData).length > 0;
+   
   //mostrar proppietario original
   const { data: clienteData, error: clienteError, isLoading: clienteIsLoading } = useAxios(`${API_URL}/clientes/buscarPorDNI/${dni}`);
   const hasClienteData = clienteData && Object.keys(clienteData).length > 0;
@@ -131,17 +129,15 @@ function TransferenciaLinea() {
       <div className="contenedor">      
         {hasLineaData ? (
           <div>
-            <h2>Perfil de la Línea</h2>
-            {lineaData.map((linea, index) => (
-              <div key={index}>                
-                <p>Número de Teléfono: {linea.numerotelefono}</p>
-                <p>Plan: {linea.plan}</p>
-                <p>Fecha de Compra: {new Date(linea.fechacompra).toLocaleDateString()}</p>
-                <p>Fecha de Pago: {new Date(linea.fechapago).toLocaleDateString()}</p>
-                <p>Monto Mensual: {linea.montopagomensual}</p>
-                <p>Estado: {linea.estado === 1 ? 'Activo' : 'No activo'}</p>
-              </div>
-            ))}
+            <h2>Perfil de la Línea</h2>            
+              <div>                
+                <p>Número de Teléfono: {lineaData.numero}</p>
+                <p>Plan: {lineaData.plan}</p>
+                <p>Fecha de Compra: {new Date(lineaData.fecha_compra).toLocaleDateString()}</p>
+                <p>Fecha de Pago: {new Date(lineaData.fecha_pago).toLocaleDateString()}</p>
+                <p>Monto Mensual: {lineaData.monto_pago}</p>
+                <p>Estado: {lineaData.estado === 0 ? 'Activo' : 'No activo'}</p>
+              </div>            
           </div>
         ) : lineaIsLoading ? (
           <p>Cargando...</p>

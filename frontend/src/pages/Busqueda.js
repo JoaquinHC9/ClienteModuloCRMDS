@@ -88,8 +88,8 @@ export default function Busqueda() {
     }
 };
 
-  const redirectAccountStatus = (dni) => {
-    // Redirige a la página del perfil del cliente utilizando el DNI como parte de la URL    
+  const redirectEstadoCuenta = (dni) => {
+    navigate(`/EstadoCuenta/${dni}`);
   };
 
   return (
@@ -166,7 +166,7 @@ export default function Busqueda() {
                           <MenuItem onClick={() => redirectToProfile(resultado.dni)}>Visualizar Perfil</MenuItem>
                           <MenuItem onClick={() => editCliente(resultado)}>Editar detalles del cliente</MenuItem>
                           <MenuItem onClick={() => redirectToGestionLineas(resultado.dni)}>Gestion de Lineas</MenuItem>
-                          <MenuItem onClick={() => redirectAccountStatus(resultado.dni)}>Estado de Cuenta</MenuItem>
+                          <MenuItem onClick={() => redirectEstadoCuenta(resultado.dni)}>Estado de Cuenta</MenuItem>
                         </Menu>
                       </div>
                     </TableCell>

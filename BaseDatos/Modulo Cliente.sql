@@ -109,6 +109,33 @@ VALUES
   ('444444444', '444444444', 'Plan Premium', '2023-10-26', '2023-11-26', 49.99, 1),
   ('666666666', '666666666', 'Plan Básico', '2023-10-26', '2023-11-26', 29.99, 1),
   ('888888888', '888888888', 'Plan Familiar', '2023-10-26', '2023-11-26', 59.99, 1);
+
+CREATE TABLE administrador
+(
+    id_admin SERIAL PRIMARY KEY,    
+    nombre VARCHAR(50),
+    dni VARCHAR(20),
+    apellido VARCHAR(50),
+    correo VARCHAR(50) UNIQUE,
+    contrasena VARCHAR(100) -- Considera almacenar las contraseñas de manera segura
+);
+
+INSERT INTO administrador (nombre, dni, apellido, correo, contrasena)
+VALUES
+  ('NombreAdmin1', 000000001,'ApellidoAdmin1', 'admin1@example.com', 'contra1'),
+  ('NombreAdmin2', 000000002,'ApellidoAdmin2', 'admin2@example.com', 'contra2'),
+  -- Agrega más administradores según sea necesario
+  ;
+
+CREATE TABLE operacion
+(
+    id_operacion SERIAL PRIMARY KEY,
+    id_admin INT REFERENCES administrador(id_admin),
+    dni_cliente VARCHAR(20) REFERENCES cliente(dni),    
+    descripcion VARCHAR(255),
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 select * from cliente;
 select * from clienteDetallado;
 select * from equipo;

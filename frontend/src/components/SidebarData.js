@@ -3,10 +3,7 @@ import "../App.css";
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import HowToRegIcon from '@mui/icons-material/HowToReg';
-import PhoneIcon from '@mui/icons-material/Phone';
-import PhoneForwardedIcon from '@mui/icons-material/PhoneForwarded';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 export const SidebarData= [
     {
         title: "Main",
@@ -24,13 +21,8 @@ export const SidebarData= [
         link: "/Busqueda"
     },
     {
-        title: "Gestion de Linea",
-        icon: <PhoneIcon/>,
-        link: "/GestionLinea"
-    },
-    {
-        title: "Transferencia de Linea",
-        icon: <PhoneForwardedIcon/>,
-        link: "/TransferenciaLinea"
+        title: "Notificaciones",
+        icon: <NotificationsActiveIcon/>,
+        link: "/Notificaciones"
     },
 ]
