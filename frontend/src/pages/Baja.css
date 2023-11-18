@@ -1,32 +1,45 @@
-.contenedor {    
+.baja-contenedor{    
     border: 1px solid #ccc;
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     max-width: auto;
-    display: flex;
-    flex-direction: row; /* Cambia la dirección del flex a fila */
-    justify-content: space-around; /* Distribuye los elementos de manera uniforme en el eje principal */
-    
+    display: flex;    
+    justify-content: space-around;
+    width: 500px; 
 }
-.contenedor-principal {
+.darbaja-contenedor {    
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    max-width: 1000px; /* Ajusta este valor según sea necesario */    
+    display: flex;    
+    justify-content: space-around; 
+}
+.baja-contenedor-principal {
+    flex-direction: column;    
+    justify-content: space-around; 
+    margin-left: 350px;    
     display: flex;
-    justify-content: space-around; /* Distribuye los contenedores en el espacio disponible */
+}
+.baja-info{
+    display: flex;    
+    flex:1;
 }
 .cascada {
     text-align: center;    
     padding: 20px;
-    border-radius: 20px;    
+    border-radius: 20px;
     max-width: 400px;
     margin: 0 auto;
     display: flex;
-    flex-direction: column; /* Cambia la dirección del flex a columna */
-    align-items: center; /* Centra los elementos horizontalmente */
+    flex-direction: column; 
+    align-items: center; 
   }
   .selector-contenedor {
     align-items: center;
     display: flex;
     justify-content: space-around;
-    margin-top: 30px; /* Ajusta este valor según sea necesario */
-    
+    margin-top: 30px;     
 }

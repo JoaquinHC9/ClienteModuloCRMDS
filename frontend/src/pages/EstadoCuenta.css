@@ -1,0 +1,15 @@
+.estadocuenta-contenedor{
+    display: flex;
+    flex-direction: column;        
+    margin-left: 300px;
+    max-width: 1000;
+  }
+  .contenedor-grafico {
+    width: 70%;
+    margin: auto;
+  }
+  .contenedor-cuenta {
+    width: 70%;
+    margin: auto;
+    margin-left: 300px;
+  }

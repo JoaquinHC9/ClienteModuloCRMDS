@@ -2,17 +2,21 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button,Box, MenuItem, TextField, TextareaAutosize } from '@mui/material';
 import { useAxios } from '../components/UseAxios.ts'; 
-import { API_URL } from '../config';
+import { API_URL,VENTAS_URL } from '../config';
 import './Baja.css';
 
 function DarDeBaja() {
   const { numTelefono } = useParams();
-  const { data: lineaData, error: lineaError, isLoading: lineaIsLoading } = useAxios(`${API_URL}/lineas/obtenerDetallesDeLinea/${numTelefono}`);
+  const { data: lineaData, error: lineaError, isLoading: lineaIsLoading } = useAxios(`${VENTAS_URL}/searchlinea/${numTelefono}`);
+  const dni = lineaData?.dni_cliente;
+  const { data: reciboData, error: reciboError, isLoading: reciboIsLoading } = useAxios(`${VENTAS_URL}/searchbillnumber/${numTelefono}`);  
+  const { data: clienteData, error: clienteError, isLoading: clienteLoading } = useAxios(`${API_URL}/clientes/buscarPorDNI/${dni}`);  
+  const hasClienteData = clienteData && Object.keys(clienteData).length > 0;
   const [motivo, setMotivo] = useState('');
   const [otroMotivo, setOtroMotivo] = useState('');
 
   // Verificar si `lineaData` es un array y tiene al menos un elemento
-  const hasLineaData = Array.isArray(lineaData) && lineaData.length > 0;  
+  const hasLineaData = lineaData && Object.keys(lineaData).length > 0;
 
   const handleMotivoChange = (e) => {
     const selectedMotivo = e.target.value;
@@ -33,39 +37,58 @@ function DarDeBaja() {
     // Agregar lógica de cancelación aquí
     console.log('Cancelado');
   };
-
   return (
-    <div className='contenedor-principal'>        
-      <div className="contenedor">
-        <div className="cascada">
-          <h1>Estado Linea</h1>
-          {hasLineaData ? (
-        <div>
-        {lineaData.map((linea, index) => (
-            <div key={index}>
-            <h2>Línea</h2>
-            <p>Número de Teléfono: {linea.numerotelefono}</p>
-            <p>Plan: {linea.plan}</p>
-            <p>Fecha de Compra: {new Date(linea.fechacompra).toLocaleDateString()}</p>
-            <p>Fecha de Pago: {new Date(linea.fechapago).toLocaleDateString()}</p>
-            <p>Monto Mensual: {linea.montopagomensual}</p>
-            <p>Estado: {linea.estado === 1 ? 'Activo' : 'No activo'}</p>
-            </div>
-            ))}
-            </div>
-        ) : lineaIsLoading ? (
-            <p>Cargando...</p>
-        ) : (
-            <p>Error: {lineaError}</p>
-        )}
+    <div className='baja-contenedor-principal'>
+      <div className='baja-info'>
+        <div className="baja-contenedor">
+          <div className="cascada">
+            <h1>Estado Linea</h1>
+            {hasLineaData ? (
+              <div>          
+                <div>
+                  <h2>Linea</h2>                
+                  <p>Número de Teléfono: {lineaData.numero}</p>
+                  <p>Plan: {lineaData.plan}</p>
+                  <p>Fecha de Compra: {new Date(lineaData.fecha_compra).toLocaleDateString()}</p>
+                  <p>Fecha de Pago: {new Date(lineaData.fecha_pago).toLocaleDateString()}</p>
+                  <p>Monto Mensual: {lineaData.monto_pago}</p>
+                  <p>Estado: {lineaData.estado === 0 ? 'Activo' : 'No activo'}</p>
+                </div>            
+              </div>
+            ) : lineaIsLoading ? (
+              <p>Cargando...</p>
+            ) : (
+              <p>Error: {lineaError}</p>
+            )}
+          </div>
+        </div>
+        <div className="baja-contenedor">
+          <div className="cascada">
+            <h1>Último Recibo</h1>
+            {reciboData ? (
+              reciboData.length > 0 ? (
+                <div>
+                  <p>Cliente: {hasClienteData ? `${clienteData.nombre} ${clienteData.apellido}` : 'Cliente no encontrado'}</p>
+                  <p>Fecha del Último Recibo: {new Date(reciboData[reciboData.length - 1].fecha_pago).toLocaleDateString()}</p>
+                  <p>Monto: ${reciboData[reciboData.length - 1].precio}</p>
+                  <p>Estado: {reciboData[reciboData.length - 1].estado}</p>
+                  <div className='comparativo'>
+                  <h2>Comparativo</h2>
+                    <p>Monto Actual: ${reciboData[reciboData.length - 1].precio}</p>
+                  </div>
+                </div>                  
+              ) : (
+                <p>No se encuentran recibos para este número.</p>
+              )
+            ) : reciboIsLoading ? (
+              <p>Cargando...</p>
+            ) : (
+              <p>Error: {reciboError}</p>
+            )}            
+          </div>
         </div>
       </div>
-      <div className="contenedor">
-        <div className="cascada">
-          <h1>Ultimo Recibo</h1> 
-        </div>
-      </div>
-      <div className="contenedor">
+      <div className="darbaja-contenedor">
         <div className="cascada">
           <h1>Cancelacion Linea</h1>
           <div className='selector-contenedor'>
@@ -98,40 +121,40 @@ function DarDeBaja() {
           </div>
           {motivo === 'otro' && (
             <div className='selector-contenedor' style={{ marginTop: '20px' }}>
-                <p>Detalle del Motivo:</p>
-                <Box width ='250px'>
+              <p>Detalle del Motivo:</p>
+              <Box width ='250px'>
                 <TextareaAutosize
-                    aria-label="Especificar Otro Motivo"
-                    placeholder="Especificar Otro Motivo"
-                    value={otroMotivo}
-                    onChange={(e) => setOtroMotivo(e.target.value)}
-                    style={{ resize: 'none', height: '250px' , width:'250px'}}
+                  aria-label="Especificar Otro Motivo"
+                  placeholder="Especificar Otro Motivo"
+                  value={otroMotivo}
+                  onChange={(e) => setOtroMotivo(e.target.value)}
+                  style={{ resize: 'none', height: '250px' , width:'250px'}}
                 />
-                </Box>
+              </Box>
             </div>
-            )}
-            <div className='selector-contenedor' style={{ marginTop: '20px' }}>
+          )}
+          <div className='selector-contenedor' style={{ marginTop: '20px' }}>
             <p>Confirmación:</p>
             <Box>
-                <TextField
+              <TextField
                 label="Digite DNI como confirmación"
                 fullWidth
                 // Añade lógica para manejar el valor del campo de confirmación si es necesario
-                />
+              />
             </Box>
-            </div>
-            <div className='selector-contenedor' style={{ marginTop: '20px' }}>
+          </div>
+          <div className='selector-contenedor' style={{ marginTop: '20px' }}>
             <Button variant="contained" color="primary" onClick={handleConfirmar}>
-                Confirmar
+              Confirmar
             </Button>
             <Button variant="contained" color="secondary" onClick={handleCancelar}>
-                Cancelar
+              Cancelar
             </Button>
-        </div>
+          </div>
         </div>
       </div>
     </div>
-  );
+  );  
 }
 
 export default DarDeBaja;
