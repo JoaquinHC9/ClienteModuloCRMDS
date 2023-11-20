@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_URL } from '../config';
 
 export default function Login() {
     const [contrasena, setContrasena] = useState("");
@@ -12,9 +13,9 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const response = await axios.post("/login", { contrasena, correo });
+            const response = await axios.post(`${API_URL}/admin/login`, { correo, contrasena });
             if (response.status === 200) {
-                navigate("/");
+                navigate("/Main");
             } else {
                 setError("Credenciales incorrectas");
             }
@@ -32,18 +33,6 @@ export default function Login() {
                     {error && <p className="text-danger">{error}</p>}
                     <form onSubmit={handleLogin}>
                         <div className="mb-3">
-                            <label htmlFor="contrasena" className="form-label">
-                                Contraseña:
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="contrasena"
-                                value={contrasena}
-                                onChange={(e) => setContrasena(e.target.value)}
-                            />
-                        </div>
-                        <div className="mb-3">
                             <label htmlFor="correo" className="form-label">
                                 Correo Electrónico:
                             </label>
@@ -53,6 +42,18 @@ export default function Login() {
                                 id="correo"
                                 value={correo}
                                 onChange={(e) => setCorreo(e.target.value)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="contrasena" className="form-label">
+                                Contraseña:
+                            </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="contrasena"
+                                value={contrasena}
+                                onChange={(e) => setContrasena(e.target.value)}
                             />
                         </div>
                         <button type="submit" className="btn btn-primary">
