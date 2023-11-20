@@ -11,11 +11,13 @@ export default function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
         try {
             const response = await axios.post(`${API_URL}/admin/login`, { correo, contrasena });
             if (response.status === 200) {
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('correo', correo);                
                 navigate("/Main");
+                window.location.reload();
             } else {
                 setError("Credenciales incorrectas");
             }
@@ -28,7 +30,8 @@ export default function Login() {
     return (
         <div className="container mt-5">
             <div className="row justify-content-center">
-                <div className="col-md-6">
+                <div className="col-md-6">                    
+                    <h1 className="text-center mb-4">CRM Modulo Cliente</h1>
                     <h1 className="text-center mb-4">Iniciar Sesión</h1>
                     {error && <p className="text-danger">{error}</p>}
                     <form onSubmit={handleLogin}>
@@ -49,7 +52,7 @@ export default function Login() {
                                 Contraseña:
                             </label>
                             <input
-                                type="text"
+                                type="password"
                                 className="form-control"
                                 id="contrasena"
                                 value={contrasena}
