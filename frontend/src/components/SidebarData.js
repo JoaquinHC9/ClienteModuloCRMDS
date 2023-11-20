@@ -7,7 +7,7 @@ export const SidebarData = [
   {
     title: 'Main',
     icon: <HomeIcon />,
-    link: '/',
+    link: '/Main',
   },
   {
     title: 'Registro',
