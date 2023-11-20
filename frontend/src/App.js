@@ -12,6 +12,7 @@ import PerfilLinea from "./pages/PerfilLinea.js";
 import DarDeBaja from "./pages/DarDeBaja.js";
 import Transferencia from "./pages/TransferenciaLinea.js";
 import EstadoCuentaGen from "./pages/EstadoCuentaGen.js";
+import Login from "./pages/Login.js"
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
               <Route path="/DarDeBaja/:numTelefono" element={<DarDeBaja />} />
               <Route path="/Transferencia/:numTelefono" element={<Transferencia />} />
               <Route path="/EstadoCuenta/:dni" element={<EstadoCuentaGen />} />
+              <Route path="/Login" element={<Login/>} />
             </Routes>
           </div>
         </div>
