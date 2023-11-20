@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    overflow: hidden; 
+}
+
+.login-contenedor {    
+    flex-direction: column;    
+    justify-content: center;
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    max-width: 800px;    
+    margin: 10% auto;
+    position: relative; 
+    z-index: 1; 
+    background-color: #fff; 
+    line-height: 3;
+}
+
+.fondo-celeste {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 33%; 
+    height: 100%;
+    background-color: #2E5ED2; 
+    z-index: 0; 
+}

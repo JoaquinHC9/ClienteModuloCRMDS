@@ -1,8 +1,5 @@
--- Database: telecomunicaciones
-
--- DROP DATABASE IF EXISTS telecomunicaciones;
-DROP DATABASE IF EXISTS telecomunicaciones;
-CREATE DATABASE telecomunicaciones;
+DROP DATABASE IF EXISTS telecomunicacionesv2;
+CREATE DATABASE telecomunicacionesv2;
 
 	
 CREATE TABLE cliente
@@ -21,25 +18,13 @@ CREATE TABLE cliente
 CREATE TABLE clienteDetallado
 (
     dni VARCHAR(20) PRIMARY KEY,
-    direccion VARCHAR(100), -- Cambiar a VARCHAR(100) para permitir direcciones más largas
+    direccion VARCHAR(100), 
     codigo_postal INT,
-    trabajo VARCHAR(25), -- Cambiar a VARCHAR(25) para permitir trabajos más largos
-    hobie VARCHAR(25), -- Cambiar a VARCHAR(25) para permitir hobbies más largos
-    estado_civil VARCHAR(1), -- Cambiar a VARCHAR(1) para permitir 'S' o 'C'
-    numHijos VARCHAR(1), -- Cambiar a VARCHAR(1) para permitir 1 carácter
+    trabajo VARCHAR(25),
+    hobie VARCHAR(25), 
+    estado_civil VARCHAR(1),
+    numHijos VARCHAR(1), 
     contac_externo VARCHAR(9),
-    FOREIGN KEY (dni) REFERENCES cliente (dni)
-);
-
-CREATE TABLE equipo
-(
-    idEquipo INT PRIMARY KEY,
-    dni VARCHAR(20),
-    modelo VARCHAR(25),
-    marca VARCHAR(25),
-    color VARCHAR(25),
-    fechaCompra DATE,
-    garantia DATE,
     FOREIGN KEY (dni) REFERENCES cliente (dni)
 );
 
@@ -112,25 +97,22 @@ VALUES
 
 CREATE TABLE administrador
 (
-    id_admin SERIAL PRIMARY KEY,    
+    dni VARCHAR(20) PRIMARY KEY,    
     nombre VARCHAR(50),
-    dni VARCHAR(20),
     apellido VARCHAR(50),
     correo VARCHAR(50) UNIQUE,
-    contrasena VARCHAR(100) -- Considera almacenar las contraseñas de manera segura
+    contrasena VARCHAR(100)
 );
 
 INSERT INTO administrador (nombre, dni, apellido, correo, contrasena)
 VALUES
-  ('NombreAdmin1', 000000001,'ApellidoAdmin1', 'admin1@example.com', 'contra1'),
-  ('NombreAdmin2', 000000002,'ApellidoAdmin2', 'admin2@example.com', 'contra2'),
-  -- Agrega más administradores según sea necesario
-  ;
+  ('NombreAdmin1', '000000001', 'ApellidoAdmin1', 'admin1@example.com', 'contra1'),
+  ('NombreAdmin2', '000000002', 'ApellidoAdmin2', 'admin2@example.com', 'contra2');
 
 CREATE TABLE operacion
 (
     id_operacion SERIAL PRIMARY KEY,
-    id_admin INT REFERENCES administrador(id_admin),
+    dni_admin VARCHAR(20) REFERENCES administrador(dni),
     dni_cliente VARCHAR(20) REFERENCES cliente(dni),    
     descripcion VARCHAR(255),
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP

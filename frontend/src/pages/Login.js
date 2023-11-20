@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { API_URL } from '../config';
+import './Login.css';
 export default function Login() {
     const [contrasena, setContrasena] = useState("");
     const [correo, setCorreo] = useState("");
@@ -10,11 +11,13 @@ export default function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
         try {
-            const response = await axios.post("/login", { contrasena, correo });
+            const response = await axios.post(`${API_URL}/admin/login`, { correo, contrasena });
             if (response.status === 200) {
-                navigate("/");
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('correo', correo);                
+                navigate("/Main");
+                window.location.reload();
             } else {
                 setError("Credenciales incorrectas");
             }
@@ -25,24 +28,15 @@ export default function Login() {
     };
 
     return (
-        <div className="container mt-5">
+        <div>
+            <div className="fondo-celeste"></div>
+            <div className="login-contenedor">            
             <div className="row justify-content-center">
-                <div className="col-md-6">
+                <div className="col-md-6">                    
+                    <h1 className="text-center mb-4">CRM Modulo Cliente</h1>
                     <h1 className="text-center mb-4">Iniciar Sesión</h1>
                     {error && <p className="text-danger">{error}</p>}
                     <form onSubmit={handleLogin}>
-                        <div className="mb-3">
-                            <label htmlFor="contrasena" className="form-label">
-                                Contraseña:
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="contrasena"
-                                value={contrasena}
-                                onChange={(e) => setContrasena(e.target.value)}
-                            />
-                        </div>
                         <div className="mb-3">
                             <label htmlFor="correo" className="form-label">
                                 Correo Electrónico:
@@ -55,11 +49,24 @@ export default function Login() {
                                 onChange={(e) => setCorreo(e.target.value)}
                             />
                         </div>
+                        <div className="mb-3">
+                            <label htmlFor="contrasena" className="form-label">
+                                Contraseña:
+                            </label>
+                            <input
+                                type="password"
+                                className="form-control"
+                                id="contrasena"
+                                value={contrasena}
+                                onChange={(e) => setContrasena(e.target.value)}
+                            />
+                        </div>
                         <button type="submit" className="btn btn-primary">
                             Iniciar Sesión
                         </button>
                     </form>
                 </div>
+            </div>
             </div>
         </div>
     );
