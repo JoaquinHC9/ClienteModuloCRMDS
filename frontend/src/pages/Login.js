@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from '../config';
-
+import './Login.css';
 export default function Login() {
     const [contrasena, setContrasena] = useState("");
     const [correo, setCorreo] = useState("");
@@ -28,7 +28,9 @@ export default function Login() {
     };
 
     return (
-        <div className="container mt-5">
+        <div>
+            <div className="fondo-celeste"></div>
+            <div className="login-contenedor">            
             <div className="row justify-content-center">
                 <div className="col-md-6">                    
                     <h1 className="text-center mb-4">CRM Modulo Cliente</h1>
@@ -64,6 +66,7 @@ export default function Login() {
                         </button>
                     </form>
                 </div>
+            </div>
             </div>
         </div>
     );
