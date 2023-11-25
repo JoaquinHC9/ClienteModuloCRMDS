@@ -1,36 +1,45 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import './Perfil.css';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAxios } from '../components/UseAxios.ts'; 
-import { API_URL,VENTAS_URL } from '../config';
+import { VENTAS_URL } from '../config';
+import './PerfilLinea.css';
+import EstadoLinea from './EstadosLinea.js';
+
 
 function PerfilLinea() {
   const { numTelefono } = useParams();
-  const { data: lineaData, error: lineaError, isLoading: lineaIsLoading } = useAxios(`${VENTAS_URL}/lineas/obtenerDetallesDeLinea/${numTelefono}`);
+  const { data: lineaData, error: lineaError, isLoading: lineaIsLoading } = useAxios(`${VENTAS_URL}/searchlinea/${numTelefono}`); 
+  const hasLineaData = lineaData && Object.keys(lineaData).length > 0;  
 
-  // Verificar si `lineaData` es un array y tiene al menos un elemento
-  const hasLineaData = Array.isArray(lineaData) && lineaData.length > 0;  
+  const getEstadoLabel = (estado) => {
+    switch (estado) {
+      case 0:
+        return 'Servicio activo';
+      case 1:
+        return 'Servicio suspendido';
+      case 2:
+        return 'Servicio cancelado';
+      default:
+        return 'Desconocido';
+    }
+  };
+
   return (
-    <div className="container">
+    <div className="linea-contenedor">
       <div className="contenedor-icono">
         <AccountCircleIcon fontSize="100" className="icono-perfil" />
       </div>
       <h1>Perfil de la Línea</h1>
-
       {hasLineaData ? (
-        <div>
-          {lineaData.map((linea, index) => (
-            <div key={index}>
-              <h2>Línea</h2>
-              <p>Número de Teléfono: {linea.numerotelefono}</p>
-              <p>Plan: {linea.plan}</p>
-              <p>Fecha de Compra: {new Date(linea.fechacompra).toLocaleDateString()}</p>
-              <p>Fecha de Pago: {new Date(linea.fechapago).toLocaleDateString()}</p>
-              <p>Monto Mensual: {linea.montopagomensual}</p>
-              <p>Estado: {linea.estado === 0 ? 'Activo' : 'No activo'}</p>
-            </div>
-          ))}
+        <div>                      
+          <h2>Línea</h2>
+          <p>Número de Teléfono: {lineaData.numero}</p>
+          <p>Plan: {lineaData.plan}</p>
+          <p>Fecha de Compra: {new Date(lineaData.fecha_compra).toLocaleDateString()}</p>
+          <p>Fecha de Pago: {new Date(lineaData.fecha_pago).toLocaleDateString()}</p>
+          <p>Monto Mensual: {lineaData.monto_pago}</p>
+          <p>Estado: <EstadoLinea estado={lineaData.estado} /></p>
         </div>
       ) : lineaIsLoading ? (
         <p>Cargando...</p>

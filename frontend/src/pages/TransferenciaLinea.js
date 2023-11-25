@@ -5,8 +5,9 @@ import { useAxios } from '../components/UseAxios.ts';
 import { VENTAS_URL, API_URL } from '../config';
 import { Modal, Button as Boton, Form } from 'react-bootstrap';
 import { Button,Box, MenuItem, TextField, TextareaAutosize } from '@mui/material';
+import { Helmet } from 'react-helmet';
+import EstadoLinea from './EstadosLinea.js';
 import axios from 'axios';
-
 
 function TransferenciaLinea() {
   //modal
@@ -68,16 +69,61 @@ function TransferenciaLinea() {
     setDniConfirmacion(event.target.value);
   };  
 
-  const handleConfirmar = () => {
-    // Lógica de confirmación aquí
+  const handleConfirmar = async () => {
+    try {
+      // Validar que se haya seleccionado un motivo
+      if (!motivo) {
+        alert("Seleccione un motivo de transferencia.");
+        return;
+      }
+  
+      // Validar el DNI de confirmación
+      if (!dniConfirmacion) {
+        alert("Ingrese el DNI del propietario original como confirmación.");
+        return;
+      }
+  
+      // Validar que se haya ingresado el DNI del nuevo propietario
+      if (!nuevoPropDNI) {
+        alert("Ingrese el DNI del nuevo propietario.");
+        return;
+      }
+  
+      // Realizar la confirmación solo si el DNI de confirmación coincide con el DNI del propietario original
+      if (dniConfirmacion === dni) {        
+        const dataToSend = {
+          dni_cliente: nuevoPropDNI,
+          numero: lineaData.numero,
+        };
+  
+        // Realizar la solicitud PUT al nuevo endpoint del backend utilizando las constantes de URL
+        const response = await axios.put(`${VENTAS_URL}/cambiolinea`, dataToSend);
+  
+        // Verificar el código de estado HTTP
+        if (response.status === 200) {
+          alert("Transferencia confirmada con éxito.");
+          // Puedes realizar alguna acción adicional después de la confirmación
+        } else {
+          alert("Error al confirmar la transferencia. Código de estado: " + response.status);
+        }
+      } else {
+        alert("El DNI de confirmación no coincide con el propietario original.");
+      }
+    } catch (error) {
+      alert("Error al confirmar la transferencia: " + error.message);
+    }
   };
+  
 
   const handleCancelar = () => {
     // Lógica de cancelación aquí
   };
 
   return (
-    <div className='contenedor-principal'>           
+    <div className='contenedor-principal'>   
+      <Helmet>
+        <title>Transferencia</title>
+      </Helmet>    
       <div className='contenedor-horizontal'>
       <Modal show={showModal} centered>
         <Modal.Header>
@@ -136,7 +182,7 @@ function TransferenciaLinea() {
                 <p>Fecha de Compra: {new Date(lineaData.fecha_compra).toLocaleDateString()}</p>
                 <p>Fecha de Pago: {new Date(lineaData.fecha_pago).toLocaleDateString()}</p>
                 <p>Monto Mensual: {lineaData.monto_pago}</p>
-                <p>Estado: {lineaData.estado === 0 ? 'Activo' : 'No activo'}</p>
+                <p>Estado: <EstadoLinea estado={lineaData.estado} /></p>
               </div>            
           </div>
         ) : lineaIsLoading ? (
@@ -173,11 +219,10 @@ function TransferenciaLinea() {
               value={motivo}
               onChange={handleMotivoChange}
             >
-              <MenuItem value="motivo1">Cambio de proveedor</MenuItem>
-              <MenuItem value="motivo2">Problemas de servicio</MenuItem>
-              <MenuItem value="motivo3">Falta de uso</MenuItem>
-              <MenuItem value="motivo4">Problemas económicos</MenuItem>
-              <MenuItem value="motivo5">Pérdida o robo del dispositivo</MenuItem>
+              <MenuItem value="motivo1">Regalo a un familiar</MenuItem>
+              <MenuItem value="motivo2">Familar ya es mayor de edad</MenuItem>
+              <MenuItem value="motivo3">Regalo a un concido</MenuItem>              
+              <MenuItem value="motivo4">Muchas lineas asociadas al propietario original</MenuItem>
               <MenuItem value="otro">Otro Motivo</MenuItem>
             </TextField>
           </Box>
@@ -200,7 +245,7 @@ function TransferenciaLinea() {
           <p>Confirmación:</p>
           <Box marginTop='-16px'>
             <TextField
-              label="Digite DNI como confirmación"
+              label="Digite DNI del antiguo propietario como confirmación"
               fullWidth
               value={dniConfirmacion}
               onChange={(e) => setDniConfirmacion(e.target.value)}
