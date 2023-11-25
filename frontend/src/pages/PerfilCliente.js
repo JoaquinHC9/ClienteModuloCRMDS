@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import './Perfil.css';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAxios } from '../components/UseAxios.ts';
 import { API_URL } from '../config.js';
 import { Helmet } from 'react-helmet';
+import './Perfil.css';
 
 export default function PerfilCliente() {
   const { dni } = useParams();
@@ -13,7 +13,7 @@ export default function PerfilCliente() {
   const hasClienteData = clienteData && Object.keys(clienteData).length > 0;
   const hasClienteDetalladoData = clienteDetalladoData && Object.keys(clienteDetalladoData).length > 0;
   return (
-    <div className="contenedor">
+    <div className="contenedor-perfil">
         <Helmet>
           <title>Perfil</title>
         </Helmet>
