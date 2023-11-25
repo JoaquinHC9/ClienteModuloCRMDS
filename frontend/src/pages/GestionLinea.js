@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Menu, MenuItem, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
-import axios from 'axios';
 import { API_URL,VENTAS_URL } from '../config';
 import { useNavigate } from 'react-router-dom';
-import '../App.css';
 import { useParams } from 'react-router-dom'; 
+import axios from 'axios';
+import '../App.css';
+import EstadoLinea from './EstadosLinea';
 
 export default function GestionLineas() {
   const navigate = useNavigate();
@@ -34,8 +35,8 @@ export default function GestionLineas() {
     navigate(`/PerfilLinea/${numTelefono}`);
   };
 
-  const darDeBaja = (numTelefono) => {
-    navigate(`/DarDebaja/${numTelefono}`);
+  const ActLinea = (numTelefono) => {
+    navigate(`/ActLinea/${numTelefono}`);
   };
 
   const transferirLinea = (numTelefono) => {
@@ -90,7 +91,9 @@ export default function GestionLineas() {
                         <TableCell>{new Date(result.fecha_compra).toLocaleDateString()}</TableCell>
                         <TableCell>{new Date(result.fecha_pago).toLocaleDateString()}</TableCell>
                         <TableCell>{result.monto_pago}</TableCell>
-                        <TableCell>{result.estado === 0 ? 'Activo' : 'No activo'}</TableCell>
+                        <TableCell>
+                          <EstadoLinea estado={result.estado} />
+                        </TableCell>
                         <TableCell>
                           <button
                             className='boton-perfil'
@@ -105,7 +108,7 @@ export default function GestionLineas() {
                               onClose={() => handleClose(result.numero)}
                             >
                               <MenuItem onClick={() => perfilLinea(result.numero)}>Ver detalles de Línea</MenuItem>
-                              <MenuItem onClick={() => darDeBaja(result.numero)}>Dar de baja</MenuItem>
+                              <MenuItem onClick={() => ActLinea(result.numero)}>Actualizar Estado de Linea</MenuItem>                              
                               <MenuItem onClick={() => transferirLinea(result.numero)}>Transferencia</MenuItem>
                             </Menu>
                           </div>

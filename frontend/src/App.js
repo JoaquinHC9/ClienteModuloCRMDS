@@ -9,7 +9,8 @@ import Busqueda from "./pages/Busqueda";
 import PerfilCliente from "./pages/PerfilCliente";
 import GestionLinea from "./pages/GestionLinea";
 import PerfilLinea from "./pages/PerfilLinea.js";
-import DarDeBaja from "./pages/DarDeBaja.js";
+import ActLinea from "./pages/ActLinea.js";
+import Reactivar from "./pages/Reactivar.js";
 import Transferencia from "./pages/TransferenciaLinea.js";
 import EstadoCuentaGen from "./pages/EstadoCuentaGen.js";
 import Login from "./pages/Login.js";
@@ -66,9 +67,10 @@ function App() {
                 <Route path="/Perfil/:dni" element={<PerfilCliente />} />
                 <Route path="/Lineas/:dni" element={<GestionLinea />} />
                 <Route path="/PerfilLinea/:numTelefono" element={<PerfilLinea />} />
-                <Route path="/DarDeBaja/:numTelefono" element={<DarDeBaja />} />
+                <Route path="/ActLinea/:numTelefono" element={<ActLinea />} />
+                <Route path="/Reactivar/:numTelefono" element={<Reactivar />} />
                 <Route path="/Transferencia/:numTelefono" element={<Transferencia />} />
-                <Route path="/EstadoCuenta/:dni" element={<EstadoCuentaGen />} />
+                <Route path="/EstadoCuenta/:dni" element={<EstadoCuentaGen />} />                
                 <Route path="*" element={<Navigate to="/Main" />} />
               </Route>
             ) : (

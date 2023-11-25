@@ -4,6 +4,7 @@ import './Perfil.css';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAxios } from '../components/UseAxios.ts';
 import { API_URL } from '../config.js';
+import { Helmet } from 'react-helmet';
 
 export default function PerfilCliente() {
   const { dni } = useParams();
@@ -13,6 +14,9 @@ export default function PerfilCliente() {
   const hasClienteDetalladoData = clienteDetalladoData && Object.keys(clienteDetalladoData).length > 0;
   return (
     <div className="contenedor">
+        <Helmet>
+          <title>Perfil</title>
+        </Helmet>
       <div className="contenedor-icono">
         <AccountCircleIcon fontSize="100" className="icono-perfil" />
       </div>
