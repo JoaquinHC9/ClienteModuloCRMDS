@@ -1,20 +1,21 @@
-.contenedor {
+.contenedor-perfil {
     text-align: center;
     border: 1px solid #ccc;
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
+    max-width: 800px;
     margin: 0 auto;
     display: flex;
-    flex-direction: column; /* Cambia la dirección del flex a columna */
-    align-items: center; /* Centra los elementos horizontalmente */    
+    flex-direction: column; 
+    margin-left: 400px;
   }
   
   .contenedor-icono {
     width: 50px;
     height: 50px;
     margin-top: 20px; /* Añade un margen superior para separar el icono del título */
+    margin-left: 350px;
   }
   
   .icono-perfil {
