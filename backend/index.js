@@ -10,12 +10,10 @@ app.use(express.json());
 
 const clienteRoutes = require('./routes/clienteRoutes');
 const clienteDetalladoRoutes = require('./routes/clienteDetalladoRoutes');
-const lineaRoutes = require('./routes/lineaRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 
 app.use('/clientes', clienteRoutes);
 app.use('/detallesCliente', clienteDetalladoRoutes);
-app.use('/lineas', lineaRoutes);
 app.use('/admin', adminRoutes);
 
 const port = process.env.PORT;

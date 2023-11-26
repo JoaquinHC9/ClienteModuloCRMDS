@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Menu, MenuItem, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
 import axios from 'axios';
-import { API_URL } from '../config';
+import { VENTAS_URL,API_URL } from '../config';
 import {useNavigate } from 'react-router-dom';
 import './Busqueda.css';
 import ModificarCliente from './ModificarCliente'; // Asegúrate de que la ruta sea correcta
@@ -81,7 +81,7 @@ export default function Busqueda() {
   const redirectToGestionLineas = async (dni) => {
     // Redirige a la página que maneja líneas
     try {
-        const response = await axios.get(`${API_URL}/lineas/buscarLineasPorDNI/${dni}`);
+        const response = await axios.get(`${VENTAS_URL}/getlineas/${dni}`);
         navigate(`/Lineas/${dni}`, { state: { client: selectedClient } });
     } catch (error) {
         console.error('Error al obtener las líneas del cliente:', error);
