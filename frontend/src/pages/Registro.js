@@ -66,7 +66,7 @@ export default function Registro() {
   const enviarDatos2 = async (e) => {
     e.preventDefault();
     try {
-      const url = `${API_URL}/detallesCliente/agregarDetallesCliente`;      
+      const url = `${API_URL}/detallesCliente/agregarDetalles`;      
       clienteDetalleData.dni = clienteData.dni;
       const response = await axios.post(url, clienteDetalleData);
       alert("Detalles de cliente Registrado existosamente")
@@ -115,7 +115,17 @@ export default function Registro() {
               <label htmlFor='dni'>
                 <strong>DNI</strong>
               </label>
-              <input type='text' placeholder='Digite DNI' onChange={onChange} required value={clienteData.dni} name='dni' className='form-control rounded-0' style={{ width: '300px' }}></input>
+              <input
+                type='text'
+                placeholder='Digite DNI'
+                onChange={onChange}
+                maxLength={8} // Limita la longitud a 8 caracteres
+                required
+                value={clienteData.dni}
+                name='dni'
+                className='form-control rounded-0'
+                style={{ width: '300px' }}
+              />
             </div>
           </div>
           <div className='mb-2 d-flex justify-content-between'>

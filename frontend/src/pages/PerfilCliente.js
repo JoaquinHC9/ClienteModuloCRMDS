@@ -9,7 +9,7 @@ import './Perfil.css';
 export default function PerfilCliente() {
   const { dni } = useParams();
   const { data: clienteData, error: clienteError, isLoading: clienteIsLoading } = useAxios(`${API_URL}/clientes/buscarPorDNI/${dni}`);
-  const { data: clienteDetalladoData } = useAxios(`${API_URL}/detallesCliente/buscarClienteDetalladoPorDNI/${dni}`);
+  const { data: clienteDetalladoData } = useAxios(`${API_URL}/detallesCliente/buscarDetallesDNI/${dni}`);
   const hasClienteData = clienteData && Object.keys(clienteData).length > 0;
   const hasClienteDetalladoData = clienteDetalladoData && Object.keys(clienteDetalladoData).length > 0;
   return (
