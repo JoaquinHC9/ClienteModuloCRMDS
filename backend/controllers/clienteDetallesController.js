@@ -7,7 +7,7 @@ module.exports = {
     clienteDetalladoObserver.addObserver(observer);
   },
 
-  agregarDetallesCliente: (req, res) => {
+  agregarDetalles: (req, res) => {
     const { dni, direccion, codigo_postal, trabajo, hobie, estado_civil, num_hijos, contac_externo } = req.body;
     const query = 'INSERT INTO clienteDetallado (dni, direccion, codigo_postal, trabajo, hobie, estado_civil, num_hijos, contac_externo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
     const values = [dni, direccion, codigo_postal, trabajo, hobie, estado_civil, num_hijos, contac_externo];
@@ -22,7 +22,7 @@ module.exports = {
         res.status(500).json({ error: 'Error en el registro de detalles del cliente' });
       });
   },
-  buscarClienteDetalladoPorDNI: (req, res) => {
+  buscarDetallesDNI: (req, res) => {
     const dniABuscar = req.params.dni;
     const query = 'SELECT * FROM clienteDetallado WHERE dni = $1';
 

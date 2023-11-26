@@ -66,7 +66,7 @@ export default function Registro() {
   const enviarDatos2 = async (e) => {
     e.preventDefault();
     try {
-      const url = `${API_URL}/detallesCliente/agregarDetallesCliente`;      
+      const url = `${API_URL}/detallesCliente/agregarDetalles`;      
       clienteDetalleData.dni = clienteData.dni;
       const response = await axios.post(url, clienteDetalleData);
       alert("Detalles de cliente Registrado existosamente")
