@@ -1,0 +1,21 @@
+.dashboard-contenedor {
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px; /* Added 'px' to specify the unit */
+    margin: auto; /* Center the content horizontally */
+    padding: 20px; /* Add padding for better spacing */
+  }
+  
+  .dashboard-grafico {
+    width: 60%; /* Adjust the width as needed */
+    margin: auto; /* Center the chart horizontally */
+    border: 2px solid #ddd; /* Add a border */
+    border-radius: 10px; /* Optional: Add border-radius for rounded corners */
+    padding: 20px; /* Optional: Add padding for better spacing inside the container */
+  }
+  
+  .dashboard-cuenta {
+    width: 70%;
+    margin: auto;
+  }
+  
