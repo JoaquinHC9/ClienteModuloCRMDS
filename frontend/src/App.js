@@ -15,6 +15,8 @@ import EstadoCuentaGen from "./pages/EstadoCuentaGen.js";
 import Login from "./pages/Login.js";
 import AccesoDenegado from "./pages/AccesoDenegado.js";
 
+export const AuthContext = React.createContext();
+
 const SidebarLayout = () => (
   <>
     <Sidebar />
@@ -29,37 +31,55 @@ function App() {
 
   useEffect(() => {
     const checkLoginStatus = async () => {
-        try {
-            const token = localStorage.getItem("token");
-            if (token) {
-                setIsLoggedIn(true);
-            }
-        } catch (error) {
-            console.error("Error checking login status", error);
-        } finally {
-            setLoading(false);
+      try {
+        const token = localStorage.getItem('token');
+        if (token) {
+          // Verificar si el token es válido (puedes hacer una llamada al servidor aquí)
+          // Si es válido, establecer el estado como autenticado
+          setIsLoggedIn(true);
+        } else {
+          // Si no hay token, o es inválido, establecer el estado como no autenticado
+          setIsLoggedIn(false);
         }
+      } catch (error) {
+        console.error('Error checking login status', error);
+        // En caso de error, también establecer el estado como no autenticado
+        setIsLoggedIn(false);
+      } finally {
+        // Independientemente del resultado, marcar la carga como completa
+        setLoading(false);
+      }
     };
-
+  
     checkLoginStatus();
-}, []);
+  }, []);
+  
 
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Cargando...</div>;
   }
 
-  if (isLoggedIn) {
-    return (
+  return (
+    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
       <div className="App">
-        <Router>
-          <Helmet>
-            <title>Modulo Clientes</title>
-          </Helmet>
-          <Routes>
-          <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />          
-            {isLoggedIn ? (
-              <Route path="/" element={<SidebarLayout />}>
+      <Router>
+        <Helmet>
+          <title>Modulo Clientes</title>
+        </Helmet>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              isLoggedIn ? (
+                <Navigate to="/Main" />
+              ) : (
+                <Login setIsLoggedIn={setIsLoggedIn} />
+              )
+            }
+          />
+          {isLoggedIn && (
+            <Route path="/" element={<SidebarLayout />}>
                 <Route path="/Main" element={<Main />} />
                 <Route path="/Registro" element={<Registro />} />
                 <Route path="/Busqueda" element={<Busqueda />} />
@@ -70,27 +90,16 @@ function App() {
                 <Route path="/Transferencia/:numTelefono" element={<Transferencia />} />
                 <Route path="/EstadoCuenta/:dni" element={<EstadoCuentaGen />} />                
                 <Route path="*" element={<Navigate to="/Main" />} />
-              </Route>
-            ) : (
-              <Route path="*" element={<AccesoDenegado />} />
-            )}
-          </Routes>
-        </Router>
-      </div>
-    );
-  }
-  if (!isLoggedIn) {
-    return (
-      <div className="App">
-        <Router>
-          <Routes>
-            <Route path="/" element={<Login />} />
+                </Route>
+          )}
+          {!isLoggedIn && (
             <Route path="*" element={<AccesoDenegado />} />
-          </Routes>
-        </Router>
+          )}
+        </Routes>
+      </Router>
       </div>
-    );
-  }
+      </AuthContext.Provider>
+  );
 }
 
 export default App;

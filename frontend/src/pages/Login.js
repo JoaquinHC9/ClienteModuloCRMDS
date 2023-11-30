@@ -1,31 +1,34 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useContext } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../App.js'; // Ajusta la ruta según la ubicación real de App.js
 import { API_URL } from '../config';
 import '../styles/Login.css';
-export default function Login() {
-    const [contrasena, setContrasena] = useState("");
-    const [correo, setCorreo] = useState("");
-    const [error, setError] = useState("");
-    const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post(`${API_URL}/admin/login`, { correo, contrasena });
-            if (response.status === 200) {
-                localStorage.setItem('token', response.data.token);
-                localStorage.setItem('correo', correo);                
-                navigate("/Main");
-                window.location.reload();
-            } else {
-                setError("Credenciales incorrectas");
-            }
-        } catch (error) {
-            setError("Error en el inicio de sesión");
-            console.error(error);
-        }
-    };
+export default function Login() {
+  const [contrasena, setContrasena] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const { setIsLoggedIn } = useContext(AuthContext);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${API_URL}/admin/login`, { correo, contrasena });
+      if (response.status === 200) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('correo', correo);
+        setIsLoggedIn(true);
+        navigate('/Main', { replace: true }); // Utiliza replace para reemplazar la ruta actual
+      } else {
+        setError('Credenciales incorrectas');
+      }
+    } catch (error) {
+      setError('Error en el inicio de sesión');
+      console.error(error);
+    }
+  };
 
     return (
         <div>
