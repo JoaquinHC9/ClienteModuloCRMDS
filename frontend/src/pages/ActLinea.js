@@ -6,7 +6,7 @@ import { API_URL,VENTAS_URL } from '../config.js';
 import { Helmet } from 'react-helmet';
 import EstadoLinea from './EstadosLinea.js';
 import axios from 'axios';
-import './Baja.css';
+import '../styles/Baja.css';
 
 function ActLinea() {
   const { numTelefono } = useParams();

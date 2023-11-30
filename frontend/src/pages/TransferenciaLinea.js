@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import './Transferencia.css';
 import { useAxios } from '../components/UseAxios.ts'; 
 import { VENTAS_URL, API_URL } from '../config';
 import { Modal, Button as Boton, Form } from 'react-bootstrap';
 import { Button,Box, MenuItem, TextField, TextareaAutosize } from '@mui/material';
 import { Helmet } from 'react-helmet';
 import EstadoLinea from './EstadosLinea.js';
+import '../styles/Transferencia.css';
 import axios from 'axios';
 
 function TransferenciaLinea() {

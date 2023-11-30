@@ -3,8 +3,8 @@ import { useAxios } from '../components/UseAxios.ts';
 import { Helmet } from 'react-helmet';
 import { API_URL, VENTAS_URL } from '../config.js';
 import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
-import './EstadoCuenta.css';
 import GraficoBarrasFacturasPagadas from '../components/GraficoBarrasFacturasPagadas'; // Importa el componente del gráfico
+import '../styles/EstadoCuenta.css';
 
 
 export default function EstadoCuentaGen() {
