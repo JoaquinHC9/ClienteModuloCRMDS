@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SideBar.css';
 import { SidebarData } from './SidebarData';
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { AuthContext } from '../App';
 
 export default function Sidebar() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,13 +22,12 @@ export default function Sidebar() {
   };
 
   const handleLogout = () => {
-    // Limpiar datos de localStorage al cerrar sesión
     localStorage.removeItem('token');
     localStorage.removeItem('correo');
     setIsLoggedIn(false);
-    // Redirigir a la página principal después de cerrar sesión
     navigate('/');
   };
+  
 
   return (
     <div className={`Sidebar ${isSidebarExpanded ? 'expanded' : 'collapsed'}`}>
