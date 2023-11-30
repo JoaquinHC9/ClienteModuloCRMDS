@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAxios } from '../components/UseAxios.ts'; 
 import { VENTAS_URL } from '../config';
-import './PerfilLinea.css';
+import '../styles/PerfilLinea.css';
 import EstadoLinea from './EstadosLinea.js';
 
 

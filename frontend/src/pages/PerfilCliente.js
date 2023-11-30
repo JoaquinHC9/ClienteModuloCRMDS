@@ -4,7 +4,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAxios } from '../components/UseAxios.ts';
 import { API_URL } from '../config.js';
 import { Helmet } from 'react-helmet';
-import './Perfil.css';
+import '../styles/Perfil.css';
 
 export default function PerfilCliente() {
   const { dni } = useParams();

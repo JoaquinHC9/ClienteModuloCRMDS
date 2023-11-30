@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from '../config';
-import './Login.css';
+import '../styles/Login.css';
 export default function Login() {
     const [contrasena, setContrasena] = useState("");
     const [correo, setCorreo] = useState("");

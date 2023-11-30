@@ -4,9 +4,10 @@ import { Menu, MenuItem, Table, TableContainer, TableHead, TableRow, TableCell, 
 import axios from 'axios';
 import { VENTAS_URL,API_URL } from '../config';
 import {useNavigate } from 'react-router-dom';
-import './Busqueda.css';
-import ModificarCliente from './ModificarCliente'; // Asegúrate de que la ruta sea correcta
+import ModificarCliente from './ModificarCliente'; 
 import BusFachada from '../components/BusFachada.ts';
+import ExcelExport from '../components/ExcelExport.js';
+import '../styles/Busqueda.css';
 export default function Busqueda() {
 
   //busquedas
@@ -22,7 +23,7 @@ export default function Busqueda() {
   //menu
   const [menuAnchorEl, setMenuAnchorEl] = useState({});
   //tablas
-  const columns = ['DNI', 'Nombre', 'Apellido', 'Correo', 'Acciones'];
+  const columns = ['DNI', 'Nombre', 'Apellido', 'Correo', 'Fecha Nacimiento','Departamento','Distrito','Sexo','Acciones'];
     
   // Manejo de edición del cliente
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -38,7 +39,7 @@ export default function Busqueda() {
     try {
       if (searchDNI) {
         const clienteData = await busFachada.buscarClientePorDNI(searchDNI);
-        setSearchResults([clienteData]); // Convierte el objeto en un array solucion temporal
+        setSearchResults([clienteData]);        
       } else if (searchNombre) {
         const clientesPorNombre = await busFachada.buscarClientesPorNombre(searchNombre);
         setSearchResults(clientesPorNombre);
@@ -51,15 +52,16 @@ export default function Busqueda() {
       setSearchApellido('');
     } catch (error) {
       console.error('Error al realizar la búsqueda:', error);
-    }
-  }  
+    }    
+  }; 
   const listHandle = async () => {
     try {
       const response = await axios.get(`${API_URL}/clientes`);
       setSearchResults(response.data);
+      console.log(response)
     } catch (error) {
       console.error('Error al obtener todos los clientes:', error);
-    }
+    }    
   };
   
   //abrir menu acciones
@@ -125,16 +127,17 @@ export default function Busqueda() {
               className='caja-busqueda'
               value={searchApellido}
               onChange={(event) => setSearchApellido(event.target.value)}
-            />
-            <button className='boton-busqueda' onClick={searchHandle}>
+            />            
+          </div>          
+          <div className='tabla'>
+          <button className='boton-busqueda' onClick={searchHandle}>
               Buscar
             </button>
             <button className='boton-listar' onClick={listHandle}>
               Mostrar todos los clientes
             </button>
-          </div>          
-          <div className='tabla'>
-          <TableContainer component={Paper} className='resultado-busqueda'>
+            <ExcelExport data={searchResults} />
+          <TableContainer component={Paper} className='resultado-busqueda'  >
             <Table>
               <TableHead>
                 <TableRow>
@@ -150,6 +153,10 @@ export default function Busqueda() {
                     <TableCell>{resultado.nombre}</TableCell>
                     <TableCell>{resultado.apellido}</TableCell>
                     <TableCell>{resultado.correo}</TableCell>
+                    <TableCell>{new Date(resultado.fechanac).toLocaleDateString()}</TableCell>                    
+                    <TableCell>{resultado.departamento}</TableCell>
+                    <TableCell>{resultado.distrito}</TableCell>
+                    <TableCell>{resultado.sexo}</TableCell>
                     <TableCell>
                       <button
                         className='boton-perfil'
@@ -175,7 +182,7 @@ export default function Busqueda() {
               </TableBody>
             </Table>
           </TableContainer>
-        </div>
+          </div>
         </div>
       </div>
       {isEditModalOpen && (

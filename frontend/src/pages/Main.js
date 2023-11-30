@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet';
 import React, { Component } from 'react';
 import GraficoClientesRegistrados from '../components/GraficoClienteRegistro.js';
-import './Main.css';
+import '../styles/Main.css';
 class Main extends Component {
     render() {
         return (

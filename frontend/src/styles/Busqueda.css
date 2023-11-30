@@ -25,6 +25,7 @@
     border: 1px solid #ccc; 
     padding: 10px;
     background-color: #f2f2f2;
+    
   }
   
   .resultado-busqueda td {
@@ -37,6 +38,7 @@
     flex-direction: column;
     align-items: center;  
     height: 100vh;
+    
   }
   .boton-perfil {
     border: 1px solid #ccc;
@@ -57,11 +59,11 @@
     flex-direction: column;
     align-items: center;
     width: 100%;  
-    max-width: 800px; /* Ancho máximo de la tabla */
+    max-width: 1200px; /* Ancho máximo de la tabla */
     margin-top: 20px; /* Espacio superior */
   }
   .tabla{
-    margin-left: 130px; 
+    margin-left: 50px; 
   }
   .header-container {
     display: flex;
@@ -89,6 +91,16 @@
   }
   .boton-listar {
     background-color: rgb(87, 118, 255);
+    color: white; 
+    border: none; 
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 20px;
+  }
+
+  .boton-exportar {
+    background-color: rgb(2, 154, 62);
     color: white; 
     border: none; 
     padding: 10px 20px;
