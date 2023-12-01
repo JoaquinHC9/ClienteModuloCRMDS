@@ -8,6 +8,7 @@ import ModificarCliente from './ModificarCliente';
 import BusFachada from '../components/BusFachada.ts';
 import ExcelExport from '../components/ExcelExport.js';
 import '../styles/Busqueda.css';
+
 export default function Busqueda() {
 
   //busquedas
@@ -23,7 +24,7 @@ export default function Busqueda() {
   //menu
   const [menuAnchorEl, setMenuAnchorEl] = useState({});
   //tablas
-  const columns = ['DNI', 'Nombre', 'Apellido', 'Correo', 'Fecha Nacimiento','Departamento','Distrito','Sexo','Acciones'];
+  const columns = ['DNI', 'Nombre', 'Apellido', 'Correo', 'Fecha Nacimiento','Fecha de Afiliacion','Departamento','Distrito','Sexo','Acciones'];
     
   // Manejo de edición del cliente
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -55,13 +56,12 @@ export default function Busqueda() {
     }    
   }; 
   const listHandle = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/clientes`);
-      setSearchResults(response.data);
-      console.log(response)
+    try {      
+      const response = await busFachada.obtenerTodosLosClientes();
+      setSearchResults(response);
     } catch (error) {
-      console.error('Error al obtener todos los clientes:', error);
-    }    
+      console.error('Error al realizar la búsqueda:', error);
+    }
   };
   
   //abrir menu acciones
@@ -153,7 +153,8 @@ export default function Busqueda() {
                     <TableCell>{resultado.nombre}</TableCell>
                     <TableCell>{resultado.apellido}</TableCell>
                     <TableCell>{resultado.correo}</TableCell>
-                    <TableCell>{new Date(resultado.fechanac).toLocaleDateString()}</TableCell>                    
+                    <TableCell>{new Date(resultado.fechanac).toLocaleDateString()}</TableCell>
+                    <TableCell>{new Date(resultado.fechaafili).toLocaleDateString()}</TableCell>
                     <TableCell>{resultado.departamento}</TableCell>
                     <TableCell>{resultado.distrito}</TableCell>
                     <TableCell>{resultado.sexo}</TableCell>
