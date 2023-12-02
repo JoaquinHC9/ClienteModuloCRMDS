@@ -1,0 +1,134 @@
+.moduloModuloRQS {
+  margin-left: 250px;
+  }
+
+  .contenidoCentral {
+    flex: 1; /* El contenido principal ocupará todo el espacio restante */
+    margin: 20px;
+    width: 70%; /* Nuevo estilo para limitar el ancho al 50% de la pantalla */
+    margin: 0 auto !important; /* Centra el contenido */;
+  }
+  
+  .principalModuloRQS {
+    margin: 20px;
+  }  
+  
+
+  .contenidoCentral {
+    margin: 20px;
+  }
+  
+  .principalModuloRQS {
+    margin: 20px;
+  }
+  
+  .principalModuloRQS > div {
+    margin-bottom: 20px;
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  
+  .loadingRQS {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  /* Estilo para los títulos */
+  h2 {
+    margin-top: 4px !important;
+    margin-bottom: 1px !important;
+    text-align: left;
+  }
+  
+  /* Estilo para los subtítulos */
+  h3 {
+    text-align: left;
+  }
+  
+  /* Estilo para los contenidos de Reclamos y Solicitudes */
+  .reclamos-content,
+  .solicitudes-content {
+    margin-top: 20px;
+  }
+  
+  /* Estilo para las opciones en los selects */
+  
+  /* Estilo para la sección de Estado */
+  .estado-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Puedes agregar más estilos según tus necesidades */
+ /* Asegúrate de que estos estilos estén en el mismo archivo o alcance donde defines tu componente Reclamos */
+ .tablaRQS {
+    height: 70vh !important;
+    overflow-y: auto !important;
+  } 
+
+  .botonDiv {
+    margin-top: 10px;
+  }
+
+  .botonRQS {
+    margin-top: 20px;
+    background: #2e5ed2;
+    border: 1px solid #2e5ed2;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    width: 20%;
+  }
+
+  input[type="text"], 
+.Form textarea{
+    width: 100%;
+    padding: 5px;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.FormBotones {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    align-items: center;
+  }
+  
+.buttonSolicitud,
+.buttonCancelar {
+    font-size: inherit;
+    width: 120px; /* Ajusta el ancho según tus preferencias */
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttonSolicitud {
+    background-color: blue;
+    color: white;
+  }
+
+.buttonCancelar {
+    background-color: red;
+    color: white;
+}
+
+  
+.tablaRQS th {
+  border: 1px solid #ccc; 
+  padding: 10px;
+  background-color: #f2f2f2;
+  
+}
+
+.tablaRQS td {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
