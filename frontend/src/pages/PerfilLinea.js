@@ -5,7 +5,7 @@ import { useAxios } from '../components/UseAxios.ts';
 import { VENTAS_URL } from '../config';
 import '../styles/PerfilLinea.css';
 import EstadoLinea from './EstadosLinea.js';
-
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 
 function PerfilLinea() {
   const { numTelefono } = useParams();
@@ -27,8 +27,8 @@ function PerfilLinea() {
 
   return (
     <div className="linea-contenedor">
-      <div className="contenedor-icono">
-        <AccountCircleIcon fontSize="100" className="icono-perfil" />
+      <div className="contenedor-linea-ico">
+        <PhoneAndroidIcon fontSize="100" className="icono-linea" />
       </div>
       <h1>Perfil de la Línea</h1>
       {hasLineaData ? (

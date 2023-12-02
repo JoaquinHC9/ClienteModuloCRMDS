@@ -6,6 +6,7 @@ export interface BusquedaFachada {
   buscarLineasPorDNI(dni: string): Promise<any>;
   buscarClientesPorNombre(nombre: string): Promise<any>;
   buscarClientesPorApellido(apellido: string): Promise<any>;
+  obtenerTodosLosClientes(): Promise<any>;
 }
 
 const BusFachada = (): BusquedaFachada => {
@@ -50,12 +51,22 @@ const BusFachada = (): BusquedaFachada => {
       throw error;
     }
   };
+  const obtenerTodosLosClientes = async () => {
+    try {
+      const response = await instance.get(`/clientes`);
+      return response.data;
+    } catch (error) {
+      console.error('Error al obtener todos los clientes:', error);
+      throw error;
+    }
+  };
 
   return {
     buscarClientePorDNI,
     buscarLineasPorDNI,
     buscarClientesPorNombre,
     buscarClientesPorApellido,
+    obtenerTodosLosClientes
   };
 };
 
