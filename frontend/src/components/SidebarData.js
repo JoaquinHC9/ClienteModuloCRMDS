@@ -20,7 +20,7 @@ export const SidebarData = [
     link: '/Busqueda',
   },
   {
-    title: 'Notificaciones',
+    title: 'RQS',
     icon: <NotificationsActiveIcon />,
     link: '/moduloRQS',
   },

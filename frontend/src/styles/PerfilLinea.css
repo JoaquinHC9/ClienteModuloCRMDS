@@ -10,6 +10,10 @@
     flex-direction: column; /* Cambia la dirección del flex a columna */
     align-items: center; /* Centra los elementos horizontalmente */    
   }
+
+  .linea-contenedor h2 {
+    text-align: center;
+  }
   
   .contenedor-linea-ico {
     width: 50px;

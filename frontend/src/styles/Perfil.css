@@ -10,6 +10,9 @@
     flex-direction: column; 
     margin-left: 400px;
   }
+  .contenedor-perfil h2 {
+    text-align: center;
+  }
   
   .contenedor-icono {
     width: 50px;

@@ -22,6 +22,9 @@
     width: 400px; 
     margin: 10px; 
 }
+.contenedor h2 {
+  text-align: center;
+}
   
   .contenedor-transferencia {
     display: flex;

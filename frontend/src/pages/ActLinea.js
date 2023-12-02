@@ -114,7 +114,7 @@ function ActLinea() {
                   <p>Estado: {reciboData[reciboData.length - 1].estado}</p>
                   <div className='comparativo'>
                     <h2>Comparativo</h2>
-                    <p>Monto Actual: ${reciboData[reciboData.length - 1].precio}</p>
+                    <p>Monto Actual: ${reciboData[reciboData.length - 1].precio}</p>                    
                   </div>
                 </div>
               ) : (
@@ -181,18 +181,18 @@ function ActLinea() {
               </Box>
             </div>
           )}
-          <div className='selector-contenedor' style={{ marginTop: '20px' }}>
+          <div className='selector-contenedor' >
             <p>Confirmación:</p>
             <Box>
               <TextField
                 label="Digite DNI del propietario si esta de acuerdo"
-                fullWidth
-                value={dniConfirmacion}
+                style={{ resize: 'none', width:'300px'}}
+                value={dniConfirmacion}                
                 onChange={(e) => setDniConfirmacion(e.target.value)}
               />
             </Box>
           </div>
-          <div className='selector-contenedor' style={{ marginTop: '20px' }}>
+          <div className='selector-contenedor' >
             <Button variant="contained" color="primary" onClick={handleConfirmar}>
               Confirmar
             </Button>
