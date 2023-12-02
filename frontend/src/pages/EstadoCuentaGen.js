@@ -14,14 +14,14 @@ export default function EstadoCuentaGen() {
 
   const { data: lineaData, error: lineaError, isLoading: lineaIsLoading } = useAxios(`${VENTAS_URL}/getlineas/${dni}`);  
   const { data: reciboData, error: reciboError, isLoading: reciboIsLoading } = useAxios(`${VENTAS_URL}/searchbilldni/${dni}`);
-  const columnasDatosLinea = ['Numero de Telefono', 'Plan', 'Fecha de Compra', 'Fecha de Pago', 'Monto Mensual', 'Estado'];
+  const columnasDatosLinea = ['Numero de Telefono', 'Plan', 'Fecha de Compra', 'Ultimo Pago', 'Monto Mensual', 'Estado'];
   return (
     <div>
       <Helmet>
         <title>Estado de cuenta</title>
       </Helmet>
       <div className='estadocuenta-contenedor'>
-        <h1>Perfil del Cliente</h1>
+        <h1>Estado de cuenta</h1>
         <div className="contenedor-cuenta">
           {hasClienteData ? (
             <div>
@@ -43,7 +43,7 @@ export default function EstadoCuentaGen() {
                           <TableCell>{result.numero}</TableCell>
                           <TableCell>{result.plan}</TableCell>
                           <TableCell>{new Date(result.fecha_compra).toLocaleDateString()}</TableCell>
-                          <TableCell>{new Date(result.fecha_pago).toLocaleDateString()}</TableCell>
+                          <TableCell>{new Date(result.ultimo_pago).toLocaleDateString()}</TableCell>
                           <TableCell>{result.monto_pago}</TableCell>
                           <TableCell>{result.estado === 0 ? 'Activo' : 'No activo'}</TableCell>
                         </TableRow>
@@ -70,7 +70,7 @@ export default function EstadoCuentaGen() {
                 ) : reciboIsLoading ? (
                 <p>Cargando gráfico...</p>
                 ) : (
-                <p>Error al cargar datos de facturas: {reciboError}</p>
+                <p>No se encontraron facturas: {reciboError}</p>
                 )}
             </div>
         </div>

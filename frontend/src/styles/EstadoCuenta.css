@@ -4,6 +4,11 @@
     margin-left: 300px;
     max-width: 1000;
   }
+
+  .estadocuenta-contenedor h2 {
+    text-align: center;
+  }
+
   .contenedor-grafico {
     width: 70%;
     margin: auto;

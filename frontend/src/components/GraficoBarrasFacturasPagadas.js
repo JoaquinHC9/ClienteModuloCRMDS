@@ -5,8 +5,7 @@ import Chart from 'chart.js/auto';
 const GraficoBarrasFacturasPagadas = ({ datosFacturas }) => {
     useEffect(() => {
         return () => {
-          // Limpiar el gráfico al desmontar el componente
-          // Esto debería prevenir el error "Canvas is already in use"
+          // Limpiar el gráfico al desmontar el componente          
           if (typeof Chart !== 'undefined' && Chart.helpers && Chart.helpers.each) {
             Chart.helpers.each(Chart.instances, instance => {
               instance.destroy();
@@ -58,7 +57,7 @@ const GraficoBarrasFacturasPagadas = ({ datosFacturas }) => {
       },
       y: {
         beginAtZero: true,
-        max: 100, // Ajusta este valor según sea necesario
+        max: 100, 
       },
     },
   };
