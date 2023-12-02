@@ -25,7 +25,7 @@ export default function ModificarCliente({ isOpen, onClose, client: cliente }) {
   useEffect(() => {
     const loadDetallesCliente = async (dni) => {
         try {
-            const response = await axios.get(`${API_URL}/detallesCliente/buscarClienteDetalladoPorDNI/${dni}`);            
+            const response = await axios.get(`${API_URL}/detallesCliente/buscarDetallesDNI/${dni}`);            
             setDetallesCliente(response.data);
         } catch (error) {
             handleEditError();
