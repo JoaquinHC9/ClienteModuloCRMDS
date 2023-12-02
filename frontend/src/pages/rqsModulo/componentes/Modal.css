@@ -1,0 +1,57 @@
+/* Modal styles with !important */
+.modal {
+  display: none !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.modal-content {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 50% !important; /* Nuevo estilo para que el modal ocupe el 50% del ancho */
+  background-color: #fff !important;
+  padding: 20px !important;
+  text-align: center !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.close {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  cursor: pointer !important;
+  font-size: 20px !important;
+  color: #333 !important;
+}
+
+.show {
+  display: block !important;
+}
+
+.modal-boton {
+  font-size: inherit !important;
+  width: 120px !important;
+  padding: 10px 20px !important;
+  border: none !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  background-color: #4CAF50 !important;
+  color: #fff !important;
+}
+
+.modal-boton:hover {
+  background-color: #45a049 !important;
+}
+
+.modal-content p {
+  font-size: 18px !important;
+  margin-bottom: 20px !important;
+  color: #333 !important;
+}

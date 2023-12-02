@@ -22,6 +22,6 @@ export const SidebarData = [
   {
     title: 'Notificaciones',
     icon: <NotificationsActiveIcon />,
-    link: '/Notificaciones',
+    link: '/moduloRQS',
   },
 ];

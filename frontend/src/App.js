@@ -14,6 +14,7 @@ import Transferencia from "./pages/TransferenciaLinea.js";
 import EstadoCuentaGen from "./pages/EstadoCuentaGen.js";
 import Login from "./pages/Login.js";
 import AccesoDenegado from "./pages/AccesoDenegado.js";
+import AppRqs from "./pages/rqsModulo/AppRqs.js"
 
 export const AuthContext = React.createContext();
 
@@ -90,6 +91,7 @@ function App() {
                 <Route path="/Transferencia/:numTelefono" element={<Transferencia />} />
                 <Route path="/EstadoCuenta/:dni" element={<EstadoCuentaGen />} />                
                 <Route path="*" element={<Navigate to="/Main" />} />
+                <Route path="/modulorqs/*" element={<AppRqs />}/>
                 </Route>
           )}
           {!isLoggedIn && (

@@ -1,0 +1,102 @@
+.mainContainer {
+    display: flex;
+}
+
+.requestListContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 85vw;
+}
+
+.listContainer {
+    display: flex;
+}
+
+.subtitleContainer div{
+    display: flex;
+    padding: 0px 0px 10px 10px;
+}
+
+.detalle-label {
+    margin-bottom: 0.5rem;
+    --tw-text-opacity: 1;
+    color: rgb(71, 85 , 105);
+    font-size: 0.875rem;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 500;
+    display: block;
+}
+
+.tableContainer {
+    display: flex;
+    justify-content: center;
+    border: 1px solid #D6D6D6;
+    border-radius: 20px;
+    width: 80%;
+    height: 70%;
+}
+
+/* Estilo para la tabla */
+.table {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 3% 0%;
+}
+
+/* Estilo para las celdas (sin bordes en las columnas) */
+.table td,
+.table th {
+    border-top: none; 
+    border-left: none; 
+    border-right: none; 
+    border-bottom: 1px solid black;
+    padding: 8px 16px;
+}
+
+.anaranjado {
+    background-color: #ffecd7;
+    color: #ffa834; 
+    
+}
+
+
+.verde {
+    background-color: #cbe8ba;
+    color: #629c44; 
+}
+
+.estadoButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor:default;
+    border-radius: 20px;
+    padding: 15%;
+    width: 95%;
+}
+
+/* Estilo para la celda de la tabla */
+.table td {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+    padding: 8px 16px;
+    vertical-align: middle; 
+}
+
+/* Estilo para el botón con el carácter de elipsis vertical */
+.table button {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: gray;
+}
+
