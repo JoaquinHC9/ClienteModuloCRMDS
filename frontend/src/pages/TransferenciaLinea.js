@@ -179,7 +179,7 @@ function TransferenciaLinea() {
                 <p>Número de Teléfono: {lineaData.numero}</p>
                 <p>Plan: {lineaData.plan}</p>
                 <p>Fecha de Compra: {new Date(lineaData.fecha_compra).toLocaleDateString()}</p>
-                <p>Fecha de Pago: {new Date(lineaData.fecha_pago).toLocaleDateString()}</p>
+                <p>Fecha de Pago: {new Date(lineaData.ultimo_pago).toLocaleDateString()}</p>
                 <p>Monto Mensual: {lineaData.monto_pago}</p>
                 <p>Estado: <EstadoLinea estado={lineaData.estado} /></p>
               </div>            
