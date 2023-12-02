@@ -148,8 +148,7 @@ function TransferenciaLinea() {
           </Boton>
           <Boton variant="primary" onClick={handleSearch}>
             Buscar
-          </Boton>
-          {/* Puedes agregar cualquier otro botón del modal que necesites */}
+          </Boton>          
         </Modal.Footer>
       </Modal>
       <div className="contenedor">

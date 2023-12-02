@@ -22,12 +22,12 @@ export default function Registro() {
   const [clienteDetalleData, setData2] = useState({
     dni: '',
     direccion: '',
-    codigoPostal: '',
+    codigo_postal: '',
     trabajo: '',
     hobie: '',
-    estadoCivil: '',
-    numHijos: 'null',
-    contacExterno: '', 
+    estado_civil: '',
+    num_hijos: 'null',
+    contac_externo: '', 
   });
 
   const [showModal, setShowModal] = useState(false);
@@ -68,8 +68,10 @@ export default function Registro() {
     try {
       const url = `${API_URL}/detallesCliente/agregarDetallesCliente`;
       clienteDetalleData.dni = clienteData.dni;
-      const response = await axios.post(url, clienteDetalleData);
-      alert("Detalles de cliente Registrado existosamente")
+      const response = await axios.post(url, clienteDetalleData);      
+      alert("Detalles de cliente Registrado existosamente")      
+      setShowSecondForm(false);
+      resetFields();
     } catch (error) {
       setError(error.response.data.message);      
     }
@@ -90,9 +92,33 @@ export default function Registro() {
 
   const cancelarForm = () => {
     setShowSecondForm(false);
-    setShowModal(false); 
+    setShowModal(false);
+    resetFields();   
   };
-
+  
+  const resetFields = () => {
+    setData({
+      dni: '',
+      nombre: '',
+      apellido: '',
+      fechaNacimiento: null,
+      distrito: '',
+      departamento: '',
+      email: '',
+      fechaAfiliacion: new Date().toISOString().substr(0, 10),
+      sexo: ''
+    });
+    setData2({
+      dni: '',
+      direccion: '',
+      codigo_postal: '',  
+      trabajo: '',
+      hobie: '',
+      estado_civil: '',   
+      num_hijos: 'null',   
+      contac_externo: '',  
+    });    
+  };
 
   return (
     <div className="d-flex justify-content-center align-items-center bg-light">
@@ -213,7 +239,7 @@ export default function Registro() {
                 />
               </div>
               <div>
-                <label htmlFor='codigoPostal'>
+                <label htmlFor='codigo_postal'>
                   <strong>Código Postal</strong>
                 </label>
                 <input
@@ -221,8 +247,8 @@ export default function Registro() {
                   placeholder='Digite Código Postal'
                   onChange={onChange2}
                   required
-                  value={clienteDetalleData.codigoPostal}
-                  name='codigoPostal'
+                  value={clienteDetalleData.codigo_postal}
+                  name='codigo_postal'
                   className='form-control rounded-0'
                   style={{ width: '300px' }}
                 />
@@ -262,14 +288,14 @@ export default function Registro() {
             </div>
             <div className='mb-2 d-flex justify-content-between'>
               <div>
-                <label htmlFor='estadoCivil'>
+                <label htmlFor='estado_civil'>
                   <strong>Estado Civil</strong>
                 </label>
                 <select
                   onChange={onChange2}
                   required
-                  value={clienteDetalleData.estadoCivil}
-                  name='estadoCivil'
+                  value={clienteDetalleData.estado_civil}
+                  name='estado_civil'
                   className='form-control rounded-0'
                   style={{ width: '300px' }}
                 >
@@ -280,7 +306,7 @@ export default function Registro() {
                 </select>
               </div>
               <div>
-                <label htmlFor='numHijos'>
+                <label htmlFor='num_hijos'>
                   <strong>Número de Hijos</strong>
                 </label>
                 <input
@@ -297,8 +323,8 @@ export default function Registro() {
                     }
                   }}
                   required
-                  value={clienteDetalleData.numHijos}
-                  name='numHijos'
+                  value={clienteDetalleData.num_hijos}
+                  name='num_hijos'
                   className='form-control rounded-0'
                   style={{ width: '300px' }}
                   min="0"
@@ -306,7 +332,7 @@ export default function Registro() {
               </div>
             </div>
             <div className='mb-2'>
-              <label htmlFor='contacExterno'> 
+              <label htmlFor='contac_externo'> 
                 <strong>Contacto de Emergencia</strong>
               </label>
               <input
@@ -314,8 +340,8 @@ export default function Registro() {
                 placeholder='Digite contacto de emergencia'
                 onChange={onChange2}
                 required
-                value={clienteDetalleData.contacExterno} 
-                name='contacExterno' 
+                value={clienteDetalleData.contac_externo} 
+                name='contac_externo' 
                 className='form-control rounded-0'
                 maxLength='9'  // Esto limita la longitud a 9 caracteres
               />
@@ -326,7 +352,7 @@ export default function Registro() {
           </form>
         )}
       </div>
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Confirmación</Modal.Title>
         </Modal.Header>
@@ -334,7 +360,7 @@ export default function Registro() {
           ¿Desea completar el formulario completo?
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="secondary" onClick={() => cancelarForm()}>
+          <Button variant="secondary" onClick={() => cancelarForm()}>
             Cancelar
           </Button>
           <Button variant="primary" onClick={handleConfirm}>
