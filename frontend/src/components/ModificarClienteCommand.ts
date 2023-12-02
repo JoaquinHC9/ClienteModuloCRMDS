@@ -27,7 +27,7 @@ interface DetallesCliente {
   
     async execute(): Promise<any> {
       try {
-        const response = await axios.get(`${API_URL}/detallesCliente/buscarClienteDetalladoPorDNI/${this.clienteDNI}`);            
+        const response = await axios.get(`${API_URL}/detallesCliente/buscarDetallesDNI/${this.clienteDNI}`);            
         if (response.data.dni === undefined) {        
           await axios.post(`${API_URL}/detallesCliente/agregarDetallesCliente`, {
             dni: this.clienteDNI,
