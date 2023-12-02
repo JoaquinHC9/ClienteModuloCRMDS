@@ -56,11 +56,11 @@ function ActLinea() {
       } else {
         endpoint = '/cancelarlinea';
       }      
-      const response = await axios.put(`${VENTAS_URL}${endpoint}/${lineaData.numero}`);
-  
+      const response = await axios.put(`${VENTAS_URL}${endpoint}/${lineaData.numero}`);      
       if (response.status === 200) {
-        alert("Operación confirmada con éxito.");
-        // Puedes realizar alguna acción adicional después de la confirmación
+        setTimeout(() => {
+          alert("Operación confirmada con éxito.");          
+        }, 100);
       } else {
         alert("Error al confirmar la operación. Código de estado: " + response.status);
       }
@@ -88,9 +88,9 @@ function ActLinea() {
                   <h2>Linea</h2>
                   <p>Número de Teléfono: {lineaData.numero}</p>
                   <p>Plan: {lineaData.plan}</p>
-                  <p>Fecha de Compra: {new Date(lineaData.fecha_compra).toLocaleDateString()}</p>
-                  <p>Fecha de Pago: {new Date(lineaData.fecha_pago).toLocaleDateString()}</p>
                   <p>Monto Mensual: {lineaData.monto_pago}</p>
+                  <p>Fecha de Compra: {new Date(lineaData.fecha_compra).toLocaleDateString()}</p>
+                  <p>Ultimo de Pago: {new Date(lineaData.ultimo_pago).toLocaleDateString()}</p>                  
                   <p>Estado: <EstadoLinea estado={lineaData.estado} /></p>
                 </div>
               </div>

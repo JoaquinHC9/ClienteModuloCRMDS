@@ -17,7 +17,7 @@ export default function GestionLineas() {
   const [clienteNombre, setClienteNombre] = useState('');
   const [clienteApellido, setClienteApellido] = useState('');
 
-  const columnasDatosLinea = ['Numero de Telefono', 'Plan', 'Fecha de Compra','Fecha de Pago','Monto Mensual', 'Estado','Acciones'];
+  const columnasDatosLinea = ['Numero de Telefono', 'Plan', 'Fecha de Compra','Ultimo de Pago','Monto Mensual', 'Estado','Acciones'];
   const { dni } = useParams();
   
   const [menuAnchorEl, setMenuAnchorEl] = useState({});
@@ -89,7 +89,7 @@ export default function GestionLineas() {
                         <TableCell>{result.numero}</TableCell>
                         <TableCell>{result.plan}</TableCell>
                         <TableCell>{new Date(result.fecha_compra).toLocaleDateString()}</TableCell>
-                        <TableCell>{new Date(result.fecha_pago).toLocaleDateString()}</TableCell>
+                        <TableCell>{new Date(result.ultimo_pago).toLocaleDateString()}</TableCell>
                         <TableCell>{result.monto_pago}</TableCell>
                         <TableCell>
                           <EstadoLinea estado={result.estado} />
