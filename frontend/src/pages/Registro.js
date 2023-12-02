@@ -66,7 +66,7 @@ export default function Registro() {
   const enviarDatos2 = async (e) => {
     e.preventDefault();
     try {
-      const url = `${API_URL}/detallesCliente/agregarDetalles`;      
+      const url = `${API_URL}/detallesCliente/agregarDetallesCliente`;
       clienteDetalleData.dni = clienteData.dni;
       const response = await axios.post(url, clienteDetalleData);
       alert("Detalles de cliente Registrado existosamente")
@@ -161,7 +161,19 @@ export default function Registro() {
               <label htmlFor='sexo'>
                 <strong>Sexo</strong>
               </label>
-              <input type='text' placeholder='Digite sexo' onChange={onChange} required value={clienteData.sexo} name='sexo' className='form-control rounded-0' style={{ width: '300px' }}></input>
+              <select
+                onChange={onChange}
+                value={clienteData.sexo}
+                name='sexo'
+                className='form-control rounded-0'
+                style={{ width: '300px' }}
+                required
+              >
+                <option value=''>Seleccionar</option>
+                <option value='M'>Masculino</option>
+                <option value='F'>Femenino</option>
+                <option value='N'>No definido</option>
+              </select>
             </div>
           </div>
           <div className='mb-2 d-flex justify-content-between'>
@@ -253,16 +265,19 @@ export default function Registro() {
                 <label htmlFor='estadoCivil'>
                   <strong>Estado Civil</strong>
                 </label>
-                <input
-                  type='text'
-                  placeholder='Digite Estado Civil'
+                <select
                   onChange={onChange2}
                   required
                   value={clienteDetalleData.estadoCivil}
                   name='estadoCivil'
                   className='form-control rounded-0'
                   style={{ width: '300px' }}
-                />
+                >
+                  <option value='S'>Soltero</option>
+                  <option value='C'>Casado</option>
+                  <option value='D'>Divorciado</option>
+                  <option value='V'>Viudo</option>
+                </select>
               </div>
               <div>
                 <label htmlFor='numHijos'>
@@ -272,11 +287,21 @@ export default function Registro() {
                   type='number'
                   placeholder='Digite Número de Hijos'
                   onChange={onChange2}
+                  onKeyDown={(e) => {
+                    // Verificar si la tecla presionada es un número o la tecla de retroceso
+                    const isNumber = /[0-9]/.test(e.key);
+                    const isBackspace = e.key === 'Backspace';
+                    // Permitir la tecla solo si es un número o la tecla de retroceso
+                    if (!isNumber && !isBackspace) {
+                      e.preventDefault();
+                    }
+                  }}
                   required
                   value={clienteDetalleData.numHijos}
                   name='numHijos'
                   className='form-control rounded-0'
                   style={{ width: '300px' }}
+                  min="0"
                 />
               </div>
             </div>
@@ -292,6 +317,7 @@ export default function Registro() {
                 value={clienteDetalleData.contacExterno} 
                 name='contacExterno' 
                 className='form-control rounded-0'
+                maxLength='9'  // Esto limita la longitud a 9 caracteres
               />
             </div>
             <button type='submit' className='btn btn-success'>
