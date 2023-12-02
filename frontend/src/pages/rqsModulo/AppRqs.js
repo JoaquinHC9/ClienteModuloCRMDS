@@ -19,7 +19,7 @@ function AppRqs() {
             <Route path={`/reclamo/:id`} element={<Reclamo />} />
             <Route path={`/solicitud/:id`} element={<Solicitud />} />
         </Routes>
-        </div>    
+        </div>
     );
 }
 
