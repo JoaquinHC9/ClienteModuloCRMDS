@@ -1,13 +1,13 @@
-const fs = require('fs');
-const path = require('path');
+/*const fs = require('fs');
+const path = require('path');*/
 
-const errorLogPath = path.join(__dirname, 'error-log.txt');
+/*const errorLogPath = path.join(__dirname, 'error-log.txt');*/
 const errorObservers = [];
-if (!fs.existsSync(errorLogPath)) {
+/*if (!fs.existsSync(errorLogPath)) {
     fs.writeFileSync(errorLogPath, '', 'utf-8');
-  }
+  }*/
 function logError(error) {
-  const currentDate = new Date().toISOString();
+  /*const currentDate = new Date().toISOString();
   const errorMessage = `${currentDate}: ${error}\n`;
 
   fs.appendFile(errorLogPath, errorMessage, (err) => {
@@ -15,7 +15,7 @@ function logError(error) {
       console.error('Error al escribir en el archivo de registro de errores:', err);
       console.log(err)
     }
-  });
+  });*/
 
   // Notificar a los observadores del error
   notifyError(error);
