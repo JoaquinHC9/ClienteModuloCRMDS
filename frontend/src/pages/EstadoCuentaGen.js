@@ -13,7 +13,7 @@ export default function EstadoCuentaGen() {
   const hasClienteData = clienteData && Object.keys(clienteData).length > 0;
 
   const { data: lineaData, error: lineaError, isLoading: lineaIsLoading } = useAxios(`${VENTAS_URL}/getlineas/${dni}`);  
-  const { data: reciboData, error: reciboError, isLoading: reciboIsLoading } = useAxios(`${VENTAS_URL}/searchbilldni/${dni}`);
+  const { data: reciboData, error: reciboError, isLoading: reciboIsLoading } = useAxios(`${VENTAS_URL}/searchpaidbilldni/${dni}`);
   const columnasDatosLinea = ['Numero de Telefono', 'Plan', 'Fecha de Compra', 'Ultimo Pago', 'Monto Mensual', 'Estado'];
   return (
     <div>
