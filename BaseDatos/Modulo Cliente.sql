@@ -23,22 +23,11 @@ CREATE TABLE clienteDetallado
     trabajo VARCHAR(25),
     hobie VARCHAR(25), 
     estado_civil VARCHAR(1),
-    numHijos VARCHAR(1), 
+    num_hijos VARCHAR(1), 
     contac_externo VARCHAR(9),
     FOREIGN KEY (dni) REFERENCES cliente (dni)
 );
 
-CREATE TABLE linea_telefono
-(	
-    numeroTelefono VARCHAR(20) PRIMARY KEY, 
-    dni VARCHAR(20),    
-    plan VARCHAR(25),
-    fechaCompra DATE, 
-    fechaPago DATE, 
-    montoPagoMensual DECIMAL(10, 2), 
-    estado INT,
-    FOREIGN KEY (dni) REFERENCES cliente (dni)
-);
 
 INSERT INTO cliente (dni, nombre, apellido, fechaNac, distrito, departamento, correo, sexo, fechaafili)
 VALUES
@@ -68,33 +57,6 @@ VALUES
   (88888888, 'Calle 111', 15010, 'Psicólogo', 'Ajedrez', 'C', '1', '988888888');
 
 
-INSERT INTO equipo (idEquipo, dni, modelo, marca, color, fechaCompra, garantia)
-VALUES
-  (1, 123456789, 'iPhone 12', 'Apple', 'Negro', '2021-01-15', '2023-01-15'),
-  (2, 987654321, 'Samsung Galaxy S21', 'Samsung', 'Azul', '2021-02-10', '2023-02-10'),
-  (3, 555555555, 'Google Pixel 5', 'Google', 'Blanco', '2021-03-10', '2023-03-10'),
-  (4, 999999999, 'OnePlus 8T', 'OnePlus', 'Gris', '2021-04-05', '2023-04-05'),
-  (5, 111111111, 'Huawei P40', 'Huawei', 'Dorado', '2021-05-20', '2023-05-20'),
-  (6, 222222222, 'Xiaomi Mi 11', 'Xiaomi', 'Plata', '2021-06-18', '2023-06-18'),
-  (7, 333333333, 'Sony Xperia 5 II', 'Sony', 'Rojo', '2021-07-25', '2023-07-25'),
-  (8, 444444444, 'LG Velvet', 'LG', 'Morado', '2021-08-10', '2023-08-10'),
-  (9, 666666666, 'OnePlus Nord', 'OnePlus', 'Verde', '2021-09-30', '2023-09-30'),
-  (10, 888888888, 'Motorola Moto G Power', 'Motorola', 'Turquesa', '2021-10-15', '2023-10-15');
-
-
-INSERT INTO linea_telefono (numeroTelefono, dni, plan, fechaCompra, fechaPago, montoPagoMensual, estado)
-VALUES
-  ('123456789', '123456789', 'Plan Básico', '2023-10-26', '2023-11-26', 29.99, 1),
-  ('987654321', '987654321', 'Plan Premium', '2023-10-26', '2023-11-26', 49.99, 1),
-  ('555555555', '555555555', 'Plan Estándar', '2023-10-26', '2023-11-26', 39.99, 1),
-  ('999999999', '999999999', 'Plan Familiar', '2023-10-26', '2023-11-26', 59.99, 1),
-  ('111111111', '111111111', 'Plan Premium', '2023-10-26', '2023-11-26', 49.99, 1),
-  ('222222222', '222222222', 'Plan Básico', '2023-10-26', '2023-11-26', 29.99, 1),
-  ('333333333', '333333333', 'Plan Estándar', '2023-10-26', '2023-11-26', 39.99, 1),
-  ('444444444', '444444444', 'Plan Premium', '2023-10-26', '2023-11-26', 49.99, 1),
-  ('666666666', '666666666', 'Plan Básico', '2023-10-26', '2023-11-26', 29.99, 1),
-  ('888888888', '888888888', 'Plan Familiar', '2023-10-26', '2023-11-26', 59.99, 1);
-
 CREATE TABLE administrador
 (
     dni VARCHAR(20) PRIMARY KEY,    
@@ -120,5 +82,3 @@ CREATE TABLE operacion
 
 select * from cliente;
 select * from clienteDetallado;
-select * from equipo;
-select * from linea_telefono;
