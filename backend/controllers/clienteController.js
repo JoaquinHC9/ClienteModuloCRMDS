@@ -1,4 +1,9 @@
 const db = require('../db');
+const errorHandler = require('../errorHandler.js');
+
+errorHandler.addObserver((error) => {
+  console.log(`Notificación de error: ${error}`);  
+});
 
 module.exports = {
   getAllClientes: (req, res) => {
@@ -8,8 +13,8 @@ module.exports = {
         res.json(response.rows);
       })
       .catch(err => {
-        console.error(err);
-        res.status(500).json({ error: 'Error en la consulta a la base de datos' });
+        errorHandler.logError(err);
+        res.status(500).json({ error: 'Error en la consulta a la base de datos' + err.message});
       });
   },
   createCliente: (req, res) => {
@@ -22,8 +27,8 @@ module.exports = {
         res.status(201).json({ message: 'Registro exitoso ' });
       })
       .catch(err => {
-        console.error(err);
-        res.status(500).json({ error: 'Error en el registro' });
+        errorHandler.logError(err);
+        res.status(500).json({ error: 'Error en el registro: '+ err.message }); 
       });
   },
   buscarClientePorDNI: (req, res) => {
@@ -42,8 +47,8 @@ module.exports = {
         }
       })
       .catch(err => {
-        console.error(err);
-        res.status(500).json({ error: 'Error en la consulta a la base de datos' });
+        errorHandler.logError(err);
+        res.status(500).json({ error: 'Error en la consulta a la base de datos ' + err.message });
       });
   },
   buscarClientePorNombre: (req, res) => {
@@ -61,8 +66,8 @@ module.exports = {
         res.json(response.rows);
       })
       .catch(err => {
-        console.error(err);
-        res.status(500).json({ error: 'Error en la consulta a la base de datos' });
+        errorHandler.logError(err);
+        res.status(500).json({ error: 'Error en la consulta a la base de datos ' + err.message });
       });
   },
   buscarClientePorApellido: (req, res) => {
@@ -80,7 +85,7 @@ module.exports = {
         res.json(response.rows);
       })
       .catch(err => {
-        console.error(err);
+        errorHandler.logError(err);
         res.status(500).json({ error: 'Error en la consulta a la base de datos' });
       });
   },

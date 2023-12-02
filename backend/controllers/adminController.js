@@ -1,4 +1,9 @@
 const db = require('../db');
+const errorHandler = require('../errorHandler.js');
+
+errorHandler.addObserver((error) => {
+  console.log(`Notificación de error: ${error}`);  
+});
 
 module.exports = {
   login: (req, res) => {
@@ -15,8 +20,8 @@ module.exports = {
         }
       })
       .catch(err => {
-        console.error(err);
-        res.status(500).json({ error: 'Error en el inicio de sesión' });
+        errorHandler.logError(err);
+        res.status(500).json({ error: 'Error en el inicio de sesión ' +err.message});
       });
   },
 };

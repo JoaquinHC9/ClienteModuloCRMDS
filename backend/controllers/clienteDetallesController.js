@@ -1,5 +1,7 @@
 const db = require('../db');
 const Observer = require('../observer');
+const errorHandler = require('../errorHandler.js');
+
 const clienteDetalladoObserver = new Observer();
 module.exports = {
 
@@ -18,8 +20,8 @@ module.exports = {
         res.status(201).json({ message: 'Detalles del cliente registrados con éxito' });
       })
       .catch(err => {
-        console.error(err);
-        res.status(500).json({ error: 'Error en el registro de detalles del cliente' });
+        errorHandler.logError(err);
+        res.status(500).json({ error: 'Error en el registro de detalles del cliente ' + err.message });
       });
   },
   buscarDetallesDNI: (req, res) => {
@@ -38,8 +40,8 @@ module.exports = {
         }
       })
       .catch(err => {
-        console.error(err);
-        res.status(500).json({ error: 'Error en la consulta a la base de datos en clienteDetallado' });
+        errorHandler.logError(err);
+        res.status(500).json({ error: 'Error en la consulta a la base de datos en clienteDetallado ' + err.message });
       });
   },
   actualizarDetallesCliente: (req, res) => {
@@ -54,8 +56,8 @@ module.exports = {
         res.status(200).json({ message: 'Detalles del cliente actualizados exitosamente' });
       })
       .catch(err => {
-        console.error(err);
-        res.status(500).json({ error: 'Error al actualizar los detalles del cliente' });
+        errorHandler.logError(err);
+        res.status(500).json({ error: 'Error al actualizar los detalles del cliente ' + err.message });
       });
   },
 };

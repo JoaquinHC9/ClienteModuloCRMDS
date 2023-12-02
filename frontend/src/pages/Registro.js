@@ -54,29 +54,32 @@ export default function Registro() {
     try {
       const url = `${API_URL}/clientes/registarCliente`;
       const response = await axios.post(url, clienteData);
-      // Mostrar el modal después de completar el primer registro
       setShowModal(true);
     } catch (error) {
-      setError(error.response.data.message);      
+      // Modificar para manejar el objeto de error
+      const errorInfo = error.response.data;
+      setError(errorInfo.error);
+      alert(errorInfo.error);
     }
-
-
-  };
+  };  
   
   const enviarDatos2 = async (e) => {
     e.preventDefault();
     try {
       const url = `${API_URL}/detallesCliente/agregarDetallesCliente`;
       clienteDetalleData.dni = clienteData.dni;
-      const response = await axios.post(url, clienteDetalleData);      
-      alert("Detalles de cliente Registrado existosamente")      
+      const response = await axios.post(url, clienteDetalleData);
+      alert("Detalles de cliente registrados exitosamente");
       setShowSecondForm(false);
       resetFields();
     } catch (error) {
-      setError(error.response.data.message);      
+      // Modificar para manejar el objeto de error
+      const errorInfo = error.response.data;
+      setError(errorInfo.error);
+      alert(errorInfo.error);
     }
-    
   };
+  
   
   const handleConfirm = () => {
     setShowModal(false);
