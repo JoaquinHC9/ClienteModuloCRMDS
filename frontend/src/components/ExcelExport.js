@@ -20,8 +20,8 @@ const ExcelExport = ({ data }) => {
     // Formatear las fechas
     const dataFormatted = flattenedData.map(item => ({
       ...item,
-      fechanac: formatFecha(item.fechanac), // Reemplazar 'fechaNac' con el nombre real de tu campo de fecha
-      fechaafili: formatFecha(item.fechaafili), // Reemplazar 'fechaafili' con el nombre real de tu campo de fecha
+      fechanac: formatFecha(item.fechanac), 
+      fechaafili: formatFecha(item.fechaafili),
     }));
 
     const ws = XLSX.utils.json_to_sheet(dataFormatted);
